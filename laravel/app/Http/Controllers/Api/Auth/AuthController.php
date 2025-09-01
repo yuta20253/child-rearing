@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     public function login (Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only(['email', 'password']);
 
         if (!Auth::attempt($credentials)) {
             return response()->json(['message' => '認証が失敗しました。'], 401);
@@ -19,9 +19,9 @@ class AuthController extends Controller
         $user = Auth::user();
         $token = $user->createToken('api-token')->plainTextToken;
 
-        return [
+        return response()->json([
             'user' => $user,
             'token' => $token,
-        ];
+        ]);
     }
 }
