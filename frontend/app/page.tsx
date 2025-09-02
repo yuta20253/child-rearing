@@ -10,7 +10,7 @@ const HomePage = () => {
     useEffect(() => {
         // Laravel API エンドポイントを呼び出し
         axios
-            .get('http://localhost:8000/api/test')  // Laravel API の URL
+            .get(process.env.NEXT_PUBLIC_BACKEND_URL + '/test')  // Laravel API の URL
             .then((response) => {
                 setData(response.data);  // レスポンスのデータをステートに保存
             })
