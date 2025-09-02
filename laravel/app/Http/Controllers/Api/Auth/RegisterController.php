@@ -38,6 +38,7 @@ class RegisterController extends Controller
     {
         $user = $request->user();
         $user->update([
+            'name' => $user->maskedName(),
             'email' => $user->maskedEmail(),
         ]);
         $user->delete();
