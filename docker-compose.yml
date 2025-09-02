@@ -6,7 +6,7 @@ services:
     build:
       context: ./laravel
       dockerfile: Dockerfile
-    container_name: laravel_app
+    container_name: laravel_app_child_rearing
     ports:
       - "8000:8000"
     volumes:
@@ -19,7 +19,7 @@ services:
 
   db:
     image: mysql:8.0.32
-    container_name: laravel_db
+    container_name: laravel_db_child_rearing
     ports:
       - "3306:3306"
     environment:
@@ -34,7 +34,7 @@ services:
 
   test_db:
     image: mysql:8.0.32
-    container_name: laravel_test_db
+    container_name: laravel_test_db_child_rearing
     ports:
       - "3307:3306"
     environment:
