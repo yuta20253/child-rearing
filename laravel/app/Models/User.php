@@ -52,6 +52,12 @@ class User extends Authenticatable
         });
     }
 
+    public function maskedName(): string
+    {
+        $maskedName = substr($this->name, 0, 1) . str_repeat('*', strlen($this->name) - 1);
+        return $maskedName;
+    }
+
     public function maskedEmail(): string
     {
         [$local, $domain] = explode('@', $this->email);
