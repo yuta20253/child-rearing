@@ -24,6 +24,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/test', function () {
         return response()->json(['message' => 'Hello from Laravel API']);
     });
+
+    Route::delete('/logout', [AuthController::class, 'logout']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
