@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::delete('/logout', [AuthController::class, 'logout']);
+    Route::delete('/delete-account', [RegisterController::class, 'accountDelete']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);

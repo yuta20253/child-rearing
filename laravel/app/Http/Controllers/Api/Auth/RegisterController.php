@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterFormRequest;
 use App\Models\User;
-
+use Illuminate\Http\Request;
 class RegisterController extends Controller
 {
     private User $user;
@@ -32,5 +32,15 @@ class RegisterController extends Controller
             'user' => $user,
             'token' => $token,
         ], 201);
+    }
+
+    public function accountDelete(Request $request)
+    {
+        $user = $request->user();
+        $user->update([
+            'name' => $user->maskedName(),
+            'email' => $user->maskedEmail(),
+        ]);
+        $user->delete();
     }
 }
