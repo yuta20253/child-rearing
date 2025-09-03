@@ -13,7 +13,7 @@ class AuthController extends Controller
     {
         $credentials = $request->only(['email', 'password']);
 
-        if (!Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials)) {
             return response()->json(['message' => '認証が失敗しました。'], 401);
         }
 
