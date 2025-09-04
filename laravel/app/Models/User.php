@@ -45,6 +45,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function address() {
+        return $this->belongsTo(Address::class);
+    }
+
     protected static function booted()
     {
         static::deleting(function ($user) {
