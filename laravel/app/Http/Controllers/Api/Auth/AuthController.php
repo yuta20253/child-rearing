@@ -70,7 +70,7 @@ class AuthController extends Controller
     // パスワード再設定画面でトークンとメールアドレスを検証する処理
     public function verifyTokenAndEmail(Request $request)
     {
-        $result = $this->doVerifyTokenAndEmail($request->token, $request->email);
+        $result = $this->validateResetToken($request->token, $request->email);
 
         if (! $result['success']) {
             return new JsonResponse(['message' => $result['message']]);
@@ -84,7 +84,7 @@ class AuthController extends Controller
 
     public function updatePassword(UpdatePasswordRequest $request)
     {
-        $result = $this->doVerifyTokenAndEmail($request->token, $request->email);
+        $result = $this->validateResetToken($request->token, $request->email);
 
         if (! $result['success']) {
             return new JsonResponse(['message' => $result['message']]);
@@ -103,7 +103,7 @@ class AuthController extends Controller
 
     }
 
-    private function doVerifyTokenAndEmail($token, $email)
+    private function validateResetToken($token, $email)
     {
         $dbToken = UserToken::where('token', $token)->first();
         if (! $dbToken) {
