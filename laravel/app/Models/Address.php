@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Facility;
+use App\Models\Municipality;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,6 +31,11 @@ class Address extends Model
     public function facility()
     {
         return $this->belongsTo(Facility::class);
+    }
+
+    public function municipality()
+    {
+        return $this->belongsTo(Municipality::class);
     }
 
     public function postalCodes()
