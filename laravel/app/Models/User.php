@@ -11,7 +11,10 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -45,6 +48,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+
     protected static function booted()
     {
         static::deleting(function ($user) {
@@ -62,7 +70,7 @@ class User extends Authenticatable
     {
         [$local, $domain] = explode('@', $this->email);
         $localLength = strlen($local);
-        $maskedUserEmail = substr($local, 0, 2).str_repeat('*', $localLength - 2);
+        $maskedUserEmail = substr($local, 0, 2) . str_repeat('*', $localLength - 2);
         $maskedEmail = $maskedUserEmail . '@' . $domain;
         return $maskedEmail;
     }

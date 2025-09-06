@@ -12,10 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('facility_reviews', function (Blueprint $table) {
+            $table->dropColumn('status');
+        });
+
+        Schema::table('facility_reviews', function (Blueprint $table) {
             $table->enum('status', ['公開', '非公開', '保留'])
                   ->default('保留')
-                  ->comment('ステータス')
-                  ->change();
+                  ->comment('ステータス');
         });
     }
 
@@ -25,7 +28,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('facility_reviews', function (Blueprint $table) {
-            $table->string('status', 50)->nullable()->comment('ステータス（公開/非公開/保留')->change();
+            $table->dropColumn('status');
+        });
+
+        Schema::table('facility_reviews', function (Blueprint $table) {
+            $table->string('status', 50)->nullable()->comment('ステータス（公開/非公開/保留');
         });
     }
 };

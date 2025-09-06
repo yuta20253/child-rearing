@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['member', 'admin'])->default('member')->change();
+            $table->dropColumn('role');
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('role', ['member', 'admin'])->default('member');
         });
     }
 
@@ -22,7 +26,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['guest', 'admin'])->default('guest')->change();
+            $table->dropColumn('role');
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('role', ['guest', 'admin'])->default('guest');
         });
     }
 };
