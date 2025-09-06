@@ -15,7 +15,7 @@ class MunicipalitySeeder extends Seeder
     {
         $file = storage_path('csv/address.csv');
 
-        if (!file_exists($file)) {
+        if (! file_exists($file)) {
             $this->command->error("File not found: $file");
             return;
         }
@@ -23,7 +23,7 @@ class MunicipalitySeeder extends Seeder
         // ファイル全体を読み込み
         $contents = file_get_contents($file);
 
-        if (!mb_check_encoding($contents, 'UTF-8')) {
+        if (! mb_check_encoding($contents, 'UTF-8')) {
 
             $contents = mb_convert_encoding($contents, 'UTF-8', 'SJIS-win');
         }
@@ -52,14 +52,14 @@ class MunicipalitySeeder extends Seeder
             $prefectureName = preg_replace('/[\x00-\x1F\x7F]/u', '', $prefectureName);
             $municipalityName = preg_replace('/[\x00-\x1F\x7F]/u', '', $municipalityName);
 
-            if (!$prefectureName || !$municipalityName) {
+            if (! $prefectureName || ! $municipalityName) {
                 continue;
             }
 
             // prefecture を取得
             $prefectureId = Prefecture::where('name', $prefectureName)->value('id');
 
-            if (!$prefectureId) {
+            if (! $prefectureId) {
                 $this->command->warn("Prefecture not found: '{$prefectureName}'");
                 continue;
             }

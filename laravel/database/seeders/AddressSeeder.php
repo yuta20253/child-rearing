@@ -14,7 +14,7 @@ class AddressSeeder extends Seeder
     public function run(): void
     {
         $file = storage_path('csv/address.csv');
-        if (!file_exists($file)) {
+        if (! file_exists($file)) {
             $this->command->error("File not found: $file");
             return;
         }
@@ -23,7 +23,7 @@ class AddressSeeder extends Seeder
         $contents = file_get_contents($file);
 
         // UTF-8か確認
-        if (!mb_check_encoding($contents, 'UTF-8')) {
+        if (! mb_check_encoding($contents, 'UTF-8')) {
             $contents = mb_convert_encoding($contents, 'UTF-8', 'SJIS-win');
         }
 
@@ -52,7 +52,9 @@ class AddressSeeder extends Seeder
                 $q->where('name', $prefectureName);
             })->first();
 
-            if (! $municipality) continue;
+            if (! $municipality) {
+                continue;
+            }
 
             Address::create([
                 'municipality_id' => $municipality->id,
