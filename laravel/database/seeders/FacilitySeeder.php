@@ -14,10 +14,10 @@ class FacilitySeeder extends Seeder
      */
     public function run(): void
     {
-        $addressIds = [90400, 90409, 90445, 90643];
-        $facilitiesArr = ['中央図書館', '北口図書館', '鳴尾図書館', '中央図書館上ヶ原分室'];
-        $latitudeArr = [34.730886, 34.74714, 34.719111, 34.755604];
-        $longitudeArr = [135.329875, 135.3578630, 135.364598, 135.338997];
+        $addressIds = [90400, 90409, 90445, 90643, 40388];
+        $facilitiesArr = ['中央図書館', '北口図書館', '鳴尾図書館', '中央図書館上ヶ原分室', '中央図書館'];
+        $latitudeArr = [34.730886, 34.74714, 34.719111, 34.755604, 35.756448];
+        $longitudeArr = [135.329875, 135.3578630, 135.364598, 135.338997, 139.802337];
         $count = 0;
 
         foreach($addressIds  as $index => $addressId) {
