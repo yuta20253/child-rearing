@@ -38,7 +38,8 @@ class CustomPasswordReset extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $url = config('APP_URL') . '/password_reset/' . $this->token . '?email=' . $this->email;
+        $frontendUrl = config('app.frontend_url', env('FRONTEND_URL', 'http://localhost:3000'));
+        $url = $frontendUrl . '/password_reset/' . $this->token . '?email=' . urlencode($this->email);
         return (new MailMessage)
                     ->subject('【パスワード再設定】')
                     ->view('mails.password_reset_mail', ['url' => $url]);
