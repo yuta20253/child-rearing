@@ -29,6 +29,8 @@ class FacilitySeeder extends Seeder
                 'longitude' => $longitudeArr[$index],
                 'equipment' => '図書館',
                 'description' => '西宮市にある図書館です。',
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
             $count += 1;
         }
