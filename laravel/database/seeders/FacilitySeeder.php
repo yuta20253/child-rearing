@@ -20,7 +20,7 @@ class FacilitySeeder extends Seeder
         $longitudeArr = [135.329875, 135.3578630, 135.364598, 135.338997, 139.802337];
         $count = 0;
 
-        foreach($addressIds  as $index => $addressId) {
+        foreach ($addressIds as $index => $addressId) {
             DB::table('facilities')->insert([
                 'name' => $facilitiesArr[$index],
                 'address_id' => $addressId,
