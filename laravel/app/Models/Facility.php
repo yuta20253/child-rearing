@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Address;
+use App\Models\Municipality;
+use App\Models\Prefecture;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,20 +28,37 @@ class Facility extends Model
         return $this->belongsTo(Address::class);
     }
 
-    public function municipality()
+    public function municipalityRelation()
     {
         return $this->hasOneThrough(
             Municipality::class,
             Address::class,
-            'municipality_id', // addresses.municipality_id → municipalities.id
-            'id',          // municipalities.id
-            'address_id',  // facilities.address_id
-            'id'          // addresses.id
+            'municipality_id',
+            'id',
+            'address_id',
+            'id'
         );
+    }
+
+    public function prefectureRelation()
+    {
+        return $this->hasOneThrough(
+            Prefecture::class,
+            Address::class,
+            'prefecture_id',
+            'id',
+            'address_id',
+            'id'
+        );
+    }
+
+    public function municipality()
+    {
+        return $this->address->municipality;
     }
 
     public function prefecture()
     {
-        return optional($this->municipality)->prefecture;
+        return $this->address->municipality->prefecture;
     }
 }
