@@ -22,7 +22,7 @@ class FacilityServiceTest extends TestCase
         $this->facilityService = new FacilityService($this->facilityRepositoryMock);
     }
 
-    public function testgetAllFacilities(): void
+    public function testGetAllFacilities(): void
     {
         $facilities = new EloquentCollection([
             new Facility(['id' => 1, 'name' => 'Test施設１']),
