@@ -50,7 +50,7 @@ class FacilityRepositoryTest extends FacilityRepositoryInterfaceTest
             ->for($otherAddress, 'address')
             ->create();
 
-        $result = $this->facilityRepository->getAllFacilities();
+        $result = $this->facilityRepository->getAllFacilities($user->address->municipality_id);
 
         $this->assertInstanceOf(Collection::class, $result);
         foreach ($facilitySameMunicipality as $facility) {
