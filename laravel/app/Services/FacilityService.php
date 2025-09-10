@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Facility;
 use App\Repositories\Facility\FacilityRepositoryInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
 class FacilityService
@@ -20,5 +21,10 @@ class FacilityService
         $user = Auth::user();
         $municipalityId = $user->address->municipality_id;
         return $this->facilityRepository->getAllFacilities($municipalityId);
+    }
+
+    public function find(int $id): Facility
+    {
+        return $this->facilityRepository->find($id);
     }
 }
