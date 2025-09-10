@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Facility;
 use App\Repositories\Facility\FacilityRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class FacilityService
 {
@@ -15,6 +17,8 @@ class FacilityService
 
     public function getAllFacilities()
     {
-        return $this->facilityRepository->getAllFacilities();
+        $user = Auth::user();
+        $municipalityId = $user->address->municipality_id;
+        return $this->facilityRepository->getAllFacilities($municipalityId);
     }
 }

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface FacilityRepositoryInterface
 {
-    public function getAllFacilities(): Collection;
+    public function getAllFacilities(int $municipalityId): Collection;
 }
