@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Facility;
 use App\Repositories\Facility\FacilityRepositoryInterface;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
 class FacilityService
