@@ -23,14 +23,14 @@ class Address extends Model
         'postal_code'
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function facility()
     {
-        return $this->belongsTo(Facility::class);
+        return $this->hasMany(Facility::class);
     }
 
     public function municipality()

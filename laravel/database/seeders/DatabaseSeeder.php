@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\PrefectureSeeder;
 use Database\Seeders\MunicipalitySeeder;
 use Database\Seeders\AddressSeeder;
+use Database\Seeders\FacilitySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
             MunicipalitySeeder::class,
             AddressSeeder::class,
             UserSeeder::class,
+            FacilitySeeder::class,
         ]);
     }
 }

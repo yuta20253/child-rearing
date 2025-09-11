@@ -60,6 +60,8 @@ class AddressSeeder extends Seeder
                 'municipality_id' => $municipality->id,
                 'town' => $town,
                 'postal_code' => $postalCode,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }
