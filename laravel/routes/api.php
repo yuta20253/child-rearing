@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/delete-account', [RegisterController::class, 'accountDelete']);
 
     Route::get('/facilities', [FacilityController::class, 'index']);
+    Route::get('/facilities/{id}', [FacilityController::class, 'show']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
