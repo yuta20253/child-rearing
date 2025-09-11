@@ -5,6 +5,7 @@ namespace Tests\Unit\Services\Facility;
 use App\Models\Facility;
 use App\Repositories\Facility\FacilityRepositoryInterface;
 use App\Services\FacilityService;
+use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
@@ -48,7 +49,6 @@ class FacilityServiceTest extends TestCase
         // Auth::user() をモック
         Auth::shouldReceive('user')->once()->andReturn($user);
 
-
         $this->facilityRepositoryMock->shouldReceive('getAll')->with(123)->once()->andReturn($facilities);
 
         $result = $this->facilityService->getAll();
@@ -56,5 +56,26 @@ class FacilityServiceTest extends TestCase
         $this->assertCount(2, $result);
         $this->assertEquals('Test施設１', $result[0]->name);
         $this->assertEquals('Test施設2', $result[1]->name);
+    }
+
+    /**
+     * @test
+     *
+     * 選択された施設が取得できること
+     */
+
+    public function testFind()
+    {
+        $facilityId = 1;
+        $facility = new Facility();
+        $facility->id = $facilityId;
+        $facility->name = 'Test施設１';
+
+        $this->facilityRepositoryMock->shouldReceive('find')->with($facility->id)->once()->andReturn($facility);
+
+        $result = $this->facilityService->find($facility->id);
+
+        $this->assertSame($facility, $result);
+        $this->assertEquals('Test施設１', $result->name);
     }
 }
