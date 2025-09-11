@@ -49,7 +49,7 @@ class FacilityServiceTest extends TestCase
         Auth::shouldReceive('user')->once()->andReturn($user);
 
 
-        $this->facilityRepositoryMock->shouldReceive('getAllFacilities')->with(123)->once()->andReturn($facilities);
+        $this->facilityRepositoryMock->shouldReceive('getAll')->with(123)->once()->andReturn($facilities);
 
         $result = $this->facilityService->getAll();
 

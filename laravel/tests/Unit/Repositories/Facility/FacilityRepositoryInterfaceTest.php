@@ -16,7 +16,7 @@ abstract class FacilityRepositoryInterfaceTest extends TestCase
 
     public function testGetAllFacilities(): void
     {
-        $result = $this->facilityRepository->getAllFacilities();
+        $result = $this->facilityRepository->getAll();
         $this->assertInstanceOf(Collection::class, $result);
     }
 }
