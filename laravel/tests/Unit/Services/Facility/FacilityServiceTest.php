@@ -23,6 +23,11 @@ class FacilityServiceTest extends TestCase
         $this->facilityService = new FacilityService($this->facilityRepositoryMock);
     }
 
+    /**
+     * @test
+     * 施設一覧が取得できること
+     */
+
     public function testGetAllFacilities(): void
     {
         $facilities = new EloquentCollection([
@@ -46,7 +51,7 @@ class FacilityServiceTest extends TestCase
 
         $this->facilityRepositoryMock->shouldReceive('getAllFacilities')->with(123)->once()->andReturn($facilities);
 
-        $result = $this->facilityService->getAllFacilities();
+        $result = $this->facilityService->getAll();
 
         $this->assertCount(2, $result);
         $this->assertEquals('Test施設１', $result[0]->name);
