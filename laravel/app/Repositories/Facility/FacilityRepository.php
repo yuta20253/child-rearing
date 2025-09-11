@@ -15,7 +15,7 @@ class FacilityRepository implements FacilityRepositoryInterface
         $this->facility = $facility;
     }
 
-    public function getAllFacilities($municipalityId): Collection
+    public function getAll($municipalityId): Collection
     {
         return $this->facility
                     ->whereHas("address", function ($query) use ($municipalityId) {

@@ -15,10 +15,10 @@ class FacilityService
         $this->facilityRepository = $facilityRepository;
     }
 
-    public function getAllFacilities()
+    public function getAll()
     {
         $user = Auth::user();
         $municipalityId = $user->address->municipality_id;
-        return $this->facilityRepository->getAllFacilities($municipalityId);
+        return $this->facilityRepository->getAll($municipalityId);
     }
 }
