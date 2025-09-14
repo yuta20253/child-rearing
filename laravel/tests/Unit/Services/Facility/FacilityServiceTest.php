@@ -39,7 +39,8 @@ class FacilityServiceTest extends TestCase
         // ダミーユーザーを作成
         $user = new class {
             public $address;
-            public function __construct() {
+            public function __construct()
+            {
                 $this->address = new class {
                     public $municipality_id = 123;
                 };

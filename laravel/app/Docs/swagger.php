@@ -23,4 +23,6 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-class Swagger {}
+class Swagger
+{
+}
