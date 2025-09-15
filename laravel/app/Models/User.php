@@ -10,7 +10,23 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ *     schema="User",
+ *     type="object",
+ *     title="Userモデル",
+ *     description="ユーザー情報",
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="name", type="string", example="Ririko"),
+ *     @OA\Property(property="email", type="string", example="ririko@example.com"),
+ *     @OA\Property(property="role", type="string", enum={"member","admin"}, example="member"),
+ *     @OA\Property(property="address_id", type="integer", example=10),
+ *     @OA\Property(property="created_at", type="string", format="date-time", example="2025-09-14T00:00:00Z"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time", example="2025-09-14T00:00:00Z")
+ * )
+ */
 class User extends Authenticatable
 {
     use HasApiTokens;

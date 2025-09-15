@@ -1,0 +1,805 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My API",
+        "description": "APIドキュメントの説明",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com"
+        }
+    ],
+    "paths": {
+        "/example": {
+            "get": {
+                "summary": "Example endpoint",
+                "operationId": "6ff5011e74e207e292cc306ef0f253aa",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "ログイン",
+                "description": "メールアドレスとパスワードでログインし、認証トークンを返す",
+                "operationId": "2add1cebca1428c69f53e7ed41b3f412",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "認証成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "1|eyJhbGciOiJIUzI1NiIsInR5cCI6"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "認証失敗",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "認証が失敗しました。"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "delete": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "ログアウト",
+                "operationId": "9a64c1bdc224db74317af2a62a723a5f",
+                "responses": {
+                    "200": {
+                        "description": "ログアウト成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "ログアウトしました。"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/password/reset/request": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "パスワードリセットメール送信",
+                "operationId": "23becf5262bf73ede4058b1818d92bb0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "メール送信完了",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mail_sent": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "メールアドレス未登録",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "メールアドレスが見つかりません。"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/password/reset/verify": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "パスワードリセット用トークンとメール検証",
+                "operationId": "0e45792451a834113b0500e91fe17ebf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "token",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "token": {
+                                        "type": "string",
+                                        "example": "abc123token"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "検証成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "verified": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "検証失敗",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "不正なトークンです。"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/password/reset": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "パスワード更新",
+                "operationId": "547fdd224928295692c05fda4b0f8015",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "token",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "token": {
+                                        "type": "string",
+                                        "example": "abc123token"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "newPassword123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "パスワード更新成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "パスワードを更新しました。"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "更新失敗",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "不正なトークンです。"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Register"
+                ],
+                "summary": "新規登録",
+                "description": "ユーザーの新規登録を行う",
+                "operationId": "745168dcbafc8f21b10eb1ad8acbe398",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "test User"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "新規登録成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "1|eyJhbGciOiJIUzI1NiIsInR5cCI6"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/delete-account": {
+            "delete": {
+                "tags": [
+                    "Register"
+                ],
+                "summary": "退会",
+                "description": "ユーザーが退会処理をする",
+                "operationId": "b2eda28593fcf00357b1ab145d7c9151",
+                "responses": {
+                    "200": {
+                        "description": "退会成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "ログアウトしました。"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/facilities": {
+            "get": {
+                "tags": [
+                    "Facility"
+                ],
+                "summary": "施設一覧",
+                "description": "施設一覧の取得",
+                "operationId": "536aa79c85c0cf549a397c3ff6579898",
+                "responses": {
+                    "200": {
+                        "description": "施設一覧取得成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "facilities": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Facility"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/facilities/{id}": {
+            "get": {
+                "tags": [
+                    "Facility"
+                ],
+                "summary": "施設詳細",
+                "description": "施設詳細の取得",
+                "operationId": "8fe32263ee826843f7615ea3415f4b32",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "施設ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "施設詳細取得成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "facility": {
+                                            "$ref": "#/components/schemas/Facility"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "施設が見つからない場合",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "該当の施設が見つかりません。"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Address": {
+                "title": "Addressモデル",
+                "description": "町域の情報",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "municipality_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "postal_code": {
+                        "type": "string",
+                        "example": "1234567"
+                    },
+                    "town": {
+                        "type": "string",
+                        "example": "",
+                        "nullable": true
+                    },
+                    "chome": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "banchi": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "go": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "building": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "room": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "Facility": {
+                "title": "Facilityモデル",
+                "description": "施設情報",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "北区役所"
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "",
+                        "nullable": true
+                    },
+                    "latitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 35.6895
+                    },
+                    "longitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 139.6917
+                    },
+                    "equipment": {
+                        "type": "string",
+                        "example": "設備情報です。"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "設備情報です。"
+                    },
+                    "address_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "Municipality": {
+                "title": "Municipalityモデル",
+                "description": "市区町村の情報",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "prefecture_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "北区"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "PostalCode": {
+                "title": "PostalCodeモデル",
+                "description": "郵便番号の情報",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "code": {
+                        "type": "string",
+                        "example": "1234567"
+                    },
+                    "municipality_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "town": {
+                        "type": "string",
+                        "example": "王子"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "Prefecture": {
+                "title": "Prefectureモデル",
+                "description": "都道府県の情報",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "東京都"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "title": "Userモデル",
+                "description": "ユーザー情報",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Ririko"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "ririko@example.com"
+                    },
+                    "role": {
+                        "type": "string",
+                        "enum": [
+                            "member",
+                            "admin"
+                        ],
+                        "example": "member"
+                    },
+                    "address_id": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "UserToken": {
+                "title": "UserTokenモデル",
+                "description": "ユーザーのトークン情報",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "token": {
+                        "type": "string",
+                        "example": "eyJhbGciOiJI..."
+                    },
+                    "expire_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Register",
+            "description": "Register"
+        },
+        {
+            "name": "Facility",
+            "description": "Facility"
+        }
+    ],
+    "security": [
+        {
+            "sanctum": []
+        }
+    ]
+}
