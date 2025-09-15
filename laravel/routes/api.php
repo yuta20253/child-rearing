@@ -17,16 +17,12 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-
-    Route::get('/test', function () {
-        return response()->json(['message' => 'Hello from Laravel API']);
-    });
-
     Route::delete('/logout', [AuthController::class, 'logout']);
     Route::delete('/delete-account', [RegisterController::class, 'accountDelete']);
+});
+
+Route::get('/', function () {
+    return response()->json(['message' => 'Hello from Laravel API']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
