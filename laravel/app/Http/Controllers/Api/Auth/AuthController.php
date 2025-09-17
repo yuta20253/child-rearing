@@ -21,6 +21,7 @@ use OpenApi\Annotations as OA;
  *      path="/login",
  *      summary="ログイン",
  *      description="メールアドレスとパスワードでログインし、認証トークンを返す",
+ *      operationId="loginUser",
  *      tags={"Auth"},
  *      @OA\RequestBody(
  *          required=true,
@@ -152,13 +153,13 @@ class AuthController extends Controller
 {
     public function login(LoginFormRequest $request)
     {
-        $credentials = $request->only(['email', 'password']);
+        // $credentials = $request->only(['email', 'password']);
 
-        if (! Auth::attempt($credentials)) {
+        $user = User::where('email', $request->email)->first();
+        if (! Hash::check($request->password, $user->password)) {
             return response()->json(['message' => '認証が失敗しました。'], 401);
         }
 
-        $user = Auth::user();
         $token = $user->createToken('api-token')->plainTextToken;
 
         return response()->json([
