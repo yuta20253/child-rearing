@@ -8,7 +8,7 @@ use OpenApi\Annotations as OA;
 
 /**
  * @OA\Get(
- *     path="/profile",
+ *     path="/api/profile",
  *     summary="現在のユーザー自身",
  *     description="現在のユーザー自身の取得",
  *     tags={"User"},

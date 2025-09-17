@@ -9,7 +9,7 @@ use OpenApi\Annotations as OA;
 
 /**
  * @OA\Get(
- *     path="/facilities",
+ *     path="/api/facilities",
  *     summary="施設一覧",
  *     description="施設一覧の取得",
  *     tags={"Facility"},
@@ -22,7 +22,7 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  * @OA\Get(
- *     path="/facilities/{id}",
+ *     path="/api/facilities/{id}",
  *     summary="施設詳細",
  *     description="施設詳細の取得",
  *     tags={"Facility"},
