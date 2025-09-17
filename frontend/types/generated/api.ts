@@ -491,7 +491,7 @@ export class Api<
      * @tags Auth
      * @name LoginUser
      * @summary ログイン
-     * @request POST:/login
+     * @request POST:/api/login
      * @secure
      */
     loginUser: (
@@ -529,18 +529,17 @@ export class Api<
         format: "json",
         ...params,
       }),
-  };
-  logout = {
+
     /**
      * No description
      *
      * @tags Auth
-     * @name 9A64C1Bdc224Db74317Af2A62A723A5F
+     * @name 696Ea616A669C61B100Bff08Be089812
      * @summary ログアウト
-     * @request DELETE:/logout
+     * @request DELETE:/api/logout
      * @secure
      */
-    "9A64C1Bdc224Db74317Af2A62A723A5F": (params: RequestParams = {}) =>
+    "696Ea616A669C61B100Bff08Be089812": (params: RequestParams = {}) =>
       this.request<
         {
           /** @example "ログアウトしました。" */
@@ -548,24 +547,23 @@ export class Api<
         },
         any
       >({
-        path: `/logout`,
+        path: `/api/logout`,
         method: "DELETE",
         secure: true,
         format: "json",
         ...params,
       }),
-  };
-  password = {
+
     /**
      * No description
      *
      * @tags Auth
-     * @name 23Becf5262Bf73Ede4058B1818D92Bb0
+     * @name 5Fded1420152Eda356Ca0860F77F0778
      * @summary パスワードリセットメール送信
-     * @request POST:/password/reset/request
+     * @request POST:/api/password/reset/request
      * @secure
      */
-    "23Becf5262Bf73Ede4058B1818D92Bb0": (
+    "5Fded1420152Eda356Ca0860F77F0778": (
       data: {
         /**
          * @format email
@@ -585,7 +583,7 @@ export class Api<
           error?: string;
         }
       >({
-        path: `/password/reset/request`,
+        path: `/api/password/reset/request`,
         method: "POST",
         body: data,
         secure: true,
@@ -598,12 +596,12 @@ export class Api<
      * No description
      *
      * @tags Auth
-     * @name 0E45792451A834113B0500E91Fe17Ebf
+     * @name C13681389E2Cf3A6Daf06805F9E02241
      * @summary パスワードリセット用トークンとメール検証
-     * @request POST:/password/reset/verify
+     * @request POST:/api/password/reset/verify
      * @secure
      */
-    "0E45792451A834113B0500E91Fe17Ebf": (
+    c13681389E2Cf3A6Daf06805F9E02241: (
       data: {
         /** @example "abc123token" */
         token: string;
@@ -625,7 +623,7 @@ export class Api<
           message?: string;
         }
       >({
-        path: `/password/reset/verify`,
+        path: `/api/password/reset/verify`,
         method: "POST",
         body: data,
         secure: true,
@@ -638,12 +636,12 @@ export class Api<
      * No description
      *
      * @tags Auth
-     * @name 547Fdd224928295692C05Fda4B0F8015
+     * @name 6C0Aab1534Ccfd1Bfe48Ebe48Df24Db0
      * @summary パスワード更新
-     * @request POST:/password/reset
+     * @request POST:/api/password/reset
      * @secure
      */
-    "547Fdd224928295692C05Fda4B0F8015": (
+    "6C0Aab1534Ccfd1Bfe48Ebe48Df24Db0": (
       data: {
         /** @example "abc123token" */
         token: string;
@@ -670,7 +668,7 @@ export class Api<
           message?: string;
         }
       >({
-        path: `/password/reset`,
+        path: `/api/password/reset`,
         method: "POST",
         body: data,
         secure: true,
@@ -678,18 +676,17 @@ export class Api<
         format: "json",
         ...params,
       }),
-  };
-  register = {
+
     /**
      * @description ユーザーの新規登録を行う
      *
      * @tags Register
-     * @name 745168Dcbafc8F21B10Eb1Ad8Acbe398
+     * @name Fb35F0F43Db6F30D8948E507F45Bdb2F
      * @summary 新規登録
-     * @request POST:/register
+     * @request POST:/api/register
      * @secure
      */
-    "745168Dcbafc8F21B10Eb1Ad8Acbe398": (
+    fb35F0F43Db6F30D8948E507F45Bdb2F: (
       data: {
         /** @example "test User" */
         name: string;
@@ -715,7 +712,7 @@ export class Api<
         },
         any
       >({
-        path: `/register`,
+        path: `/api/register`,
         method: "POST",
         body: data,
         secure: true,
@@ -723,18 +720,17 @@ export class Api<
         format: "json",
         ...params,
       }),
-  };
-  deleteAccount = {
+
     /**
      * @description ユーザーが退会処理をする
      *
      * @tags Register
-     * @name B2Eda28593Fcf00357B1Ab145D7C9151
+     * @name Fd632De4913D779626Bec1Bc64888F7D
      * @summary 退会
-     * @request DELETE:/delete-account
+     * @request DELETE:/api/delete-account
      * @secure
      */
-    b2Eda28593Fcf00357B1Ab145D7C9151: (params: RequestParams = {}) =>
+    fd632De4913D779626Bec1Bc64888F7D: (params: RequestParams = {}) =>
       this.request<
         {
           /** @example "ログアウトしました。" */
@@ -742,31 +738,30 @@ export class Api<
         },
         any
       >({
-        path: `/delete-account`,
+        path: `/api/delete-account`,
         method: "DELETE",
         secure: true,
         format: "json",
         ...params,
       }),
-  };
-  facilities = {
+
     /**
      * @description 施設一覧の取得
      *
      * @tags Facility
-     * @name 536Aa79C85C0Cf549A397C3Ff6579898
+     * @name 3F04C9807C3E9D386F11B9E2D4E7C7A1
      * @summary 施設一覧
-     * @request GET:/facilities
+     * @request GET:/api/facilities
      * @secure
      */
-    "536Aa79C85C0Cf549A397C3Ff6579898": (params: RequestParams = {}) =>
+    "3F04C9807C3E9D386F11B9E2D4E7C7A1": (params: RequestParams = {}) =>
       this.request<
         {
           facilities?: Facility[];
         },
         any
       >({
-        path: `/facilities`,
+        path: `/api/facilities`,
         method: "GET",
         secure: true,
         format: "json",
@@ -777,12 +772,12 @@ export class Api<
      * @description 施設詳細の取得
      *
      * @tags Facility
-     * @name 8Fe32263Ee826843F7615Ea3415F4B32
+     * @name 4F2990B9760Bf737A53Bd8Ea988Cd69E
      * @summary 施設詳細
-     * @request GET:/facilities/{id}
+     * @request GET:/api/facilities/{id}
      * @secure
      */
-    "8Fe32263Ee826843F7615Ea3415F4B32": (
+    "4F2990B9760Bf737A53Bd8Ea988Cd69E": (
       id: number,
       params: RequestParams = {},
     ) =>
@@ -796,7 +791,31 @@ export class Api<
           message?: string;
         }
       >({
-        path: `/facilities/${id}`,
+        path: `/api/facilities/${id}`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description 現在のユーザー自身の取得
+     *
+     * @tags User
+     * @name B39Ce486C055A13718E2Aec2B43B96F6
+     * @summary 現在のユーザー自身
+     * @request GET:/api/profile
+     * @secure
+     */
+    b39Ce486C055A13718E2Aec2B43B96F6: (params: RequestParams = {}) =>
+      this.request<
+        {
+          /** ユーザー情報 */
+          user?: User;
+        },
+        any
+      >({
+        path: `/api/profile`,
         method: "GET",
         secure: true,
         format: "json",
