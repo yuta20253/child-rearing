@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://my-default-host.com"
+            "url": "http://localhost:8000"
         }
     ],
     "paths": {
@@ -29,7 +29,7 @@
                 ],
                 "summary": "ログイン",
                 "description": "メールアドレスとパスワードでログインし、認証トークンを返す",
-                "operationId": "2add1cebca1428c69f53e7ed41b3f412",
+                "operationId": "loginUser",
                 "requestBody": {
                     "required": true,
                     "content": {
