@@ -1,0 +1,19 @@
+import { Api } from '@/types/generated/api';
+
+export const apiClient = new Api({
+  baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL,
+  securityWorker: token =>
+    token
+      ? {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      : {},
+});
+
+export const clientWithToken = (token: string) =>
+  new Api({
+    baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL,
+    securityWorker: () => ({ headers: { Authorization: `Bearer ${token}` } }),
+  });
