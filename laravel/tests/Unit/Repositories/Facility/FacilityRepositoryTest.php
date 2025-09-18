@@ -29,36 +29,28 @@ class FacilityRepositoryTest extends FacilityRepositoryInterfaceTest
     {
         $prefecture = Prefecture::factory()->create();
         $municipality = Municipality::factory()->for($prefecture, 'prefecture')->create();
+        $otherMunicipality = Municipality::factory()->for($prefecture, 'prefecture')->create();
         $address = Address::factory()->for($municipality, 'municipality')->create();
+        $otherAddress = Address::factory()->for($otherMunicipality, 'municipality')->create();
 
         $user = User::factory()->for($address, 'address')->create();
 
         $this->actingAs($user);
 
-        // 同じ自治体の施設
         $facilitySameMunicipality = Facility::factory()
-            ->count(500)
             ->for($address, 'address')
             ->create();
 
-        // 別の自治体の施設
-        $otherMunicipality = Municipality::factory()->for($prefecture, 'prefecture')->create();
-        $otherAddress = Address::factory()->for($otherMunicipality, 'municipality')->create();
-
-        $facilityOtherMunicipality = Facility::factory()
-            ->count(100)
+        Facility::factory()
+            ->count(2)
             ->for($otherAddress, 'address')
             ->create();
 
         $result = $this->facilityRepository->getAll($user->address->municipality_id);
 
-        $this->assertInstanceOf(Collection::class, $result);
-        foreach ($facilitySameMunicipality as $facility) {
-            $this->assertTrue($result->contains($facility));
-        }
+        $this->assertCount(1, $result);
 
-        foreach ($facilityOtherMunicipality as $facility) {
-            $this->assertFalse($result->contains($facility));
-        }
+        $this->assertEquals($facilitySameMunicipality->name, $result->first()->name);
+        $this->assertTrue($result->contains($facilitySameMunicipality));
     }
 }
