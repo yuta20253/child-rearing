@@ -27,7 +27,7 @@ class FacilityServiceTest extends TestCase
      * @test
      * municipality_id=1 のユーザーなら施設1件
      */
-    public function testGetAllFacilities(): void
+    public function getAllFacilities(): void
     {
         $facilities = new EloquentCollection([
             new Facility(['id' => 1, 'name' => 'Test施設１']),
@@ -59,7 +59,7 @@ class FacilityServiceTest extends TestCase
      * @test
      * municipality_id=2 のユーザーなら施設2件
      */
-    public function testGetFacilitiesForMunicipality2(): void
+    public function getFacilitiesForMunicipality2(): void
     {
         $facilities = new EloquentCollection([
             new Facility(['id' => 1, 'name' => '施設2-1']),
