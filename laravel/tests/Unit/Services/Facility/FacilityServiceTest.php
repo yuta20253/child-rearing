@@ -26,14 +26,12 @@ class FacilityServiceTest extends TestCase
 
     /**
      * @test
-     * 施設一覧が取得できること
+     * municipality_id=1 のユーザーなら施設1件
      */
-
     public function testGetAllFacilities(): void
     {
         $facilities = new EloquentCollection([
             new Facility(['id' => 1, 'name' => 'Test施設１']),
-            new Facility(['id' => 2, 'name' => 'Test施設2'])
         ]);
 
         // ダミーユーザーを作成
@@ -42,7 +40,7 @@ class FacilityServiceTest extends TestCase
             public function __construct()
             {
                 $this->address = new class {
-                    public $municipality_id = 123;
+                    public $municipality_id = 1;
                 };
             }
         };
@@ -50,13 +48,42 @@ class FacilityServiceTest extends TestCase
         // Auth::user() をモック
         Auth::shouldReceive('user')->once()->andReturn($user);
 
-        $this->facilityRepositoryMock->shouldReceive('getAll')->with(123)->once()->andReturn($facilities);
+        $this->facilityRepositoryMock->shouldReceive('getAll')->with(1)->once()->andReturn($facilities);
+
+        $result = $this->facilityService->getAll();
+
+        $this->assertCount(1, $result);
+        $this->assertEquals('Test施設１', $result[0]->name);
+    }
+    /**
+     * @test
+     * municipality_id=2 のユーザーなら施設2件
+     */
+    public function testGetFacilitiesForMunicipality2(): void
+    {
+        $facilities = new EloquentCollection([
+            new Facility(['id' => 1, 'name' => '施設2-1']),
+            new Facility(['id' => 2, 'name' => '施設2-2']),
+        ]);
+
+        $user = new class{
+            public $address;
+            public function __construct()
+            {
+                $this->address = new class {
+                    public $municipality_id = 2;
+                };
+            }
+        };
+        Auth::shouldReceive('user')->once()->andReturn($user);
+
+        $this->facilityRepositoryMock->shouldReceive('getAll')->with(2)->once()->andReturn($facilities);
 
         $result = $this->facilityService->getAll();
 
         $this->assertCount(2, $result);
-        $this->assertEquals('Test施設１', $result[0]->name);
-        $this->assertEquals('Test施設2', $result[1]->name);
+        $this->assertEquals('施設2-1', $result[0]->name);
+        $this->assertEquals('施設2-2', $result[1]->name);
     }
 
     /**

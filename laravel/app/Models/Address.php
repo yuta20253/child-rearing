@@ -48,7 +48,7 @@ class Address extends Model
         return $this->hasMany(User::class);
     }
 
-    public function facility()
+    public function facilities()
     {
         return $this->hasMany(Facility::class);
     }

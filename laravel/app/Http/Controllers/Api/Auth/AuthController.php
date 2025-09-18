@@ -231,7 +231,6 @@ class AuthController extends Controller
         return new JsonResponse([
             'message' => 'パスワードを更新しました。'
         ]);
-
     }
 
     private function validateResetToken($token, $email)
@@ -257,5 +256,4 @@ class AuthController extends Controller
 
         return ['success' => true];
     }
-
 }
