@@ -25,7 +25,11 @@ class FacilityRepositoryTest extends FacilityRepositoryInterfaceTest
         $this->facilityRepository = app(FacilityRepositoryInterface::class);
     }
 
-    public function testGetAllFacilities(): void
+    /**
+     * @test
+     * ユーザーと同じ市区町村の施設だけが返却されること
+     */
+    public function getAllFacilities(): void
     {
         $prefecture = Prefecture::factory()->create();
         $municipality = Municipality::factory()->for($prefecture, 'prefecture')->create();
