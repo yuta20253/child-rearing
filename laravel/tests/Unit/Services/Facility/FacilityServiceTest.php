@@ -88,7 +88,6 @@ class FacilityServiceTest extends TestCase
 
     /**
      * @test
-     *
      * 選択された施設が取得できること
      */
     public function find()
