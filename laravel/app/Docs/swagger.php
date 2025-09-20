@@ -6,9 +6,9 @@ use OpenApi\Annotations as OA;
 
 /**
  * @OA\Info(
- *     title="My API",
+ *     title="子育てプロジェクト",
  *     version="1.0.0",
- *     description="APIドキュメントの説明"
+ *     description="子育てプロジェクトAPIドキュメント"
  * )
  * @OA\Server(
  *     url=L5_SWAGGER_CONST_HOST
