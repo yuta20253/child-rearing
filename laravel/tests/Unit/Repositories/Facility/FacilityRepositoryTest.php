@@ -11,10 +11,13 @@ use App\Repositories\Facility\FacilityRepository;
 use App\Repositories\Facility\FacilityRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
-class FacilityRepositoryTest extends FacilityRepositoryInterfaceTest
+class FacilityRepositoryTest extends TestCase
 {
     use RefreshDatabase;
+
+    private FacilityRepositoryInterface $facilityRepository;
     /**
      * A basic unit test example.
      */
@@ -25,7 +28,11 @@ class FacilityRepositoryTest extends FacilityRepositoryInterfaceTest
         $this->facilityRepository = app(FacilityRepositoryInterface::class);
     }
 
-    public function testGetAllFacilities(): void
+    /**
+     * @test
+     * ユーザーと同じ市区町村の施設だけが返却されること
+     */
+    public function getAllFacilities(): void
     {
         $prefecture = Prefecture::factory()->create();
         $municipality = Municipality::factory()->for($prefecture, 'prefecture')->create();
@@ -54,7 +61,11 @@ class FacilityRepositoryTest extends FacilityRepositoryInterfaceTest
         $this->assertTrue($result->contains($facilitySameMunicipality));
     }
 
-    public function testFind(): void
+    /**
+     * @test
+     * 指定したIDの施設が取得できること
+     */
+    public function find(): void
     {
         $prefecture = Prefecture::factory()->create();
         $municipality = Municipality::factory()->for($prefecture, 'prefecture')->create();
@@ -73,7 +84,11 @@ class FacilityRepositoryTest extends FacilityRepositoryInterfaceTest
         $this->assertTrue($facilitySameMunicipality->is($result));
     }
 
-    public function testFindThrowsException(): void
+    /**
+     * @test
+     * 指定したIDの施設が存在しないときに例外が入ること
+     */
+    public function findThrowsException(): void
     {
         $this->expectException(\Illuminate\Database\Eloquent\ModelNotFoundException::class);
         $this->facilityRepository->find(99999);
