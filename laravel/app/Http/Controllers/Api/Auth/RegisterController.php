@@ -26,7 +26,7 @@ use OpenApi\Annotations as OA;
  *        )
  *     ),
  *     @OA\Response(
- *         response=201,
+ *         response=200,
  *         description="新規登録成功",
  *         @OA\JsonContent(
  *              type="object",
@@ -75,7 +75,7 @@ class RegisterController extends Controller
         return response()->json([
             'user' => $user,
             'token' => $token,
-        ], 201);
+        ], 200);
     }
 
     public function accountDelete(Request $request)
