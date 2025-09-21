@@ -17,6 +17,15 @@ type LoginResponse = {
   };
 };
 
+type SignUpResponse = {
+  token: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  }
+}
+
 function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
   return (
     typeof error === 'object' &&
@@ -62,5 +71,31 @@ export const loginAuth = async (
   } catch (error) {
     console.error(error);
     throw new Error(extractApiErrorMessage(error, 'ログインに失敗しました'));
+  }
+};
+
+export const signUpAuth = async ({
+    email,
+    password,
+    password_confirmation,
+    name
+  }: {
+    email: string;
+    password: string;
+    password_confirmation: string;
+    name: string;
+  }): Promise<SignUpResponse> => {
+
+  try {
+    const response = await apiClient.signUp.signUpUser({ email, password, password_confirmation, name }, { secure: false } )
+
+    const data = response.data as SignUpResponse;
+
+    if (!data.token) throw new Error('トークンがありません');
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(extractApiErrorMessage(error, '新規登録に失敗しました'));
   }
 };
