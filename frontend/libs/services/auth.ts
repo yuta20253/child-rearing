@@ -23,8 +23,8 @@ type SignUpResponse = {
     id: number;
     name: string;
     email: string;
-  }
-}
+  };
+};
 
 function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
   return (
@@ -56,9 +56,13 @@ export const extractApiErrorMessage = (error: unknown, fallback: string): string
   return fallback;
 };
 
-export const loginAuth = async (
-  { email, password }: { email: string; password: string }
-): Promise<LoginResponse> => {
+export const loginAuth = async ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}): Promise<LoginResponse> => {
   try {
     const response = await apiClient.login.loginUser({ email, password });
 
@@ -75,19 +79,21 @@ export const loginAuth = async (
 };
 
 export const signUpAuth = async ({
-    email,
-    password,
-    password_confirmation,
-    name
-  }: {
-    email: string;
-    password: string;
-    password_confirmation: string;
-    name: string;
-  }): Promise<SignUpResponse> => {
-
+  email,
+  password,
+  password_confirmation,
+  name,
+}: {
+  email: string;
+  password: string;
+  password_confirmation: string;
+  name: string;
+}): Promise<SignUpResponse> => {
   try {
-    const response = await apiClient.signUp.signUpUser({ email, password, password_confirmation, name }, { secure: false } )
+    const response = await apiClient.signUp.signUpUser(
+      { email, password, password_confirmation, name },
+      { secure: false }
+    );
 
     const data = response.data as SignUpResponse;
 
