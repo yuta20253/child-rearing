@@ -58,6 +58,9 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
+      - name: Dump autoload
+        run: composer dump-autoload
+
       - name: Install PHP_CodeSniffer
         run: composer global require "squizlabs/php_codesniffer=*"
 
