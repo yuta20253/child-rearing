@@ -12,7 +12,6 @@ use Tests\TestCase;
 
 class FacilityServiceTest extends TestCase
 {
-
     /** @var FacilityRepositoryInterface&\Mockery\MockInterface $facilityRepositoryMock */
     private $facilityRepositoryMock;
     private FacilityService $facilityService;
@@ -66,7 +65,7 @@ class FacilityServiceTest extends TestCase
             new Facility(['id' => 2, 'name' => '施設2-2']),
         ]);
 
-        $user = new class{
+        $user = new class {
             public $address;
             public function __construct()
             {
