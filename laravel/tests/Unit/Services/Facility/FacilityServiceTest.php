@@ -57,9 +57,8 @@ class FacilityServiceTest extends TestCase
 
     /**
      * @test
-     * 選択された施設が取得できること
      */
-    public function find()
+    public function 選択された施設が取得できること(): void
     {
         $facilityId = 1;
         $facility = new Facility();
