@@ -6,10 +6,8 @@ use App\Models\Address;
 use App\Models\Facility;
 use App\Models\Prefecture;
 use App\Models\Municipality;
-use App\Models\User;
 use App\Repositories\Facility\FacilityRepository;
 use App\Repositories\Facility\FacilityRepositoryInterface;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
