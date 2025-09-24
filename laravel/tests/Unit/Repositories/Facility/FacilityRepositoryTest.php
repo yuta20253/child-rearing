@@ -9,7 +9,6 @@ use App\Models\Municipality;
 use App\Models\User;
 use App\Repositories\Facility\FacilityRepository;
 use App\Repositories\Facility\FacilityRepositoryInterface;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -30,19 +29,14 @@ class FacilityRepositoryTest extends TestCase
 
     /**
      * @test
-     * ユーザーと同じ市区町村の施設だけが返却されること
      */
-    public function getAllFacilities(): void
+    public function 同じ市区町村の施設だけが返却されること(): void
     {
         $prefecture = Prefecture::factory()->create();
         $municipality = Municipality::factory()->for($prefecture, 'prefecture')->create();
         $otherMunicipality = Municipality::factory()->for($prefecture, 'prefecture')->create();
         $address = Address::factory()->for($municipality, 'municipality')->create();
         $otherAddress = Address::factory()->for($otherMunicipality, 'municipality')->create();
-
-        $user = User::factory()->for($address, 'address')->create();
-
-        $this->actingAs($user);
 
         $facilitySameMunicipality = Facility::factory()
             ->for($address, 'address')
@@ -53,7 +47,7 @@ class FacilityRepositoryTest extends TestCase
             ->for($otherAddress, 'address')
             ->create();
 
-        $result = $this->facilityRepository->getAll($user->address->municipality_id);
+        $result = $this->facilityRepository->getAll($address->municipality_id);
 
         $this->assertCount(1, $result);
 
@@ -72,8 +66,6 @@ class FacilityRepositoryTest extends TestCase
         $address = Address::factory()->for($municipality, 'municipality')->create();
 
         $user = User::factory()->for($address, 'address')->create();
-
-        $this->actingAs($user);
 
         $facilitySameMunicipality = Facility::factory()->for($address, 'address')->create();
 
