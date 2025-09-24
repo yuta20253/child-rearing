@@ -67,8 +67,6 @@ class FacilityRepositoryTest extends TestCase
 
         $user = User::factory()->for($address, 'address')->create();
 
-        $this->actingAs($user);
-
         $facilitySameMunicipality = Facility::factory()->for($address, 'address')->create();
 
         $result = $this->facilityRepository->find($facilitySameMunicipality->id);
