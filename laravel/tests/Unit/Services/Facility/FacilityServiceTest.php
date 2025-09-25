@@ -29,7 +29,21 @@ class FacilityServiceTest extends TestCase
     public function municipality_idが1のユーザーなら施設1件(): void
     {
         $facilities = new EloquentCollection([
-            new Facility(['id' => 1, 'name' => 'Test施設１']),
+            tap(new Facility(['id' => 1, 'name' => 'Test施設１']), function ($facility) {
+                $facility->setRelation('address', new class {
+                    public $municipality_id = 1;
+                });
+            }),
+            tap(new Facility(['id' => 2, 'name' => 'Test施設２']), function ($facility) {
+                $facility->setRelation('address', new class {
+                    public $municipality_id = 2;
+                });
+            }),
+            tap(new Facility(['id' => 3, 'name' => 'Test施設３']), function ($facility) {
+                $facility->setRelation('address', new class {
+                    public $municipality_id = 1;
+                });
+            }),
         ]);
 
         // ダミーユーザーを作成
@@ -46,12 +60,18 @@ class FacilityServiceTest extends TestCase
         // Auth::user() をモック
         Auth::shouldReceive('user')->once()->andReturn($user);
 
+        $filterFacilities = $facilities->filter(function ($facility) {
+            return $facility->municipality_id === 1;
+        });
 
-        $this->facilityRepositoryMock->shouldReceive('getAll')->with(1)->once()->andReturn($facilities);
+
+        $this->facilityRepositoryMock->shouldReceive('getAll')->with(1)->once()->andReturn($filterFacilities);
 
         $result = $this->facilityService->getAll();
 
-        $this->assertCount(1, $result);
-        $this->assertEquals('Test施設１', $result[0]->name);
+        $this->assertCount(2, $result);
+        foreach ($result as $facility) {
+            $this->assertEquals(1, $facility->municipality_id);
+        }
     }
 }
