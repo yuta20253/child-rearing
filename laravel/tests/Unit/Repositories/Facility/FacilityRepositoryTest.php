@@ -57,15 +57,12 @@ class FacilityRepositoryTest extends TestCase
 
     /**
      * @test
-     * 指定したIDの施設が取得できること
      */
-    public function find(): void
+    public function 指定したIDの施設が取得できること(): void
     {
         $prefecture = Prefecture::factory()->create();
         $municipality = Municipality::factory()->for($prefecture, 'prefecture')->create();
         $address = Address::factory()->for($municipality, 'municipality')->create();
-
-        $user = User::factory()->for($address, 'address')->create();
 
         $facilitySameMunicipality = Facility::factory()->for($address, 'address')->create();
 
@@ -78,9 +75,8 @@ class FacilityRepositoryTest extends TestCase
 
     /**
      * @test
-     * 指定したIDの施設が存在しないときに例外が入ること
      */
-    public function findThrowsException(): void
+    public function 指定したIDの施設が存在しないときに例外が入ること(): void
     {
         $this->expectException(\Illuminate\Database\Eloquent\ModelNotFoundException::class);
         $this->facilityRepository->find(99999);
