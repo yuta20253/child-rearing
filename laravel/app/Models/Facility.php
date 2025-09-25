@@ -61,4 +61,9 @@ class Facility extends Model
     {
         return $this->address->municipality->prefecture;
     }
+
+    public function getMunicipalityIdAttribute()
+    {
+        return $this->address->municipality_id ?? null;
+    }
 }
