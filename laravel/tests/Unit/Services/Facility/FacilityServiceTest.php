@@ -26,6 +26,7 @@ class FacilityServiceTest extends TestCase
     /**
      * @test
      */
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function municipality_idが1のユーザーなら施設1件(): void
     {
         $facilities = new EloquentCollection([
