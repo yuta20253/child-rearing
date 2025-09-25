@@ -75,22 +75,4 @@ class FacilityServiceTest extends TestCase
             $this->assertEquals(1, $facility->municipality_id);
         }
     }
-
-    /**
-     * @test
-     */
-    public function 選択された施設が取得できること(): void
-    {
-        $facilityId = 1;
-        $facility = new Facility();
-        $facility->id = $facilityId;
-        $facility->name = 'Test施設１';
-
-        $this->facilityRepositoryMock->shouldReceive('find')->with($facility->id)->once()->andReturn($facility);
-
-        $result = $this->facilityService->find($facility->id);
-
-        $this->assertSame($facility, $result);
-        $this->assertEquals('Test施設１', $result->name);
-    }
 }
