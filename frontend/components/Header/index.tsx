@@ -11,7 +11,11 @@ export const Header = (): React.JSX.Element => {
                 <Link href="/" className="text-white font-bold text-lg">ロゴ</Link>
                 <div className="ml-auto flex gap-2">
                     {user ? (
-                        <span className="text-white">{user.name}</span>
+                        <Link href="/mypage" className='p-2'>
+                            <div className="text-white">
+                                {user.name}
+                            </div>
+                        </Link>
                     ) : (
                         <>
                             <Link

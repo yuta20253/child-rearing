@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const getCurrentUser = async (token: string) => {
     try {
-        const res = await axios.get('http://localhost:8000/api/profile', {
+        const res = await axios.get(process.env.NEXT_PUBLIC_BACKEND_URL + '/api/profile', {
             headers: {
                 Authorization: `Bearer ${token}`,
                 Accept: 'application/json',
