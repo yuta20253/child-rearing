@@ -6,7 +6,50 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterFormRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Post(
+ *     path="/register",
+ *     summary="新規登録",
+ *     description="ユーザーの新規登録を行う",
+ *     tags={"Register"},
+ *     @OA\RequestBody(
+ *        required=true,
+ *        @OA\JsonContent(
+ *              type="object",
+ *              required={"name", "email", "password"},
+ *              @OA\Property(property="name", type="string", example="test User"),
+ *              @OA\Property(property="email", type="string", format="email", example="test@example.com"),
+ *              @OA\Property(property="password", type="string", format="password", example="password123")
+ *        )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="新規登録成功",
+ *         @OA\JsonContent(
+ *              type="object",
+ *              @OA\Property(property="user", ref="#/components/schemas/User"),
+ *              @OA\Property(property="token", type="string", example="1|eyJhbGciOiJIUzI1NiIsInR5cCI6")
+ *         )
+ *     )
+ * )
+ *
+ * @OA\Delete(
+ *     path="/delete-account",
+ *     summary="退会",
+ *     description="ユーザーが退会処理をする",
+ *     tags={"Register"},
+ *     @OA\Response(
+ *         response=200,
+ *         description="退会成功",
+ *         @OA\JsonContent(
+ *            @OA\Property(property="message", type="string", example="ログアウトしました。")
+ *         )
+ *     )
+ * )
+ */
 class RegisterController extends Controller
 {
     private User $user;
@@ -23,7 +66,7 @@ class RegisterController extends Controller
         $user = $this->user->create([
             'name' => $form['name'],
             'email' => $form['email'],
-            'password' => $form['password'],
+            'password' => Hash::make($form['password']),
             'role' => 'member',
         ]);
 
@@ -43,5 +86,8 @@ class RegisterController extends Controller
             'email' => $user->maskedEmail(),
         ]);
         $user->delete();
+        return response()->json([
+            'message' => 'アカウントを削除しました。'
+        ], 200);
     }
 }
