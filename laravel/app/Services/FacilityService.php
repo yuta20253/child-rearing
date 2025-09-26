@@ -21,4 +21,9 @@ class FacilityService
         $municipalityId = $user->address->municipality_id;
         return $this->facilityRepository->getAll($municipalityId);
     }
+
+    public function find(int $id): Facility
+    {
+        return $this->facilityRepository->find($id);
+    }
 }

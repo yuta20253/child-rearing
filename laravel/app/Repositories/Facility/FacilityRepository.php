@@ -23,4 +23,9 @@ class FacilityRepository implements FacilityRepositoryInterface
                     })
                     ->get();
     }
+
+    public function find(int $id): Facility
+    {
+        return $this->facility->findOrFail($id);
+    }
 }

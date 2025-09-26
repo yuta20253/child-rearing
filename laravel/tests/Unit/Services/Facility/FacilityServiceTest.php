@@ -5,6 +5,7 @@ namespace Tests\Unit\Services\Facility;
 use App\Models\Facility;
 use App\Repositories\Facility\FacilityRepositoryInterface;
 use App\Services\FacilityService;
+use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;

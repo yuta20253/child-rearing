@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\Facility;
 use App\Models\Prefecture;
 use App\Models\Municipality;
+use App\Models\User;
 use App\Repositories\Facility\FacilityRepository;
 use App\Repositories\Facility\FacilityRepositoryInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -52,5 +53,32 @@ class FacilityRepositoryTest extends TestCase
 
         $this->assertEquals($facilitySameMunicipality->name, $result->first()->name);
         $this->assertTrue($result->contains($facilitySameMunicipality));
+    }
+
+    /**
+     * @test
+     */
+    public function 指定したIDの施設が取得できること(): void
+    {
+        $prefecture = Prefecture::factory()->create();
+        $municipality = Municipality::factory()->for($prefecture, 'prefecture')->create();
+        $address = Address::factory()->for($municipality, 'municipality')->create();
+
+        $facilitySameMunicipality = Facility::factory()->for($address, 'address')->create();
+
+        $result = $this->facilityRepository->find($facilitySameMunicipality->id);
+
+        $this->assertEquals($facilitySameMunicipality->id, $result->id);
+
+        $this->assertTrue($facilitySameMunicipality->is($result));
+    }
+
+    /**
+     * @test
+     */
+    public function 指定したIDの施設が存在しないときに例外が入ること(): void
+    {
+        $this->expectException(\Illuminate\Database\Eloquent\ModelNotFoundException::class);
+        $this->facilityRepository->find(99999);
     }
 }
