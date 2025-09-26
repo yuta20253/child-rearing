@@ -68,6 +68,8 @@ class MunicipalitySeeder extends Seeder
             Municipality::firstOrCreate([
                 'name' => $municipalityName,
                 'prefecture_id' => $prefectureId,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
 

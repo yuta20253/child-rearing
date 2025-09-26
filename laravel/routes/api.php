@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\FacilityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::delete('/logout', [AuthController::class, 'logout']);
     Route::delete('/delete-account', [RegisterController::class, 'accountDelete']);
+
+    Route::get('/facilities', [FacilityController::class, 'index']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
