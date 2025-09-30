@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -27,9 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/facilities/{id}', [FacilityController::class, 'show']);
 });
 
-Route::get('/', function () {
-    return response()->json(['message' => 'Hello from Laravel API']);
-});
+Route::get('/', [MainController::class, 'index']);
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [RegisterController::class, 'register']);
