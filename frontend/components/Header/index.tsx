@@ -2,6 +2,7 @@
 
 import { useAuthState } from '@/context/AuthContext';
 import Link from 'next/link';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export const Header = (): React.JSX.Element => {
     const { user } = useAuthState();
@@ -12,8 +13,11 @@ export const Header = (): React.JSX.Element => {
                 <div className="ml-auto flex gap-2">
                     {user ? (
                         <Link href="/mypage" className='p-2'>
-                            <div className="text-white">
-                                {user.name}
+                            <div className='flex'>
+                                <AccountCircleIcon />
+                                <div className="text-white pl-2">
+                                    {user.name}
+                                </div>
                             </div>
                         </Link>
                     ) : (
