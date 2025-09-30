@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useAuthActions } from '@/context/AuthContext';
+import { TextField } from '@/components/TextField';
 
 type SignUpForm = {
   email: string;
@@ -50,18 +51,11 @@ export const SignUp = (): React.JSX.Element => {
                 </div>
                 )}
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-5">
-                <div className="flex flex-col w-full">
-                    <label htmlFor="email" className="text-sm font-medium text-gray-700 mb-1">
-                        メールアドレス
-                    </label>
-                    <input
-                        id="email"
-                        type="email"
+                    <TextField
+                        id='email'
+                        label='メールアドレス'
+                        type='email'
                         placeholder="example@mail.com"
-                        className={`w-full p-3 rounded-xl border border-gray-300 placeholder-gray-400 shadow-inner
-                            focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-500
-                            transition-all duration-300
-                            ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
                         {...register('email', {
                             required: 'メールアドレスを入力してください',
                             pattern: {
@@ -69,48 +63,31 @@ export const SignUp = (): React.JSX.Element => {
                             message: 'メールアドレスの形式が正しくありません',
                             },
                         })}
+                        error={errors.email}
                     />
-                    {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
-                </div>
-                <div className="flex flex-col w-full">
-                    <label htmlFor="password" className="text-sm font-medium text-gray-700 mb-1">
-                    パスワード
-                    </label>
-                    <input
-                        id="password"
-                        type="password"
-                        placeholder="********"
-                        className={`w-full p-3 rounded-xl border border-gray-300 placeholder-gray-400 shadow-inner
-                            focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-500
-                            transition-all duration-300
-                            ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
+                    <TextField
+                        id='password'
+                        label='パスワード'
+                        type='password'
+                        placeholder='********'
                         {...register('password', {
                             required: 'パスワードを入力してください',
                             minLength: { value: 8, message: '8文字以上で入力してください' },
                         })}
+                        error={errors.password}
                     />
-                    {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>}
-                </div>
-                <div className="flex flex-col w-full">
-                    <label htmlFor="password_confirmation" className="text-sm font-medium text-gray-700 mb-1">
-                        パスワード(確認用)
-                    </label>
-                    <input
-                        id="password_confirmation"
-                        type="password"
-                        placeholder="********"
-                        className={`w-full p-3 rounded-xl border border-gray-300 placeholder-gray-400 shadow-inner
-                            focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-500
-                            transition-all duration-300
-                            ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
+                    <TextField
+                        id='password_confirmation'
+                        label='パスワード(確認用)'
+                        type='password'
+                        placeholder='********'
                         {...register('password_confirmation', {
                             required: 'パスワードを入力してください',
                             minLength: { value: 8, message: '8文字以上で入力してください' },
                             validate: value => value === password || '入力されたパスワードと一致しません',
                         })}
+                        error={errors.password_confirmation}
                     />
-                    {errors.password_confirmation && <p className="mt-1 text-sm text-red-600">{errors.password_confirmation.message}</p>}
-                </div>
                 <button
                     type="submit"
                     className="w-full py-3 bg-gradient-to-r bg-pink-300 text-white text-lg font-semibold rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300"
