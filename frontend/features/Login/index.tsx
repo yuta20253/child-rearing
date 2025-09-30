@@ -48,7 +48,7 @@ export const Login = (): React.JSX.Element => {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-5">
           <TextField
             id='email'
-            lavel='メールアドレス'
+            label='メールアドレス'
             type="email"
             placeholder="example@mail.com"
             {...register('email', {
@@ -62,7 +62,7 @@ export const Login = (): React.JSX.Element => {
           />
           <TextField
             id="password"
-            lavel='パスワード'
+            label='パスワード'
             type='password'
             placeholder="********"
             {...register('password', {
