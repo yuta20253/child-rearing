@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useAuthActions } from '@/context/AuthContext';
+import { TextField } from '@/components/TextField';
 
 type UserForm = {
   email: string;
@@ -53,49 +54,31 @@ export const Login = (): React.JSX.Element => {
           </div>
         )}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-5">
-          <div className="flex flex-col w-full">
-            <label htmlFor="email" className="text-sm font-medium text-gray-700 mb-1">
-              メールアドレス
-            </label>
-            <input
-              id="email"
-              type="email"
-              placeholder="example@mail.com"
-              className={`w-full p-3 rounded-xl border border-gray-300 placeholder-gray-400 shadow-inner
-                focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-500
-                transition-all duration-300
-                ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
-              {...register('email', {
-                required: 'メールアドレスを入力してください',
-                pattern: {
-                  value: /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}$/,
-                  message: 'メールアドレスの形式が正しくありません',
-                },
-              })}
-            />
-            {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
-          </div>
-          <div className="flex flex-col w-full">
-            <label htmlFor="password" className="text-sm font-medium text-gray-700 mb-1">
-              パスワード
-            </label>
-            <input
-              id="password"
-              type="password"
-              placeholder="********"
-              className={`w-full p-3 rounded-xl border border-gray-300 placeholder-gray-400 shadow-inner
-                focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-500
-                transition-all duration-300
-                ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
-              {...register('password', {
-                required: 'パスワードを入力してください',
-                minLength: { value: 8, message: '8文字以上で入力してください' },
-              })}
-            />
-            {errors.password && (
-              <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
-            )}
-          </div>
+          <TextField
+            id='email'
+            label='メールアドレス'
+            type="email"
+            placeholder="example@mail.com"
+            {...register('email', {
+              required: 'メールアドレスを入力してください',
+              pattern: {
+                value: /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}$/,
+                message: 'メールアドレスの形式が正しくありません',
+              },
+            })}
+            error={errors.email}
+          />
+          <TextField
+            id="password"
+            label='パスワード'
+            type='password'
+            placeholder="********"
+            {...register('password', {
+              required: 'パスワードを入力してください',
+              minLength: { value: 8, message: '8文字以上で入力してください' },
+            })}
+            error={errors.password}
+          />
           <button
             type="submit"
             className="w-full py-3 bg-gradient-to-r bg-pink-300 text-white text-lg font-semibold rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300"
