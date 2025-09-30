@@ -3,15 +3,15 @@ import { FieldError } from "react-hook-form";
 
 type TextFieldProps = {
     id: string;
-    lavel: string;
+    label: string;
     error?: FieldError;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export const TextField = ({ id, lavel, error, ...inputProps }: TextFieldProps): React.JSX.Element => {
+export const TextField = ({ id, label, error, ...inputProps }: TextFieldProps): React.JSX.Element => {
     return (
           <div className="flex flex-col w-full">
             <label htmlFor={id} className="text-sm font-medium text-gray-700 mb-1">
-                {lavel}
+                {label}
             </label>
             <input
               id={id}
