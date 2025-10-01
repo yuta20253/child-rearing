@@ -1,6 +1,29 @@
 'use client'
 
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
+type WeekDay = {
+  date: string;
+  day: string;
+};
+
 export const Home = (): React.JSX.Element => {
+    const [week, SetWeek] = useState<WeekDay[]>([]);
+    console.log(week);
+
+    useEffect(() => {
+        const fetchWeek = async () => {
+            try {
+                const res = await axios.get(process.env.NEXT_PUBLIC_BACKEND_URL + '/api');
+                SetWeek(res.data.week);
+            } catch (error) {
+                console.error('曜日取得エラー:', error);
+            }
+        };
+        fetchWeek();
+    }, [])
+
     return (
         <div className="flex items-center justify-center  bg-gradient-to-tr">
             <div className="relative w-3/4 sm:max-w-md md:max-w-lg lg:max-w-xl p-4 sm:p-2 flex flex-col space-y-2">
@@ -11,7 +34,7 @@ export const Home = (): React.JSX.Element => {
                 </div>
                 {/** カレンダー部分 */}
                 <div className="flex flex-col items-center justify-center rounded-lg mb-6">
-                    <p className="text-center font-bold">{}月 カレンダー/予定登録</p>
+                    <p className="text-center font-bold">{week.length > 0 ? new Date(week[0].date).getMonth() + 1 : '' }月 カレンダー/予定登録</p>
                     <div className="bg-yellow-50 m-4 p-4 rounded shadow w-full max-w-[700px] mx-auto overflow-x-auto">
                         <table className="table-fixed border-collapse text-center w-full">
                             <thead>
