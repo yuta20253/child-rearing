@@ -11,7 +11,7 @@ use OpenApi\Annotations as OA;
 
 /**
  * @OA\Post(
- *     path="/register",
+ *     path="/api/register",
  *     summary="新規登録",
  *     description="ユーザーの新規登録を行う",
  *     tags={"Register"},
@@ -37,7 +37,7 @@ use OpenApi\Annotations as OA;
  * )
  *
  * @OA\Delete(
- *     path="/delete-account",
+ *     path="/api/delete-account",
  *     summary="退会",
  *     description="ユーザーが退会処理をする",
  *     tags={"Register"},

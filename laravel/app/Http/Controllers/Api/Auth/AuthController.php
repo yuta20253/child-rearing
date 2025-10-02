@@ -18,9 +18,10 @@ use OpenApi\Annotations as OA;
 
 /**
  * @OA\Post(
- *      path="/login",
+ *      path="/api/login",
  *      summary="ログイン",
  *      description="メールアドレスとパスワードでログインし、認証トークンを返す",
+ *      operationId="loginUser",
  *      tags={"Auth"},
  *      @OA\RequestBody(
  *          required=true,
@@ -50,7 +51,7 @@ use OpenApi\Annotations as OA;
  * )
  *
  * @OA\Delete(
- *     path="/logout",
+ *     path="/api/logout",
  *     summary="ログアウト",
  *     tags={"Auth"},
  *     @OA\Response(
@@ -62,7 +63,7 @@ use OpenApi\Annotations as OA;
  *     )
  * )
 * @OA\Post(
- *      path="/password/reset/request",
+ *      path="/api/password/reset/request",
  *      summary="パスワードリセットメール送信",
  *      tags={"Auth"},
  *      @OA\RequestBody(
@@ -90,7 +91,7 @@ use OpenApi\Annotations as OA;
  * )
  *
  * @OA\Post(
- *      path="/password/reset/verify",
+ *      path="/api/password/reset/verify",
  *      summary="パスワードリセット用トークンとメール検証",
  *      tags={"Auth"},
  *      @OA\RequestBody(
@@ -119,7 +120,7 @@ use OpenApi\Annotations as OA;
  * )
  *
  * @OA\Post(
- *      path="/password/reset",
+ *      path="/api/password/reset",
  *      summary="パスワード更新",
  *      tags={"Auth"},
  *      @OA\RequestBody(
@@ -152,13 +153,13 @@ class AuthController extends Controller
 {
     public function login(LoginFormRequest $request)
     {
-        $credentials = $request->only(['email', 'password']);
+        // $credentials = $request->only(['email', 'password']);
 
-        if (! Auth::attempt($credentials)) {
+        $user = User::where('email', $request->email)->first();
+        if (! Hash::check($request->password, $user->password)) {
             return response()->json(['message' => '認証が失敗しました。'], 401);
         }
 
-        $user = Auth::user();
         $token = $user->createToken('api-token')->plainTextToken;
 
         return response()->json([

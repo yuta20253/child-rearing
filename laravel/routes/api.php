@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,19 +19,16 @@ use App\Http\Controllers\FacilityController;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-
-    Route::get('/test', function () {
-        return response()->json(['message' => 'Hello from Laravel API']);
-    });
-
     Route::delete('/logout', [AuthController::class, 'logout']);
     Route::delete('/delete-account', [RegisterController::class, 'accountDelete']);
+    Route::get('/profile', [UserController::class, 'profile']);
 
     Route::get('/facilities', [FacilityController::class, 'index']);
     Route::get('/facilities/{id}', [FacilityController::class, 'show']);
+});
+
+Route::get('/', function () {
+    return response()->json(['message' => 'Hello from Laravel API']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);

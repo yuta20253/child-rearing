@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://my-default-host.com"
+            "url": "http://localhost:8000"
         }
     ],
     "paths": {
@@ -22,14 +22,14 @@
                 }
             }
         },
-        "/login": {
+        "/api/login": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "ログイン",
                 "description": "メールアドレスとパスワードでログインし、認証トークンを返す",
-                "operationId": "2add1cebca1428c69f53e7ed41b3f412",
+                "operationId": "loginUser",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -95,13 +95,13 @@
                 }
             }
         },
-        "/logout": {
+        "/api/logout": {
             "delete": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "ログアウト",
-                "operationId": "9a64c1bdc224db74317af2a62a723a5f",
+                "operationId": "696ea616a669c61b100bff08be089812",
                 "responses": {
                     "200": {
                         "description": "ログアウト成功",
@@ -122,13 +122,13 @@
                 }
             }
         },
-        "/password/reset/request": {
+        "/api/password/reset/request": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "パスワードリセットメール送信",
-                "operationId": "23becf5262bf73ede4058b1818d92bb0",
+                "operationId": "5fded1420152eda356ca0860f77f0778",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -185,13 +185,13 @@
                 }
             }
         },
-        "/password/reset/verify": {
+        "/api/password/reset/verify": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "パスワードリセット用トークンとメール検証",
-                "operationId": "0e45792451a834113b0500e91fe17ebf",
+                "operationId": "c13681389e2cf3a6daf06805f9e02241",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -253,13 +253,13 @@
                 }
             }
         },
-        "/password/reset": {
+        "/api/password/reset": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "パスワード更新",
-                "operationId": "547fdd224928295692c05fda4b0f8015",
+                "operationId": "6c0aab1534ccfd1bfe48ebe48df24db0",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -327,14 +327,14 @@
                 }
             }
         },
-        "/register": {
+        "/api/register": {
             "post": {
                 "tags": [
                     "Register"
                 ],
                 "summary": "新規登録",
                 "description": "ユーザーの新規登録を行う",
-                "operationId": "745168dcbafc8f21b10eb1ad8acbe398",
+                "operationId": "fb35f0f43db6f30d8948e507f45bdb2f",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -389,14 +389,14 @@
                 }
             }
         },
-        "/delete-account": {
+        "/api/delete-account": {
             "delete": {
                 "tags": [
                     "Register"
                 ],
                 "summary": "退会",
                 "description": "ユーザーが退会処理をする",
-                "operationId": "b2eda28593fcf00357b1ab145d7c9151",
+                "operationId": "fd632de4913d779626bec1bc64888f7d",
                 "responses": {
                     "200": {
                         "description": "退会成功",
@@ -417,14 +417,14 @@
                 }
             }
         },
-        "/facilities": {
+        "/api/facilities": {
             "get": {
                 "tags": [
                     "Facility"
                 ],
                 "summary": "施設一覧",
                 "description": "施設一覧の取得",
-                "operationId": "536aa79c85c0cf549a397c3ff6579898",
+                "operationId": "3f04c9807c3e9d386f11b9e2d4e7c7a1",
                 "responses": {
                     "200": {
                         "description": "施設一覧取得成功",
@@ -447,14 +447,14 @@
                 }
             }
         },
-        "/facilities/{id}": {
+        "/api/facilities/{id}": {
             "get": {
                 "tags": [
                     "Facility"
                 ],
                 "summary": "施設詳細",
                 "description": "施設詳細の取得",
-                "operationId": "8fe32263ee826843f7615ea3415f4b32",
+                "operationId": "4f2990b9760bf737a53bd8ea988cd69e",
                 "parameters": [
                     {
                         "name": "id",
@@ -492,6 +492,33 @@
                                         "message": {
                                             "type": "string",
                                             "example": "該当の施設が見つかりません。"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/profile": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "現在のユーザー自身",
+                "description": "現在のユーザー自身の取得",
+                "operationId": "b39ce486c055a13718e2aec2b43b96f6",
+                "responses": {
+                    "200": {
+                        "description": "ユーザー取得成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
                                         }
                                     },
                                     "type": "object"
@@ -795,6 +822,10 @@
         {
             "name": "Facility",
             "description": "Facility"
+        },
+        {
+            "name": "User",
+            "description": "User"
         }
     ],
     "security": [
