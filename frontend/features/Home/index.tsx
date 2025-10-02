@@ -39,20 +39,22 @@ export const Home = (): React.JSX.Element => {
                         <table className="table-fixed border-collapse text-center w-full">
                             <thead>
                                 <tr>
-                                    {['日', '月', '火', '水', '木', '金', '土'].map((day) => (
+                                    {week.map((day, i) => (
                                     <th
-                                        key={day}
+                                        key={i}
                                         className="w-[14.2857%] min-w-[60px] px-3 py-2 whitespace-nowrap border"
                                     >
-                                        {day}
+                                        {day['day']}
                                     </th>
                                     ))}
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    {Array(7).fill(null).map((_, i) => (
-                                    <td key={i} className="px-2 py-4 border h-12"></td>
+                                    {week.map((date, i) => (
+                                    <td key={i} className="px-2 py-4 border h-12">
+                                        {date['date'].slice(9)}
+                                    </td>
                                     ))}
                                 </tr>
                             </tbody>
