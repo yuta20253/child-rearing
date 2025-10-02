@@ -2,28 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CarenderService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class MainController extends Controller
 {
+    protected CarenderService $carenderService;
+
+    public function __construct(CarenderService $carenderService)
+    {
+        $this->carenderService = $carenderService;
+    }
     public function index()
     {
-        $week = $this->getWeek();
+        $week = $this->carenderService->getCarender();
         return response()->json(['week' => $week]);
-    }
-
-    private function getWeek()
-    {
-        Carbon::setLocale('ja');
-        $week = [];
-        for ($i=0; $i < 7; $i++) {
-            $date = Carbon::today()->addDays($i);
-            $week[] = [
-                'date' => $date->format('Y-m-d'),
-                'day' => $date->isoFormat('ddd'),
-            ];
-        }
-        return $week;
     }
 }
