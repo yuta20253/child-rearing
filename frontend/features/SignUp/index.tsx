@@ -100,8 +100,6 @@ export const SignUp = (): React.JSX.Element => {
                         パスワードをお忘れの方はこちら
                     </Link>
                 </div>
-                <div className="absolute -top-10 -left-10 w-32 h-32 bg-purple-200 rounded-full opacity-30 blur-3xl animate-pulse-slow"></div>
-                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-pink-200 rounded-full opacity-30 blur-3xl animate-pulse-slow"></div>
             </div>
         </div>
     )
