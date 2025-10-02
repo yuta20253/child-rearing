@@ -14,7 +14,7 @@ export const Header = (): React.JSX.Element => {
                     {user ? (
                         <Link href="/mypage" className='p-2'>
                             <div className='flex'>
-                                <AccountCircleIcon />
+                                <AccountCircleIcon sx={{ color: '#fff' }} />
                                 <div className="text-white pl-2">
                                     {user.name}
                                 </div>
