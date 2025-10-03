@@ -25,41 +25,41 @@ export const clientWithToken = (token: string) =>
 const api = apiClient;
 
 export const login = {
-  loginUser: (data: { email: string; password: string }, params: RequestParams = {}) => api.login.loginUser(data, params),
+  loginUser: (data: { email: string; password: string }, params: RequestParams = {}) => api.api.loginUser(data, params),
 };
 
 export const logout = {
-  logoutUser: (params: RequestParams = {}) => api.logout.logoutUser(params),
+  logoutUser: (params: RequestParams = {}) => api.api.logoutUser(params),
 };
 
 export const passwordResetRequest = {
-  passwordResetRequest: (data: { email: string }, params: RequestParams = {}) => api.passwordResetRequest.passwordResetRequest(data, params),
+  passwordResetRequest: (data: { email: string }, params: RequestParams = {}) => api.api.passwordResetRequest(data, params),
 };
 
 export const passwordResetVerify = {
-  passwordResetVerify: (data: { token: string; email: string }, params: RequestParams = {}) => api.passwordResetVerify.passwordResetVerify(data, params),
+  passwordResetVerify: (data: { token: string; email: string }, params: RequestParams = {}) => api.api.passwordResetVerify(data, params),
 };
 
 export const passwordReset = {
-  passwordReset: (data: { token: string; email: string; password: string }, params: RequestParams = {}) => api.passwordReset.passwordReset(data, params),
+  passwordReset: (data: { token: string; email: string; password: string }, params: RequestParams = {}) => api.api.passwordReset(data, params),
 };
 
 export const signUp = {
-  signUpUser: (data: { name: string; email: string; password: string; password_confirmation: string }, params: RequestParams = {}) => api.signUp.signUpUser(data, params),
+  signUpUser: (data: { name: string; email: string; password: string; password_confirmation: string }, params: RequestParams = {}) => api.api.signUpUser(data, params),
 };
 
 export const deleteAccount = {
-  deleteAccount: (params: RequestParams = {}) => api.deleteAccount.deleteAccount(params),
+  deleteAccount: (params: RequestParams = {}) => api.api.deleteAccount(params),
 };
 
 export const facilities = {
-  facilitiesInfo: (params: RequestParams = {}) => api.facilities.facilitiesInfo(params),
+  facilitiesInfo: (params: RequestParams = {}) => api.api.facilitiesInfo(params),
 };
 
 export const facility = {
-  facility: (id: number, params: RequestParams = {}) => api.facility.facilityInfo(id, params),
+  facility: (id: number, params: RequestParams = {}) => api.api.facilityInfo(id, params),
 };
 
 export const profile = {
-  myProfile: (params: RequestParams = {}) => api.profile.myProfile(params),
+  myProfile: (params: RequestParams = {}) => api.api.myProfile(params),
 };
