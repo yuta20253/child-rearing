@@ -1,4 +1,4 @@
-import { apiClient } from './apiClient';
+import { login, signUp } from './apiClient';
 
 type ErrorWithMessage = {
   message: string;
@@ -64,7 +64,7 @@ export const loginAuth = async ({
   password: string;
 }): Promise<LoginResponse> => {
   try {
-    const response = await apiClient.login.loginUser({ email, password });
+    const response = await login.loginUser({ email, password });
 
     // response.data に型を付ける
     const data = response.data as LoginResponse;
@@ -90,7 +90,7 @@ export const signUpAuth = async ({
   name: string;
 }): Promise<SignUpResponse> => {
   try {
-    const response = await apiClient.signUp.signUpUser(
+    const response = await signUp.signUpUser(
       { email, password, password_confirmation, name },
       { secure: false }
     );

@@ -10,6 +10,7 @@ use OpenApi\Annotations as OA;
  * @OA\Get(
  *     path="/api/profile",
  *     summary="現在のユーザー自身",
+ *     operationId="myProfile",
  *     description="現在のユーザー自身の取得",
  *     tags={"User"},
  *     @OA\Response(
