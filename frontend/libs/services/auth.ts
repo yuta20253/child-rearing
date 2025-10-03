@@ -90,7 +90,10 @@ export const signUpAuth = async ({
   name: string;
 }): Promise<SignUpResponse> => {
   try {
-    const response = await signUp.signUpUser({ email, password, password_confirmation, name }, { secure: false } )
+    const response = await signUp.signUpUser(
+      { email, password, password_confirmation, name },
+      { secure: false }
+    );
 
     const data = response.data as SignUpResponse;
 
