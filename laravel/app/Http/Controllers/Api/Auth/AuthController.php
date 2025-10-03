@@ -52,6 +52,7 @@ use OpenApi\Annotations as OA;
  *
  * @OA\Delete(
  *     path="/api/logout",
+ *     operationId="logoutUser",
  *     summary="ログアウト",
  *     tags={"Auth"},
  *     @OA\Response(
@@ -64,6 +65,7 @@ use OpenApi\Annotations as OA;
  * )
 * @OA\Post(
  *      path="/api/password/reset/request",
+ *      operationId="passwordResetRequest",
  *      summary="パスワードリセットメール送信",
  *      tags={"Auth"},
  *      @OA\RequestBody(
@@ -92,6 +94,7 @@ use OpenApi\Annotations as OA;
  *
  * @OA\Post(
  *      path="/api/password/reset/verify",
+ *      operationId="passwordResetVerify",
  *      summary="パスワードリセット用トークンとメール検証",
  *      tags={"Auth"},
  *      @OA\RequestBody(
@@ -121,6 +124,7 @@ use OpenApi\Annotations as OA;
  *
  * @OA\Post(
  *      path="/api/password/reset",
+ *      operationId="passwordReset",
  *      summary="パスワード更新",
  *      tags={"Auth"},
  *      @OA\RequestBody(
