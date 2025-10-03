@@ -458,11 +458,11 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title My API
+ * @title 子育てプロジェクト
  * @version 1.0.0
  * @baseUrl http://localhost:8000
  *
- * APIドキュメントの説明
+ * 子育てプロジェクトAPIドキュメント
  */
 export class Api<
   SecurityDataType extends unknown,
@@ -484,7 +484,7 @@ export class Api<
         ...params,
       }),
   };
-  login = {
+  api = {
     /**
      * @description メールアドレスとパスワードでログインし、認証トークンを返す
      *
@@ -529,8 +529,7 @@ export class Api<
         format: "json",
         ...params,
       }),
-  };
-  logout = {
+
     /**
      * No description
      *
@@ -554,8 +553,7 @@ export class Api<
         format: "json",
         ...params,
       }),
-  };
-  passwordResetRequest = {
+
     /**
      * No description
      *
@@ -593,8 +591,7 @@ export class Api<
         format: "json",
         ...params,
       }),
-  };
-  passwordResetVerify = {
+
     /**
      * No description
      *
@@ -634,8 +631,7 @@ export class Api<
         format: "json",
         ...params,
       }),
-  };
-  passwordReset = {
+
     /**
      * No description
      *
@@ -680,8 +676,7 @@ export class Api<
         format: "json",
         ...params,
       }),
-  };
-  signUp = {
+
     /**
      * @description ユーザーの新規登録を行う
      *
@@ -705,11 +700,6 @@ export class Api<
          * @example "password123"
          */
         password: string;
-        /**
-         * @format password
-         * @example "password123"
-         */
-        password_confirmation: string;
       },
       params: RequestParams = {},
     ) =>
@@ -730,8 +720,7 @@ export class Api<
         format: "json",
         ...params,
       }),
-  };
-  deleteAccount = {
+
     /**
      * @description ユーザーが退会処理をする
      *
@@ -755,8 +744,7 @@ export class Api<
         format: "json",
         ...params,
       }),
-  };
-  facilities = {
+
     /**
      * @description 施設一覧の取得
      *
@@ -779,8 +767,7 @@ export class Api<
         format: "json",
         ...params,
       }),
-  };
-  facility = {
+
     /**
      * @description 施設詳細の取得
      *
@@ -790,10 +777,7 @@ export class Api<
      * @request GET:/api/facilities/{id}
      * @secure
      */
-    facilityInfo: (
-      id: number,
-      params: RequestParams = {},
-    ) =>
+    facilityInfo: (id: number, params: RequestParams = {}) =>
       this.request<
         {
           /** 施設情報 */
@@ -810,8 +794,7 @@ export class Api<
         format: "json",
         ...params,
       }),
-  };
-  profile = {
+
     /**
      * @description 現在のユーザー自身の取得
      *
