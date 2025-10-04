@@ -42,7 +42,7 @@ export const Home = (): React.JSX.Element => {
                                     {week.map((day, i) => (
                                     <th
                                         key={i}
-                                        className="w-[14.2857%] min-w-[60px] px-3 py-2 whitespace-nowrap border"
+                                        className="w-[14.2857%] min-w-[60px] px-3 py-2 whitespace-nowrap"
                                     >
                                         {day['day']}
                                     </th>
@@ -52,8 +52,10 @@ export const Home = (): React.JSX.Element => {
                             <tbody>
                                 <tr>
                                     {week.map((date, i) => (
-                                    <td key={i} className="px-2 py-4 border h-12">
-                                        {date['date'].slice(9)}
+                                    <td key={i} className="px-2 py-4 h-12">
+                                        {
+                                            date['date'].slice(-2).replace(/^0/, "")
+                                        }
                                     </td>
                                     ))}
                                 </tr>
