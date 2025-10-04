@@ -12,7 +12,6 @@ use Tests\TestCase;
 
 class FacilityServiceTest extends TestCase
 {
-
     /** @var FacilityRepositoryInterface&\Mockery\MockInterface $facilityRepositoryMock */
     private $facilityRepositoryMock;
     private FacilityService $facilityService;
@@ -27,6 +26,7 @@ class FacilityServiceTest extends TestCase
     /**
      * @test
      */
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function municipality_idが1のユーザーなら施設1件(): void
     {
         $facilities = new EloquentCollection([

@@ -30,6 +30,7 @@ class FacilityRepositoryTest extends TestCase
     /**
      * @test
      */
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function 同じ市区町村の施設だけが返却されること(): void
     {
         $prefecture = Prefecture::factory()->create();
@@ -58,6 +59,7 @@ class FacilityRepositoryTest extends TestCase
     /**
      * @test
      */
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function 指定したIDの施設が取得できること(): void
     {
         $prefecture = Prefecture::factory()->create();
@@ -76,6 +78,7 @@ class FacilityRepositoryTest extends TestCase
     /**
      * @test
      */
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function 指定したIDの施設が存在しないときに例外が入ること(): void
     {
         $this->expectException(\Illuminate\Database\Eloquent\ModelNotFoundException::class);

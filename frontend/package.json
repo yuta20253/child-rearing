@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "types-check": "tsc --pretty --noEmit",
+    "format:check": "prettier '**/*.{js,ts,tsx,json}' --check",
+    "lint": "eslint \"**/*.{js,ts,tsx}\" --max-warnings=0",
+    "lint:fix": "eslint **/*.{js,ts,tsx} --fix"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

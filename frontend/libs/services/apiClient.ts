@@ -25,7 +25,8 @@ export const clientWithToken = (token: string) =>
 const api = apiClient;
 
 export const login = {
-  loginUser: (data: { email: string; password: string }, params: RequestParams = {}) => api.api.loginUser(data, params),
+  loginUser: (data: { email: string; password: string }, params: RequestParams = {}) =>
+    api.api.loginUser(data, params),
 };
 
 export const logout = {
@@ -33,19 +34,27 @@ export const logout = {
 };
 
 export const passwordResetRequest = {
-  passwordResetRequest: (data: { email: string }, params: RequestParams = {}) => api.api.passwordResetRequest(data, params),
+  passwordResetRequest: (data: { email: string }, params: RequestParams = {}) =>
+    api.api.passwordResetRequest(data, params),
 };
 
 export const passwordResetVerify = {
-  passwordResetVerify: (data: { token: string; email: string }, params: RequestParams = {}) => api.api.passwordResetVerify(data, params),
+  passwordResetVerify: (data: { token: string; email: string }, params: RequestParams = {}) =>
+    api.api.passwordResetVerify(data, params),
 };
 
 export const passwordReset = {
-  passwordReset: (data: { token: string; email: string; password: string }, params: RequestParams = {}) => api.api.passwordReset(data, params),
+  passwordReset: (
+    data: { token: string; email: string; password: string },
+    params: RequestParams = {}
+  ) => api.api.passwordReset(data, params),
 };
 
 export const signUp = {
-  signUpUser: (data: { name: string; email: string; password: string; password_confirmation: string }, params: RequestParams = {}) => api.api.signUpUser(data, params),
+  signUpUser: (
+    data: { name: string; email: string; password: string; password_confirmation: string },
+    params: RequestParams = {}
+  ) => api.api.signUpUser(data, params),
 };
 
 export const deleteAccount = {

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { Login } from '@/features/Login';
 
 const LoginPage = (): React.JSX.Element => <Login />;
