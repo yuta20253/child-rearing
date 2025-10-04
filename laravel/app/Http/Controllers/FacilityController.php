@@ -11,6 +11,7 @@ use OpenApi\Annotations as OA;
  * @OA\Get(
  *     path="/api/facilities",
  *     summary="施設一覧",
+ *     operationId="FacilitiesInfo",
  *     description="施設一覧の取得",
  *     tags={"Facility"},
  *     @OA\Response(
@@ -24,6 +25,7 @@ use OpenApi\Annotations as OA;
  * @OA\Get(
  *     path="/api/facilities/{id}",
  *     summary="施設詳細",
+ *     operationId="FacilityInfo",
  *     description="施設詳細の取得",
  *     tags={"Facility"},
  *     @OA\Parameter(

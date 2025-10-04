@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "My API",
-        "description": "APIドキュメントの説明",
+        "title": "子育てプロジェクト",
+        "description": "子育てプロジェクトAPIドキュメント",
         "version": "1.0.0"
     },
     "servers": [
@@ -101,7 +101,7 @@
                     "Auth"
                 ],
                 "summary": "ログアウト",
-                "operationId": "696ea616a669c61b100bff08be089812",
+                "operationId": "logoutUser",
                 "responses": {
                     "200": {
                         "description": "ログアウト成功",
@@ -128,7 +128,7 @@
                     "Auth"
                 ],
                 "summary": "パスワードリセットメール送信",
-                "operationId": "5fded1420152eda356ca0860f77f0778",
+                "operationId": "passwordResetRequest",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -191,7 +191,7 @@
                     "Auth"
                 ],
                 "summary": "パスワードリセット用トークンとメール検証",
-                "operationId": "c13681389e2cf3a6daf06805f9e02241",
+                "operationId": "passwordResetVerify",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -259,7 +259,7 @@
                     "Auth"
                 ],
                 "summary": "パスワード更新",
-                "operationId": "6c0aab1534ccfd1bfe48ebe48df24db0",
+                "operationId": "passwordReset",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -334,7 +334,7 @@
                 ],
                 "summary": "新規登録",
                 "description": "ユーザーの新規登録を行う",
-                "operationId": "fb35f0f43db6f30d8948e507f45bdb2f",
+                "operationId": "signUpUser",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -367,7 +367,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "新規登録成功",
                         "content": {
                             "application/json": {
@@ -396,7 +396,7 @@
                 ],
                 "summary": "退会",
                 "description": "ユーザーが退会処理をする",
-                "operationId": "fd632de4913d779626bec1bc64888f7d",
+                "operationId": "deleteAccount",
                 "responses": {
                     "200": {
                         "description": "退会成功",
@@ -424,7 +424,7 @@
                 ],
                 "summary": "施設一覧",
                 "description": "施設一覧の取得",
-                "operationId": "3f04c9807c3e9d386f11b9e2d4e7c7a1",
+                "operationId": "FacilitiesInfo",
                 "responses": {
                     "200": {
                         "description": "施設一覧取得成功",
@@ -454,7 +454,7 @@
                 ],
                 "summary": "施設詳細",
                 "description": "施設詳細の取得",
-                "operationId": "4f2990b9760bf737a53bd8ea988cd69e",
+                "operationId": "FacilityInfo",
                 "parameters": [
                     {
                         "name": "id",
@@ -509,7 +509,7 @@
                 ],
                 "summary": "現在のユーザー自身",
                 "description": "現在のユーザー自身の取得",
-                "operationId": "b39ce486c055a13718e2aec2b43b96f6",
+                "operationId": "myProfile",
                 "responses": {
                     "200": {
                         "description": "ユーザー取得成功",

@@ -12,6 +12,7 @@ use OpenApi\Annotations as OA;
 /**
  * @OA\Post(
  *     path="/api/register",
+ *     operationId="signUpUser",
  *     summary="新規登録",
  *     description="ユーザーの新規登録を行う",
  *     tags={"Register"},
@@ -26,7 +27,7 @@ use OpenApi\Annotations as OA;
  *        )
  *     ),
  *     @OA\Response(
- *         response=201,
+ *         response=200,
  *         description="新規登録成功",
  *         @OA\JsonContent(
  *              type="object",
@@ -38,6 +39,7 @@ use OpenApi\Annotations as OA;
  *
  * @OA\Delete(
  *     path="/api/delete-account",
+ *     operationId="deleteAccount",
  *     summary="退会",
  *     description="ユーザーが退会処理をする",
  *     tags={"Register"},
@@ -75,7 +77,7 @@ class RegisterController extends Controller
         return response()->json([
             'user' => $user,
             'token' => $token,
-        ], 201);
+        ], 200);
     }
 
     public function accountDelete(Request $request)

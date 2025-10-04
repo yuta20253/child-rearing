@@ -1,4 +1,4 @@
-import { apiClient } from './apiClient';
+import { login, signUp } from './apiClient';
 
 type ErrorWithMessage = {
   message: string;
@@ -16,6 +16,15 @@ type LoginResponse = {
     email: string;
   };
 };
+
+type SignUpResponse = {
+  token: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  }
+}
 
 function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
   return (
@@ -51,7 +60,7 @@ export const loginAuth = async (
   { email, password }: { email: string; password: string }
 ): Promise<LoginResponse> => {
   try {
-    const response = await apiClient.login.loginUser({ email, password });
+    const response = await login.loginUser({ email, password });
 
     // response.data に型を付ける
     const data = response.data as LoginResponse;
@@ -62,5 +71,31 @@ export const loginAuth = async (
   } catch (error) {
     console.error(error);
     throw new Error(extractApiErrorMessage(error, 'ログインに失敗しました'));
+  }
+};
+
+export const signUpAuth = async ({
+    email,
+    password,
+    password_confirmation,
+    name
+  }: {
+    email: string;
+    password: string;
+    password_confirmation: string;
+    name: string;
+  }): Promise<SignUpResponse> => {
+
+  try {
+    const response = await signUp.signUpUser({ email, password, password_confirmation, name }, { secure: false } )
+
+    const data = response.data as SignUpResponse;
+
+    if (!data.token) throw new Error('トークンがありません');
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(extractApiErrorMessage(error, '新規登録に失敗しました'));
   }
 };

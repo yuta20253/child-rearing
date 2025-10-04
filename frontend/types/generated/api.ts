@@ -458,11 +458,11 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title My API
+ * @title 子育てプロジェクト
  * @version 1.0.0
  * @baseUrl http://localhost:8000
  *
- * APIドキュメントの説明
+ * 子育てプロジェクトAPIドキュメント
  */
 export class Api<
   SecurityDataType extends unknown,
@@ -484,7 +484,7 @@ export class Api<
         ...params,
       }),
   };
-  login = {
+  api = {
     /**
      * @description メールアドレスとパスワードでログインし、認証トークンを返す
      *
@@ -534,12 +534,12 @@ export class Api<
      * No description
      *
      * @tags Auth
-     * @name 696Ea616A669C61B100Bff08Be089812
+     * @name LogoutUser
      * @summary ログアウト
      * @request DELETE:/api/logout
      * @secure
      */
-    "696Ea616A669C61B100Bff08Be089812": (params: RequestParams = {}) =>
+    logoutUser: (params: RequestParams = {}) =>
       this.request<
         {
           /** @example "ログアウトしました。" */
@@ -558,12 +558,12 @@ export class Api<
      * No description
      *
      * @tags Auth
-     * @name 5Fded1420152Eda356Ca0860F77F0778
+     * @name PasswordResetRequest
      * @summary パスワードリセットメール送信
      * @request POST:/api/password/reset/request
      * @secure
      */
-    "5Fded1420152Eda356Ca0860F77F0778": (
+    passwordResetRequest: (
       data: {
         /**
          * @format email
@@ -596,12 +596,12 @@ export class Api<
      * No description
      *
      * @tags Auth
-     * @name C13681389E2Cf3A6Daf06805F9E02241
+     * @name PasswordResetVerify
      * @summary パスワードリセット用トークンとメール検証
      * @request POST:/api/password/reset/verify
      * @secure
      */
-    c13681389E2Cf3A6Daf06805F9E02241: (
+    passwordResetVerify: (
       data: {
         /** @example "abc123token" */
         token: string;
@@ -636,12 +636,12 @@ export class Api<
      * No description
      *
      * @tags Auth
-     * @name 6C0Aab1534Ccfd1Bfe48Ebe48Df24Db0
+     * @name PasswordReset
      * @summary パスワード更新
      * @request POST:/api/password/reset
      * @secure
      */
-    "6C0Aab1534Ccfd1Bfe48Ebe48Df24Db0": (
+    passwordReset: (
       data: {
         /** @example "abc123token" */
         token: string;
@@ -681,12 +681,12 @@ export class Api<
      * @description ユーザーの新規登録を行う
      *
      * @tags Register
-     * @name Fb35F0F43Db6F30D8948E507F45Bdb2F
+     * @name SignUpUser
      * @summary 新規登録
      * @request POST:/api/register
      * @secure
      */
-    fb35F0F43Db6F30D8948E507F45Bdb2F: (
+    signUpUser: (
       data: {
         /** @example "test User" */
         name: string;
@@ -725,12 +725,12 @@ export class Api<
      * @description ユーザーが退会処理をする
      *
      * @tags Register
-     * @name Fd632De4913D779626Bec1Bc64888F7D
+     * @name DeleteAccount
      * @summary 退会
      * @request DELETE:/api/delete-account
      * @secure
      */
-    fd632De4913D779626Bec1Bc64888F7D: (params: RequestParams = {}) =>
+    deleteAccount: (params: RequestParams = {}) =>
       this.request<
         {
           /** @example "ログアウトしました。" */
@@ -749,12 +749,12 @@ export class Api<
      * @description 施設一覧の取得
      *
      * @tags Facility
-     * @name 3F04C9807C3E9D386F11B9E2D4E7C7A1
+     * @name FacilitiesInfo
      * @summary 施設一覧
      * @request GET:/api/facilities
      * @secure
      */
-    "3F04C9807C3E9D386F11B9E2D4E7C7A1": (params: RequestParams = {}) =>
+    facilitiesInfo: (params: RequestParams = {}) =>
       this.request<
         {
           facilities?: Facility[];
@@ -772,15 +772,12 @@ export class Api<
      * @description 施設詳細の取得
      *
      * @tags Facility
-     * @name 4F2990B9760Bf737A53Bd8Ea988Cd69E
+     * @name FacilityInfo
      * @summary 施設詳細
      * @request GET:/api/facilities/{id}
      * @secure
      */
-    "4F2990B9760Bf737A53Bd8Ea988Cd69E": (
-      id: number,
-      params: RequestParams = {},
-    ) =>
+    facilityInfo: (id: number, params: RequestParams = {}) =>
       this.request<
         {
           /** 施設情報 */
@@ -802,12 +799,12 @@ export class Api<
      * @description 現在のユーザー自身の取得
      *
      * @tags User
-     * @name B39Ce486C055A13718E2Aec2B43B96F6
+     * @name MyProfile
      * @summary 現在のユーザー自身
      * @request GET:/api/profile
      * @secure
      */
-    b39Ce486C055A13718E2Aec2B43B96F6: (params: RequestParams = {}) =>
+    myProfile: (params: RequestParams = {}) =>
       this.request<
         {
           /** ユーザー情報 */

@@ -16,7 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/api-docs.json', function () {
     return response()->file(storage_path('api-docs/api-docs.json'));
 });
-
-Route::get('/', function () {
-    return view('welcome');
-});
