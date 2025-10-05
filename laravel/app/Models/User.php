@@ -4,6 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Address;
+use App\Models\Event;
+use App\Models\Facility;
 use App\Notifications\CustomPasswordReset;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -69,6 +72,19 @@ class User extends Authenticatable
     public function address()
     {
         return $this->belongsTo(Address::class);
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'user_events')
+                    ->withPivot('memo')
+                    ->withTimestamps()
+                    ->whereNull('user_events.deleted_at');
+    }
+
+    public function facilityFavorities()
+    {
+        return $this->belongsToMany(Facility::class, 'facility_favorites')->withTimestamps();
     }
 
     protected static function booted()
