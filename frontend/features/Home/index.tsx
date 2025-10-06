@@ -30,13 +30,14 @@ export const Home = (): React.JSX.Element => {
     const [week, setWeek] = useState<WeekDay[]>([]);
     const [events, setEvents] = useState<Event[]>([]);
     const [facilityFavorities, setFacilityFavorities] = useState<FacilityFavorite[]>([]);
+    const [startDate, setStartDate] = useState<string>(new Date().toISOString().slice(0, 10));
 
     facilityFavorities.map((facilityFavorite) => console.log(facilityFavorite));
     useEffect(() => {
         const fetchWeek = async () => {
             const token = localStorage.getItem('token');
             try {
-                const res = await axios.get(process.env.NEXT_PUBLIC_BACKEND_URL + '/api', {
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api?start_date=${startDate}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         Accept: 'application/json',
@@ -52,7 +53,7 @@ export const Home = (): React.JSX.Element => {
             }
         };
         fetchWeek();
-    }, [])
+    }, [startDate])
 
     return (
         <RequireAuth>
@@ -66,7 +67,31 @@ export const Home = (): React.JSX.Element => {
                     {/** カレンダー部分 */}
                     <div className="flex flex-col items-center justify-center rounded-lg mb-6">
                         <p className="text-center font-bold">{week.length > 0 ? new Date(week[0].date).getMonth() + 1 : '' }月 カレンダー/予定登録</p>
-                        <div className="bg-yellow-50 m-4 p-4 rounded shadow w-full max-w-[700px] mx-auto overflow-x-auto">
+
+                        <div className="flex justify-between w-full max-w-[700px] px-4 my-2">
+                            <button
+                                onClick={() => {
+                                const newDate = new Date(startDate);
+                                newDate.setDate(newDate.getDate() - 7);
+                                setStartDate(newDate.toISOString().slice(0, 10));
+                                }}
+                                className="text-sm text-blue-600 hover:underline"
+                            >
+                                ◀ 前の週
+                            </button>
+                            <button
+                                onClick={() => {
+                                const newDate = new Date(startDate);
+                                newDate.setDate(newDate.getDate() + 7);
+                                setStartDate(newDate.toISOString().slice(0, 10));
+                                }}
+                                className="text-sm text-blue-600 hover:underline"
+                            >
+                                次の週 ▶
+                            </button>
+                        </div>
+
+                        <div className="bg-yellow-50 m-2 p-4 rounded shadow w-full max-w-[700px] mx-auto overflow-x-auto">
                             <table className="table-fixed border-collapse text-center w-full">
                                 <thead>
                                     <tr>
@@ -82,13 +107,18 @@ export const Home = (): React.JSX.Element => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        {week.map((date, i) => (
-                                        <td key={i} className="px-2 py-4 h-12">
-                                            {
-                                                date['date'].slice(-2).replace(/^0/, "")
-                                            }
-                                        </td>
-                                        ))}
+                                        {week.map((dateObj, i) => {
+                                            const dateNum = dateObj.date.slice(-2).replace(/^0/, "");
+                                            const todayStr = new Date().toISOString().slice(0, 10);
+                                            const isToday = dateObj.date === todayStr;
+                                            return (
+                                                <td key={i} className="px-2 py-4 h-12">
+                                                    <div className={`w-8 h-8 mx-auto flex items-center justify-center rounded-full ${isToday ? 'bg-pink-500 text-white font-bold' : ''}`}>
+                                                        {dateNum}
+                                                    </div>
+                                                </td>
+                                            );
+                                        })}
                                     </tr>
                                 </tbody>
                             </table>
