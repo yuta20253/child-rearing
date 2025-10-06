@@ -24,9 +24,10 @@ class MainController extends Controller
         $this->facilityFavoriteService = $facilityFavoriteService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data['week'] = $this->carenderService->getCarender();
+        $startDate = $request->query('start_date');
+        $data['week'] = $this->carenderService->getCarender($startDate);
         $data['events'] = $this->userEventService->getUserEvents();
         $data['facilityFavorities'] = $this->facilityFavoriteService->getFacilityFavorities();
 
