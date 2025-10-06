@@ -19,10 +19,17 @@ class FacilityFavoriteService
         $userId = Auth::id();
         $userFacilityFavorities = $this->facilityFavoriteRepository->getUserFacilityFavorities($userId);
 
-        return $userFacilityFavorities->map(function ($facilityFavorite) {
+        return $userFacilityFavorities->map(function ($facility) {
+            $address = $facility?->address;
+            $municipality = $address?->municipality;
+            $prefecture = $municipality?->prefecture;
+
+            $fullAddress = ($prefecture?->name ?? '') . ($municipality?->name ?? '') . ($address?->town ?? '');
             return [
-                'id' => $facilityFavorite->id,
-                'name' => $facilityFavorite->name,
+                'id' => $facility->id,
+                'name' => $facility->name,
+                'address' => $fullAddress,
+                'rating' => round($facility->reviews()->avg('rating') ?? 0, 1),
             ];
         })->toArray();
     }
