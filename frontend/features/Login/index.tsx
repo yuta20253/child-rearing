@@ -23,7 +23,7 @@ export const Login = (): React.JSX.Element => {
   const onSubmit: SubmitHandler<UserForm> = async (data: UserForm) => {
     try {
       await login(data);
-      router.push('/mypage');
+      router.push('/');
     } catch (error) {
       const message =
         error instanceof Error
@@ -86,13 +86,23 @@ export const Login = (): React.JSX.Element => {
             ログイン
           </button>
         </form>
-        <div className="text-center mt-4 text-sm">
-          <Link
-            href="/password-reset"
-            className="text-purple-600 hover:text-purple-800 font-medium hover:underline"
-          >
-            パスワードをお忘れの方はこちら
-          </Link>
+        <div className='flex flex-col'>
+          <div className='text-center mt-4 text-sm'>
+            <Link
+              href="/signup"
+              className="text-purple-600 hover:text-purple-800 font-medium hover:underline"
+            >
+              新規登録の方はこちら
+            </Link>
+          </div>
+          <div className="text-center mt-4 text-sm">
+            <Link
+              href="/password-reset"
+              className="text-purple-600 hover:text-purple-800 font-medium hover:underline"
+            >
+              パスワードをお忘れの方はこちら
+            </Link>
+          </div>
         </div>
       </div>
     </div>
