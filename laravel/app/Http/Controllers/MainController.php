@@ -14,11 +14,10 @@ class MainController extends Controller
     protected FacilityFavoriteService $facilityFavoriteService;
 
     public function __construct(
-            CarenderService $carenderService,
-            UserEventService $userEventService,
-            FacilityFavoriteService $facilityFavoriteService
-        )
-    {
+        CarenderService $carenderService,
+        UserEventService $userEventService,
+        FacilityFavoriteService $facilityFavoriteService
+    ) {
         $this->carenderService = $carenderService;
         $this->userEventService = $userEventService;
         $this->facilityFavoriteService = $facilityFavoriteService;
