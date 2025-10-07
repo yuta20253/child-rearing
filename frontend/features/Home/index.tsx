@@ -24,6 +24,8 @@ type Event = {
 type FacilityFavorite = {
   id: number;
   name: string;
+  address: string;
+  rating: number;
 };
 
 export const Home = (): React.JSX.Element => {
