@@ -4,6 +4,8 @@ import { FacilityFavoriteCard } from './FavoriteFacilityCard';
 type FacilityFavorite = {
   id: number;
   name: string;
+  address: string;
+  rating: number;
 };
 
 type Props = {
