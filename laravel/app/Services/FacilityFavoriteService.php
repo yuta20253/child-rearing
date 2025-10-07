@@ -33,5 +33,4 @@ class FacilityFavoriteService
             ];
         })->toArray();
     }
-
 }
