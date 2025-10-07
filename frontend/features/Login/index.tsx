@@ -86,8 +86,8 @@ export const Login = (): React.JSX.Element => {
             ログイン
           </button>
         </form>
-        <div className='flex flex-col'>
-          <div className='text-center mt-4 text-sm'>
+        <div className="flex flex-col">
+          <div className="text-center mt-4 text-sm">
             <Link
               href="/signup"
               className="text-purple-600 hover:text-purple-800 font-medium hover:underline"

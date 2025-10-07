@@ -8,11 +8,11 @@ type Props = {
 export const StarRating = ({ rating, max = 5 }: Props) => {
   return (
     <>
-        {Array.from({ length: max }, (_, i) => (
-            <span key={i} className={i < rating ? 'text-yellow-500' : 'text-gray-300'}>
-                ★
-            </span>
-        ))}
+      {Array.from({ length: max }, (_, i) => (
+        <span key={i} className={i < rating ? 'text-yellow-500' : 'text-gray-300'}>
+          ★
+        </span>
+      ))}
     </>
-  )
+  );
 };
