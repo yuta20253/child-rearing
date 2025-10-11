@@ -1,5 +1,5 @@
 import React from 'react';
-import { StarRating } from './FavoriteFacilityStarRating';
+import { StarRating } from '../FavoriteFacilityStarRating';
 
 type FacilityFavorite = {
   id: number;
