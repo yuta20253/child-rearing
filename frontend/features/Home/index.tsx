@@ -1,7 +1,7 @@
 'use client';
 
-import { FavoriteFacilities } from '@/components/FavoriteFacility/FavoriteFacilities';
-import { TodayEvents } from '@/components/TodayEvent/TodayEvents';
+import { FavoriteFacilities } from '@/features/Home/FavoriteFacility';
+import { TodayEvents } from '@/features/Home/TodayEvent/TodoEvents';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { RequireAuth } from '@/components/RequireAuth';
