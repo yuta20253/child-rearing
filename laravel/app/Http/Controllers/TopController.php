@@ -7,7 +7,7 @@ use App\Services\FacilityFavoriteService;
 use App\Services\UserEventService;
 use Illuminate\Http\Request;
 
-class MainController extends Controller
+class TopController extends Controller
 {
     protected CarenderService $carenderService;
     protected UserEventService $userEventService;
