@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { TodayEventList } from './TodayEventList';
+import { TodayEventList } from '@/features/Home/TodayEvent/TodoEventList';
 
 type TodayEvent = {
   title: string;
