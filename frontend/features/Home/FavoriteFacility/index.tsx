@@ -1,5 +1,5 @@
 import React from 'react';
-import { FacilityFavoriteCard } from './FavoriteFacilityCard';
+import { FacilityFavoriteCard } from '@/features/Home/FavoriteFacilityCard';
 
 type FacilityFavorite = {
   id: number;
