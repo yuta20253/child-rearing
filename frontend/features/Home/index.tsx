@@ -60,17 +60,17 @@ export const Home = (): React.JSX.Element => {
   return (
     <RequireAuth>
       <div className="flex items-center justify-center  bg-gradient-to-tr">
-        <div className="relative w-3/4 sm:max-w-md md:max-w-lg lg:max-w-xl p-4 sm:p-2 flex flex-col space-y-2">
+        <div className="relative w-3/4 sm:max-w-md md:max-w-lg lg:max-w-xl p-5 flex flex-col space-y-4">
           <div className="p-2">
             <div className="items-center justify-center rounded-lg">
-              <p className="p-2 text-2xl text-center text-white bg-pink-200 rounded-md">
+              <p className="text-2xl text-center text-white bg-pink-200 rounded-md py-3">
                 子育てサポート
               </p>
             </div>
           </div>
           {/** カレンダー部分 */}
-          <div className="flex flex-col items-center justify-center rounded-lg mb-6">
-            <p className="text-center font-bold">
+          <div className="flex flex-col items-center justify-center rounded-lg mb-5">
+            <p className="text-center font-bold mb-3">
               {week.length > 0 ? new Date(week[0].date).getMonth() + 1 : ''}月 カレンダー/予定登録
             </p>
 

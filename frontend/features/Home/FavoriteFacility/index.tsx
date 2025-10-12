@@ -14,10 +14,10 @@ type Props = {
 
 export const FavoriteFacilities = ({ facilityFavorities }: Props): React.JSX.Element => {
   return (
-    <div className="w-full max-w-[700px] mx-auto">
-      <p className="font-bold mb-3">お気に入り施設</p>
+    <div className="w-full max-w-[700px] mx-auto mt-8">
+      <p className="font-bold mb-4">お気に入り施設</p>
       {facilityFavorities.length === 0 && (
-        <p className="text-center text-gray-500">お気に入り施設はありません</p>
+        <p className="text-center text-gray-500">お気に入り施設はありません。</p>
       )}
       {facilityFavorities.length === 1 && (
         <div className="flex justify-center">
@@ -25,7 +25,7 @@ export const FavoriteFacilities = ({ facilityFavorities }: Props): React.JSX.Ele
         </div>
       )}
       {facilityFavorities.length === 2 && (
-        <div className="flex space-x-4 justify-center">
+        <div className="flex justify-center gap-6">
           {facilityFavorities.map((facilityFavority, i) => (
             <FacilityFavoriteCard key={i} facility={facilityFavority} />
           ))}
@@ -33,7 +33,7 @@ export const FavoriteFacilities = ({ facilityFavorities }: Props): React.JSX.Ele
       )}
       {facilityFavorities.length >= 3 && (
         <div className="overflow-x-auto pb-2">
-          <div className="flex space-x-8 min-w-fit mx-auto">
+          <div className="flex gap-6 min-w-fit mx-auto px-2">
             {facilityFavorities.map((facilityFavority, i) => (
               <FacilityFavoriteCard key={i} facility={facilityFavority} />
             ))}
