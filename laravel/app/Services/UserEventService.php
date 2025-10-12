@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\UserEvent\UserEventRepository;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 
 class UserEventService
@@ -17,7 +18,8 @@ class UserEventService
     public function getUserEvents()
     {
         $userId = Auth::id();
-        $userEvents = $this->userEventRepository->getUserEvents($userId);
+        $targetDate = new DateTime();
+        $userEvents = $this->userEventRepository->getUserEvents($userId, $targetDate);
 
         return $userEvents->map(function ($event) {
             return [
