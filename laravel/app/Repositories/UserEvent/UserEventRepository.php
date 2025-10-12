@@ -18,6 +18,13 @@ class UserEventRepository implements UserEventRepositoryInterface
 
     public function getUserEvents(int $userId, ?DateTime $targetDate): Collection
     {
-        return $this->user->findOrFail($userId)->events()->whereDate('start_datetime', $targetDate->format('Y-m-d'))->orderBy('start_datetime')->get();
+        return $this
+            ->user
+            ->findOrFail($userId)
+            ->events()
+            ->whereDate('start_datetime', $targetDate
+            ->format('Y-m-d'))
+            ->orderBy('start_datetime')
+            ->get();
     }
 }
