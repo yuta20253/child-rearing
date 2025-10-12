@@ -34,7 +34,6 @@ export const Home = (): React.JSX.Element => {
   const [facilityFavorities, setFacilityFavorities] = useState<FacilityFavorite[]>([]);
   const [startDate, setStartDate] = useState<string>(new Date().toISOString().slice(0, 10));
 
-  facilityFavorities.map(facilityFavorite => console.log(facilityFavorite));
   useEffect(() => {
     const fetchWeek = async () => {
       const token = localStorage.getItem('token');
