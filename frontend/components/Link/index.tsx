@@ -9,10 +9,8 @@ type Props = {
 
 export const CustomLink = ({ href, text, className = '' }: Props): React.JSX.Element => {
   return (
-    <>
-      <Link href={href} className={className}>
-        {text}
-      </Link>
-    </>
+    <Link href={href} className={className}>
+      {text}
+    </Link>
   );
 };
