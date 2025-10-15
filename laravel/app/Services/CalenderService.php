@@ -4,9 +4,9 @@ namespace App\Services;
 
 use Illuminate\Support\Carbon;
 
-class CarenderService
+class CalenderService
 {
-    public function getCarender(string $baseDate = null): array
+    public function getCalender(?string $baseDate = null): array
     {
         Carbon::setLocale('ja');
 
