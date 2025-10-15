@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Address;
+use App\Models\FacilityReview;
 use App\Models\Municipality;
 use App\Models\Prefecture;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,6 +42,11 @@ class Facility extends Model
         'equipment',
         'description',
     ];
+
+    public function reviews()
+    {
+        return $this->hasMany(FacilityReview::class);
+    }
 
     public function address()
     {

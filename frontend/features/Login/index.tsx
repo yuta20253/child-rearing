@@ -1,9 +1,9 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useAuthActions } from '@/context/AuthContext';
 import { TextField } from '@/components/TextField';
+import { CustomLink } from '@/components/Link';
 
 type UserForm = {
   email: string;
@@ -23,7 +23,7 @@ export const Login = (): React.JSX.Element => {
   const onSubmit: SubmitHandler<UserForm> = async (data: UserForm) => {
     try {
       await login(data);
-      router.push('/mypage');
+      router.push('/');
     } catch (error) {
       const message =
         error instanceof Error
@@ -86,13 +86,21 @@ export const Login = (): React.JSX.Element => {
             ログイン
           </button>
         </form>
-        <div className="text-center mt-4 text-sm">
-          <Link
-            href="/password-reset"
-            className="text-purple-600 hover:text-purple-800 font-medium hover:underline"
-          >
-            パスワードをお忘れの方はこちら
-          </Link>
+        <div className="flex flex-col">
+          <div className="text-center mt-4 text-sm">
+            <CustomLink
+              href="signup"
+              text="新規登録の方はこちら"
+              className="text-purple-600 hover:text-purple-800 font-medium hover:underline"
+            />
+          </div>
+          <div className="text-center mt-4 text-sm">
+            <CustomLink
+              href="/password-reset"
+              text="パスワードをお忘れの方はこちら"
+              className="text-purple-600 hover:text-purple-800 font-medium hover:underline"
+            />
+          </div>
         </div>
       </div>
     </div>

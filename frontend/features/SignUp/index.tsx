@@ -29,7 +29,7 @@ export const SignUp = (): React.JSX.Element => {
     const name = email.split('@')[0];
     try {
       await signUp({ email, password, password_confirmation, name });
-      router.push('/mypage');
+      router.push('/');
     } catch (error) {
       const message =
         error instanceof Error
