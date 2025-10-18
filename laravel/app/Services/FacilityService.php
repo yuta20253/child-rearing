@@ -15,11 +15,15 @@ class FacilityService
         $this->facilityRepository = $facilityRepository;
     }
 
-    public function getAll()
+    public function getAll(?string $name = null)
     {
         $user = Auth::user();
-        $municipalityId = $user->address->municipality_id;
-        return $this->facilityRepository->getAll($municipalityId);
+        if ($user && $user->address) {
+            $municipalityId = $user->address->municipality_id;
+        } else {
+            $municipalityId = 1598;
+        }
+        return $this->facilityRepository->getAll($municipalityId, $name);
     }
 
     public function find(int $id): Facility

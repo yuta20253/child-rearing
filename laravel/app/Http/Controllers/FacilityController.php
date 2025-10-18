@@ -61,9 +61,10 @@ class FacilityController extends Controller
         $this->facilityService = $facilityService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $facilities = $this->facilityService->getAll();
+        $query = $request->query('name');
+        $facilities = $this->facilityService->getAll($query);
         return response()->json([
             "facilities" => $facilities,
         ], 200);
