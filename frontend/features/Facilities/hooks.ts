@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
 import { SetStateAction } from 'react';
 import { Facility } from '@/types/generated/api';
