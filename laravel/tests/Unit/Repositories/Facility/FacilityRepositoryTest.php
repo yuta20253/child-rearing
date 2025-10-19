@@ -48,7 +48,7 @@ class FacilityRepositoryTest extends TestCase
             ->for($otherAddress, 'address')
             ->create();
 
-        $result = $this->facilityRepository->getAll($address->municipality_id);
+        $result = $this->facilityRepository->getAll($address->municipality_id, null);
 
         $this->assertCount(1, $result);
 
