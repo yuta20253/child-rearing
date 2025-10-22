@@ -12,7 +12,7 @@ export const FacilityCard = ({ facility }: Props) => {
         <p className="text-base font-semibold text-gray-800">{facility.name}</p>
       </div>
       <div className="flex justify-end">
-        <button className="text-sm text-blue-600 hover:underline">詳細を見る</button>
+        <button className="px-2 text-xs text-black bg-pink-200 rounded-md hover:underline">詳細を見る</button>
       </div>
     </div>
   );
