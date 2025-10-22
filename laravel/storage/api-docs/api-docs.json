@@ -586,6 +586,21 @@
                 },
                 "type": "object"
             },
+            "AddressWithRelations": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Address"
+                    },
+                    {
+                        "properties": {
+                            "municipality": {
+                                "$ref": "#/components/schemas/MunicipalityWithPrefecture"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
             "Facility": {
                 "title": "Facilityモデル",
                 "description": "施設情報",
@@ -638,6 +653,21 @@
                 },
                 "type": "object"
             },
+            "FacilityWithRelations": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Facility"
+                    },
+                    {
+                        "properties": {
+                            "address": {
+                                "$ref": "#/components/schemas/AddressWithRelations"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
             "Municipality": {
                 "title": "Municipalityモデル",
                 "description": "市区町村の情報",
@@ -666,6 +696,21 @@
                     }
                 },
                 "type": "object"
+            },
+            "MunicipalityWithPrefecture": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Municipality"
+                    },
+                    {
+                        "properties": {
+                            "prefecture": {
+                                "$ref": "#/components/schemas/Prefecture"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
             },
             "PostalCode": {
                 "title": "PostalCodeモデル",

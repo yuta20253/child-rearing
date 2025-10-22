@@ -19,6 +19,7 @@ class FacilityRepository implements FacilityRepositoryInterface
     public function getAll($municipalityId, $name): Collection
     {
         return $this->facility
+                    ->with(['address.municipality.prefecture'])
                     ->whereHas("address", function ($query) use ($municipalityId) {
                         $query->where("municipality_id", $municipalityId);
                     })

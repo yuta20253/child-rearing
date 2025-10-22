@@ -20,6 +20,15 @@ use OpenApi\Annotations as OA;
  *     @OA\Property(property="created_at", type="string", format="date-time", example="2025-09-14T00:00:00Z"),
  *     @OA\Property(property="updated_at", type="string", format="date-time", example="2025-09-14T00:00:00Z")
  * )
+ * @OA\Schema(
+ *     schema="MunicipalityWithPrefecture",
+ *     allOf={
+ *         @OA\Schema(ref="#/components/schemas/Municipality"),
+ *         @OA\Schema(
+ *             @OA\Property(property="prefecture", ref="#/components/schemas/Prefecture")
+ *         )
+ *     }
+ * )
  */
 class Municipality extends Model
 {

@@ -51,7 +51,6 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class FacilityController extends Controller
 {
     private FacilityService $facilityService;
