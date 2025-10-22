@@ -54,14 +54,6 @@ export const Facilities = (): React.JSX.Element => {
             <h4 className="text-2xl font-bold my-6 text-center">施設一覧</h4>
             <div className="text-center">
               <div className="max-w-[400px] mx-auto mt-4 text-left">
-                <p className="mb-1 font-bold">🗾 地図で見る</p>
-                <div className="flex space-x-2 border">
-                  <Map facilities={facilities} />
-                </div>
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="max-w-[400px] mx-auto mt-4 text-left">
                 <p className="mb-1 font-bold">📍 施設検索</p>
                 <form className="flex space-x-2" onSubmit={handleSubmit(onSubmit)}>
                   <input
@@ -78,6 +70,14 @@ export const Facilities = (): React.JSX.Element => {
                   </button>
                 </form>
                 {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="max-w-[400px] mx-auto mt-4 text-left">
+                <p className="mb-1 font-bold">🗾 地図で見る</p>
+                <div className="flex space-x-2 border">
+                  <Map facilities={facilities} />
+                </div>
               </div>
             </div>
             <div className="flex flex-col items-center mt-4">
