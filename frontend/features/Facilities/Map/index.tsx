@@ -20,29 +20,6 @@ type MapProps = {
   facilities?: Facility[];
 };
 
-// 一旦サンプルをコピーしてきた。
-const geoJsonData: FeatureCollection<Polygon> = {
-  type: 'FeatureCollection',
-  features: [
-    {
-      type: 'Feature',
-      properties: { name: 'サンプルエリア' },
-      geometry: {
-        type: 'Polygon',
-        coordinates: [
-          [
-            [139.75, 35.68],
-            [139.76, 35.68],
-            [139.76, 35.69],
-            [139.75, 35.69],
-            [139.75, 35.68],
-          ],
-        ],
-      },
-    },
-  ],
-};
-
 export const Map = ({ facilities = [] }: MapProps): React.JSX.Element => {
   const center: [number, number] = [34.74714, 135.357863]; // 一旦センターをアクタ西宮未設定
 
@@ -67,7 +44,6 @@ export const Map = ({ facilities = [] }: MapProps): React.JSX.Element => {
             <Popup>📍{facility.name}</Popup>
           </Marker>
         ))}
-      <GeoJSON data={geoJsonData} />
     </MapContainer>
   );
 };
