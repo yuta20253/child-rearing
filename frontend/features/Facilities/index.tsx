@@ -30,7 +30,6 @@ export const Facilities = (): React.JSX.Element => {
     const fetchData = async () => {
       try {
         const data = await getFacilities(token, name ?? undefined);
-        // getFacilitiesに検索のクエリパラメータを渡す仕様に変更
         if (Array.isArray(data)) {
           setFacilities(data);
         }
