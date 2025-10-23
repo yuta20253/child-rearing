@@ -20,7 +20,7 @@ type MapProps = {
 };
 
 export const Map = ({ facilities = [] }: MapProps): React.JSX.Element => {
-  const center: [number, number] = [34.74714, 135.357863]; // 一旦センターをアクタ西宮未設定
+  const center: [number, number] = [34.74714, 135.357863]; // 一旦センターをアクタ西宮に設定
 
   return (
     <MapContainer
