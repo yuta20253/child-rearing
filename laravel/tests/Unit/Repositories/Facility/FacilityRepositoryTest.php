@@ -60,6 +60,28 @@ class FacilityRepositoryTest extends TestCase
      * @test
      */
     // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    public function nameパラメータで部分一致検索ができること(): void
+    {
+        $prefecture = Prefecture::factory()->create();
+        $municipality = Municipality::factory()->for($prefecture, 'prefecture')->create();
+        $address = Address::factory()->for($municipality, 'municipality')->create();
+        Facility::factory()->for($address, 'address')->create(['name' => '北区役所']);
+        Facility::factory()->for($address, 'address')->create(['name' => '南区図書館']);
+        Facility::factory()->for($address, 'address')->create(['name' => '中央公園']);
+
+        $result = $this->facilityRepository->getAll($address->municipality_id, '区');
+
+        $this->assertCount(2, $result);
+
+        $result = $this->facilityRepository->getAll($address->municipality_id, '北');
+
+        $this->assertCount(1, $result);
+    }
+
+    /**
+     * @test
+     */
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function 指定したIDの施設が取得できること(): void
     {
         $prefecture = Prefecture::factory()->create();
