@@ -88,7 +88,7 @@ export const Facilities = (): React.JSX.Element => {
               {facilities?.length === 0 ? (
                 <p>施設が登録されていません。</p>
               ) : (
-                <div className="grid grid-cols-2 gap-1 w-full max-w-4xl">
+                <div className="w-full max-w-4xl">
                   {facilities?.map(facility => (
                     <FacilityCard facility={facility} key={facility.id} />
                   ))}

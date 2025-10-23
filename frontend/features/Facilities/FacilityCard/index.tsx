@@ -11,7 +11,7 @@ export const FacilityCard = ({ facility }: Props) => {
   const town = facility.address?.town ?? '';
   const fullAddress = prefectureName + municipalityName + town;
   return (
-    <div className="flex-shrink-0 w-[192px] bg-white border border-gray-300 rounded p-3 shadow ">
+    <div className="flex-shrink-0 w-full bg-white border border-gray-300 rounded p-3 shadow ">
       <div className="space-y-2 mb-4">
         <p className="text-base font-semibold text-gray-800">{facility.name}</p>
         <p className="text-xs font-semibold text-gray-800">📍{fullAddress}</p>
