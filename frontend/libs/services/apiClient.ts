@@ -62,7 +62,8 @@ export const deleteAccount = {
 };
 
 export const facilities = {
-  facilitiesInfo: (query?: {name?: string}, params: RequestParams = {}) => api.api.facilitiesInfo(query, params),
+  facilitiesInfo: (query?: { name?: string }, params: RequestParams = {}) =>
+    api.api.facilitiesInfo(query, params),
 };
 
 export const facility = {
