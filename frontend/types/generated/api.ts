@@ -767,7 +767,16 @@ export class Api<
      * @request GET:/api/facilities
      * @secure
      */
-    facilitiesInfo: (params: RequestParams = {}) =>
+    facilitiesInfo: (
+      query?: {
+        /**
+         * 施設名での検索キーワード
+         * @example "北区"
+         */
+        name?: string;
+      },
+      params: RequestParams = {},
+    ) =>
       this.request<
         {
           facilities?: Facility[];
@@ -776,6 +785,7 @@ export class Api<
       >({
         path: `/api/facilities`,
         method: "GET",
+        query: query,
         secure: true,
         format: "json",
         ...params,

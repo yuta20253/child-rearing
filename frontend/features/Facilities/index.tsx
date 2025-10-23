@@ -9,6 +9,7 @@ import { RequireAuth } from '@/components/RequireAuth';
 import { FacilityCard } from './FacilityCard';
 import dynamic from 'next/dynamic';
 import { useSubmit } from './hooks';
+import { useSearchParams } from 'next/navigation';
 
 type FacilityNameForm = {
   name: string;
@@ -19,6 +20,8 @@ const Map = dynamic(() => import('./Map').then(mod => mod.Map), { ssr: false });
 export const Facilities = (): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [facilities, setFacilities] = useState<Facility[]>([]);
+  const searchParams = useSearchParams();
+  const name = searchParams.get('name');
 
   console.log('施設一覧:', facilities);
   useEffect(() => {
@@ -26,7 +29,8 @@ export const Facilities = (): React.JSX.Element => {
     if (!token) return;
     const fetchData = async () => {
       try {
-        const data = await getFacilities(token);
+        const data = await getFacilities(token, name ?? undefined);
+        // getFacilitiesに検索のクエリパラメータを渡す仕様に変更
         if (Array.isArray(data)) {
           setFacilities(data);
         }
@@ -37,14 +41,14 @@ export const Facilities = (): React.JSX.Element => {
       }
     };
     fetchData();
-  }, []);
+  }, [name]);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FacilityNameForm>();
-  const { onSubmit } = useSubmit({ setFacilities });
+  const { onSubmit } = useSubmit();
 
   return (
     <RequireAuth>
@@ -59,6 +63,7 @@ export const Facilities = (): React.JSX.Element => {
                   <input
                     type="text"
                     placeholder="検索"
+                    defaultValue={name ?? ''}
                     {...register('name', { required: '検索キーワードを入力してください。' })}
                     className="flex-1 border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />

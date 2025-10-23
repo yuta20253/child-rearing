@@ -1,13 +1,16 @@
 import { Facility } from '@/types/generated/api';
 import { facilities } from './apiClient';
 
-export const getFacilities = async (token: string): Promise<Facility[] | null> => {
+export const getFacilities = async (token: string, name?: string): Promise<Facility[] | null> => {
   try {
-    const response = await facilities.facilitiesInfo({
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await facilities.facilitiesInfo(
+      name ? { name } : undefined,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const data = response.data.facilities;
 
