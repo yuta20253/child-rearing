@@ -425,6 +425,18 @@
                 "summary": "施設一覧",
                 "description": "施設一覧の取得",
                 "operationId": "FacilitiesInfo",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "施設名での検索キーワード",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "北区"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "施設一覧取得成功",
