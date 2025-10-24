@@ -18,10 +18,13 @@ type FacilityNameForm = {
 const Map = dynamic(() => import('./Map').then(mod => mod.Map), { ssr: false });
 
 export const Facilities = (): React.JSX.Element => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const searchParams = useSearchParams();
   const name = searchParams.get('name');
+   const heading = name
+    ? `「${name}」の検索結果（${facilities.length}件）`
+    : '施設を検索';
 
   console.log('施設一覧:', facilities);
   useEffect(() => {
@@ -36,7 +39,7 @@ export const Facilities = (): React.JSX.Element => {
       } catch (error) {
         console.error('施設情報の取得に失敗しました', error);
       } finally {
-        setIsLoading(true);
+        setIsLoading(false);
       }
     };
     fetchData();
@@ -56,12 +59,12 @@ export const Facilities = (): React.JSX.Element => {
   return (
     <RequireAuth>
       <div className="">
-        {isLoading ? (
+        {!isLoading ? (
           <div>
             <h4 className="text-2xl font-bold my-6 text-center">施設一覧</h4>
             <div className="text-center">
               <div className="max-w-[400px] mx-auto mt-4 text-left">
-                <p className="mb-1 font-bold">📍 施設検索</p>
+                <h1 className="text-xl font-bold my-6 text-center">{heading}</h1>
                 <form className="flex space-x-2" onSubmit={handleSubmit(onSubmit)}>
                   <input
                     type="text"
@@ -72,7 +75,7 @@ export const Facilities = (): React.JSX.Element => {
                   />
                   <button
                     type="submit"
-                    className="bg-pink-200 text-white px-4 py-2 rounded-md hover:bg-pink-500"
+                    className="bg-pink-200 text-white px-4 py-2 rounded-md"
                   >
                     検索
                   </button>
