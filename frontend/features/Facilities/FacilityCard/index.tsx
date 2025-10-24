@@ -13,8 +13,8 @@ export const FacilityCard = ({ facility }: Props) => {
   return (
     <div className="flex-shrink-0 w-full bg-white border border-gray-300 rounded p-3 shadow ">
       <div className="space-y-2 mb-4">
-        <p className="text-base font-semibold text-gray-800">{facility.name}</p>
-        <p className="text-xs font-semibold text-gray-800">📍{fullAddress}</p>
+        <p className="text-base font-semibold text-gray-800 break-words">{facility.name}</p>
+        <p className="text-xs font-semibold text-gray-800 break-words">📍{fullAddress}</p>
       </div>
       <div className="flex justify-end">
         <button className="p-2 text-xs text-black bg-pink-200 rounded-md hover:underline">
