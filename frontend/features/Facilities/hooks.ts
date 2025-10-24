@@ -1,10 +1,10 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 type FormDataType = {
   name: string;
 };
-
-import { useRouter } from 'next/navigation';
 
 export const useSubmit = () => {
   const router = useRouter();
