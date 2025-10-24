@@ -46,7 +46,11 @@ export const Facilities = (): React.JSX.Element => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FacilityNameForm>();
+  } = useForm<FacilityNameForm>({
+    defaultValues: {
+      name: name ?? '',
+    }
+  });
   const { onSubmit } = useSubmit();
 
   return (
