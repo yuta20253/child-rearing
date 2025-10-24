@@ -49,12 +49,13 @@ export const Facilities = (): React.JSX.Element => {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm<FacilityNameForm>({
     defaultValues: {
       name: name ?? '',
     }
   });
-  const { onSubmit } = useSubmit();
+  const { onSubmit } = useSubmit(reset);
 
   return (
     <RequireAuth>
