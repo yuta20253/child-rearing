@@ -3,7 +3,7 @@ import { facilities } from './apiClient';
 
 export const getFacilities = async (token: string, name?: string): Promise<Facility[] | null> => {
   try {
-    const response = await facilities.facilitiesInfo(name ? { name } : undefined, {
+        const response = await facilities.facilitiesInfo({ name }, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
