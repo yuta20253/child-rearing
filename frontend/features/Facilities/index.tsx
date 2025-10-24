@@ -22,9 +22,7 @@ export const Facilities = (): React.JSX.Element => {
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const searchParams = useSearchParams();
   const name = searchParams.get('name');
-   const heading = name
-    ? `「${name}」の検索結果（${facilities.length}件）`
-    : '施設を検索';
+  const heading = name ? `「${name}」の検索結果（${facilities.length}件）` : '施設を検索';
 
   console.log('施設一覧:', facilities);
   useEffect(() => {
@@ -49,11 +47,11 @@ export const Facilities = (): React.JSX.Element => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm<FacilityNameForm>({
     defaultValues: {
       name: name ?? '',
-    }
+    },
   });
   const { onSubmit } = useSubmit(reset);
 
@@ -74,10 +72,7 @@ export const Facilities = (): React.JSX.Element => {
                     {...register('name', { required: '検索キーワードを入力してください。' })}
                     className="flex-1 border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
-                  <button
-                    type="submit"
-                    className="bg-pink-200 text-white px-4 py-2 rounded-md"
-                  >
+                  <button type="submit" className="bg-pink-200 text-white px-4 py-2 rounded-md">
                     検索
                   </button>
                 </form>
