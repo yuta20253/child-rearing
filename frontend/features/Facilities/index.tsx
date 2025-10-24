@@ -68,7 +68,7 @@ export const Facilities = (): React.JSX.Element => {
                 <form className="flex space-x-2" onSubmit={handleSubmit(onSubmit)}>
                   <input
                     type="text"
-                    placeholder="検索"
+                    placeholder="施設名で検索"
                     defaultValue={name ?? ''}
                     {...register('name', { required: '検索キーワードを入力してください。' })}
                     className="flex-1 border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
