@@ -60,7 +60,6 @@ export const Facilities = (): React.JSX.Element => {
       <div className="">
         {!isLoading ? (
           <div>
-            <h4 className="text-2xl font-bold my-6 text-center">施設一覧</h4>
             <div className="text-center">
               <div className="max-w-[400px] mx-auto mt-4 text-left">
                 <h1 className="text-xl font-bold my-6 text-center">{heading}</h1>
@@ -72,7 +71,7 @@ export const Facilities = (): React.JSX.Element => {
                     {...register('name', { required: '検索キーワードを入力してください。' })}
                     className="flex-1 border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
-                  <button type="submit" className="bg-pink-200 text-white px-4 py-2 rounded-md">
+                  <button type="submit" className="bg-pink-400 text-white px-4 py-2 rounded-md">
                     検索
                   </button>
                 </form>
