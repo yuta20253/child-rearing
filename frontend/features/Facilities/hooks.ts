@@ -10,12 +10,12 @@ export const useSubmit = (reset: (value?: FormDataType) => void) => {
   const router = useRouter();
 
   const onSubmit = async (data: FormDataType) => {
-    const { name } = data
+    const { name } = data;
     router.push(`/facilities?name=${name}`);
 
     // フォームはリセット
-    reset()
+    reset();
   };
-  
+
   return { onSubmit };
 };
