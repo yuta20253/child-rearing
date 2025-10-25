@@ -14,6 +14,13 @@ use OpenApi\Annotations as OA;
  *     operationId="FacilitiesInfo",
  *     description="施設一覧の取得",
  *     tags={"Facility"},
+ *     @OA\Parameter(
+ *         name="name",
+ *         in="query",
+ *         required=false,
+ *         description="施設名での検索キーワード",
+ *         @OA\Schema(type="string", example="北区")
+ *     ),
  *     @OA\Response(
  *        response=200,
  *        description="施設一覧取得成功",
@@ -51,7 +58,6 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class FacilityController extends Controller
 {
     private FacilityService $facilityService;
@@ -61,9 +67,10 @@ class FacilityController extends Controller
         $this->facilityService = $facilityService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $facilities = $this->facilityService->getAll();
+        $query = $request->query('name');
+        $facilities = $this->facilityService->getAll($query);
         return response()->json([
             "facilities" => $facilities,
         ], 200);

@@ -66,7 +66,7 @@ class FacilityServiceTest extends TestCase
         });
 
 
-        $this->facilityRepositoryMock->shouldReceive('getAll')->with(1)->once()->andReturn($filterFacilities);
+        $this->facilityRepositoryMock->shouldReceive('getAll')->with(1, null)->once()->andReturn($filterFacilities);
 
         $result = $this->facilityService->getAll();
 

@@ -425,6 +425,18 @@
                 "summary": "施設一覧",
                 "description": "施設一覧の取得",
                 "operationId": "FacilitiesInfo",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "施設名での検索キーワード",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "北区"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "施設一覧取得成功",
@@ -586,6 +598,21 @@
                 },
                 "type": "object"
             },
+            "AddressWithRelations": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Address"
+                    },
+                    {
+                        "properties": {
+                            "municipality": {
+                                "$ref": "#/components/schemas/MunicipalityWithPrefecture"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
             "Facility": {
                 "title": "Facilityモデル",
                 "description": "施設情報",
@@ -638,6 +665,21 @@
                 },
                 "type": "object"
             },
+            "FacilityWithRelations": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Facility"
+                    },
+                    {
+                        "properties": {
+                            "address": {
+                                "$ref": "#/components/schemas/AddressWithRelations"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
             "Municipality": {
                 "title": "Municipalityモデル",
                 "description": "市区町村の情報",
@@ -666,6 +708,21 @@
                     }
                 },
                 "type": "object"
+            },
+            "MunicipalityWithPrefecture": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Municipality"
+                    },
+                    {
+                        "properties": {
+                            "prefecture": {
+                                "$ref": "#/components/schemas/Prefecture"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
             },
             "PostalCode": {
                 "title": "PostalCodeモデル",
