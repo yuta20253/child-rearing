@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Address;
+use App\Models\FacilityClosure;
+use App\Models\FacilityHour;
 use App\Models\FacilityReview;
 use App\Models\Municipality;
 use App\Models\Prefecture;
@@ -51,6 +53,16 @@ class Facility extends Model
         'equipment',
         'description',
     ];
+
+    public function hours()
+    {
+        return $this->hasMany(FacilityHour::class);
+    }
+
+    public function closures()
+    {
+        return $this->hasMany(FacilityClosure::class);
+    }
 
     public function reviews()
     {
