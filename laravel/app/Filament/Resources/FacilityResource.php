@@ -59,8 +59,7 @@ class FacilityResource extends Resource
                                 ->groupBy('name')
                                 ->orderBy('name')
                                 ->pluck('name', 'id')
-                            : []
-                    )
+                            : [])
                     ->searchable()
                     ->required()
                     ->reactive()
@@ -71,8 +70,7 @@ class FacilityResource extends Resource
                         $get('municipality_id')
                             ? Address::where('municipality_id', $get('municipality_id'))
                                 ->pluck('town', 'id')
-                            : []
-                    )
+                            : [])
                     ->searchable()
                     ->required(),
                 Forms\Components\Textarea::make('equipment')
