@@ -6,7 +6,10 @@ use App\Filament\Resources\FacilityHoursResource\RelationManagers\HoursRelationM
 use App\Filament\Resources\FacilityClosuresResource\RelationManagers\ClosuresRelationManager;
 use App\Filament\Resources\FacilityResource\Pages;
 use App\Filament\Resources\FacilityResource\RelationManagers;
+use App\Models\Address;
 use App\Models\Facility;
+use App\Models\Municipality;
+use App\Models\Prefecture;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -40,6 +43,38 @@ class FacilityResource extends Resource
                     ->label('経度')
                     ->required()
                     ->numeric(),
+                Forms\Components\Select::make('prefecture_id')
+                    ->label('都道府県')
+                    ->options(Prefecture::pluck('name', 'id'))
+                    ->searchable()
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(fn (callable $set) => $set('municipality_id', null)),
+                Forms\Components\Select::make('municipality_id')
+                    ->label('市区町村')
+                    ->options(fn (callable $get) =>
+                        $get('prefecture_id')
+                            ? Municipality::where('prefecture_id', $get('prefecture_id'))
+                                ->selectRaw('MIN(id) as id, name')
+                                ->groupBy('name')
+                                ->orderBy('name')
+                                ->pluck('name', 'id')
+                            : []
+                    )
+                    ->searchable()
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(fn (callable $set) => $set('address_id', null)),
+                Forms\Components\Select::make('address_id')
+                    ->label('町域（Address）')
+                    ->options(fn (callable $get) =>
+                        $get('municipality_id')
+                            ? Address::where('municipality_id', $get('municipality_id'))
+                                ->pluck('town', 'id')
+                            : []
+                    )
+                    ->searchable()
+                    ->required(),
                 Forms\Components\Textarea::make('equipment')
                     ->label('設備・備品')
                     ->columnSpanFull(),
@@ -68,6 +103,12 @@ class FacilityResource extends Resource
                     ->label('経度')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('address.town')
+                    ->label('町域'),
+                Tables\Columns\TextColumn::make('address.municipality.name')
+                    ->label('市区町村'),
+                Tables\Columns\TextColumn::make('address.municipality.prefecture.name')
+                    ->label('都道府県'),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
@@ -80,9 +121,6 @@ class FacilityResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('address_id')
-                    ->numeric()
-                    ->sortable(),
             ])
             ->filters([
                 //
