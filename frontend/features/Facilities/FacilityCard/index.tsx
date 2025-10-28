@@ -18,7 +18,7 @@ export const FacilityCard = ({ facility }: Props) => {
       </div>
       <div className="flex justify-end">
         <button className="p-2 text-xs text-black bg-pink-200 rounded-md hover:underline">
-          詳細を見る
+          <a href={`/facilities/${facility.id}`}>詳細を見る</a>
         </button>
       </div>
     </div>
