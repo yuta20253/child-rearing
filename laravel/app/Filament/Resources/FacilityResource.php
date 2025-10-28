@@ -65,7 +65,7 @@ class FacilityResource extends Resource
                     ->reactive()
                     ->afterStateUpdated(fn (callable $set) => $set('address_id', null)),
                 Forms\Components\Select::make('address_id')
-                    ->label('町域（Address）')
+                    ->label('町域')
                     ->options(fn (callable $get) =>
                         $get('municipality_id')
                             ? Address::where('municipality_id', $get('municipality_id'))
@@ -79,9 +79,6 @@ class FacilityResource extends Resource
                 Forms\Components\Textarea::make('description')
                     ->label('紹介')
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('address_id')
-                    ->required()
-                    ->numeric(),
             ]);
     }
 
