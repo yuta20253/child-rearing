@@ -31,11 +31,17 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     schema="FacilityWithRelations",
  *     allOf={
- *         @OA\Schema(ref="#/components/schemas/Facility"),
- *         @OA\Schema(
- *             @OA\Property(property="address", ref="#/components/schemas/AddressWithRelations")
- *         )
- *     }
+ *         @OA\Schema(ref="#/components/schemas/Facility")
+ *     },
+ *     @OA\Property(
+ *         property="address",
+ *         ref="#/components/schemas/AddressWithRelations"
+ *     ),
+ *     @OA\Property(
+ *         property="reviews",
+ *         type="array",
+ *         @OA\Items(ref="#/components/schemas/FacilityReviewWithUser")
+ *     )
  * )
  */
 class Facility extends Model
