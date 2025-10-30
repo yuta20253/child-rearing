@@ -20,21 +20,23 @@ class HoursRelationManager extends RelationManager
 
     protected static ?string $modelLabel = '営業日';
 
+    private const DAYS_OF_WEEK = [
+        0 => '日曜日',
+        1 => '月曜日',
+        2 => '火曜日',
+        3 => '水曜日',
+        4 => '木曜日',
+        5 => '金曜日',
+        6 => '土曜日',
+    ];
+
     public function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('day_of_week')
                     ->label('曜日')
-                    ->options([
-                        0 => '日曜日',
-                        1 => '月曜日',
-                        2 => '火曜日',
-                        3 => '水曜日',
-                        4 => '木曜日',
-                        5 => '金曜日',
-                        6 => '土曜日',
-                    ])
+                    ->options(self::DAYS_OF_WEEK)
                     ->required(),
 
                 Forms\Components\TimePicker::make('open_time')
@@ -58,15 +60,7 @@ class HoursRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('day_of_week')
             ->columns([
-                Tables\Columns\TextColumn::make('day_of_week')->label('開始時間')->formatStateUsing(fn ($state) => [
-                    0 => '日',
-                    1 => '月',
-                    2 => '火',
-                    3 => '水',
-                    4 => '木',
-                    5 => '金',
-                    6 => '土',
-                ][$state] ?? $state),
+                Tables\Columns\TextColumn::make('day_of_week')->label('開始時間')->formatStateUsing(fn ($state) => self::DAYS_OF_WEEK[$state] ?? $state),
                 Tables\Columns\TextColumn::make('open_time')->label('開店時間'),
                 Tables\Columns\TextColumn::make('close_time')->label('終了時間'),
                 Tables\Columns\TextColumn::make('note')->label('備考')->wrap(),
