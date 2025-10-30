@@ -24,6 +24,10 @@ class FacilityResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $modelLabel = '施設';
+
+    protected static ?string $pluralModelLabel = '施設一覧';
+
     public static function form(Form $form): Form
     {
         return $form

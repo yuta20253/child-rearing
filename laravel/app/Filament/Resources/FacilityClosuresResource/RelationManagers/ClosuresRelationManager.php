@@ -14,6 +14,12 @@ class ClosuresRelationManager extends RelationManager
 {
     protected static string $relationship = 'closures';
 
+    protected static ?string $title = '定休日';
+
+    protected static ?string $pluralModelLabel = '定休日一覧';
+
+    protected static ?string $modelLabel = '定休日';
+
     public function form(Form $form): Form
     {
         return $form

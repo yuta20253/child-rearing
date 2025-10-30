@@ -14,6 +14,12 @@ class HoursRelationManager extends RelationManager
 {
     protected static string $relationship = 'hours';
 
+    protected static ?string $title = '営業日';
+
+    protected static ?string $pluralModelLabel = '営業日一覧';
+
+    protected static ?string $modelLabel = '営業日';
+
     public function form(Form $form): Form
     {
         return $form
