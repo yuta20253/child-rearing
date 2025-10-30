@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\FacilityHoursResource\RelationManagers;
 
+use Dotenv\Parser\Value;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -47,7 +48,15 @@ class HoursRelationManager extends RelationManager
                 Forms\Components\TimePicker::make('close_time')
                     ->label('終了時間')
                     ->seconds(false)
-                    ->required(),
+                    ->required()
+                    ->rule(function (callable $get) {
+                        $openTime = $get('open_time');
+                        return function (string $attribute, $value, $fail) use ($openTime) {
+                            if ($openTime && $value <= $openTime) {
+                                $fail('終了時間は開始時間より後の時間を設定してください。');
+                            }
+                        };
+                    }),
 
                 Forms\Components\TextInput::make('note')
                     ->label('備考')
