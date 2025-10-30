@@ -77,7 +77,7 @@ class FacilityResource extends Resource
                     ->label('設備・備品')
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('description')
-                    ->label('紹介')
+                    ->label('概要')
                     ->columnSpanFull(),
             ]);
     }
