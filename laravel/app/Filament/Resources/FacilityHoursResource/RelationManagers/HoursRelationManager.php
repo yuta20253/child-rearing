@@ -67,7 +67,20 @@ class HoursRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('day_of_week')
+            ->modifyQueryUsing(function (Builder $query) {
+                $query->orderByRaw("
+                    CASE day_of_week
+                        WHEN 0 THEN 1
+                        WHEN 1 THEN 2
+                        WHEN 2 THEN 3
+                        WHEN 3 THEN 4
+                        WHEN 4 THEN 5
+                        WHEN 5 THEN 6
+                        WHEN 6 THEN 7
+                    END
+                ");
+            })
+            ->recordTitle(fn ($record) => self::DAYS_OF_WEEK[$record->day_of_week] ?? $record->day_of_week)
             ->columns([
                 Tables\Columns\TextColumn::make('day_of_week')->label('曜日')->formatStateUsing(fn ($state) => self::DAYS_OF_WEEK[$state] ?? $state),
                 Tables\Columns\TextColumn::make('open_time')->label('開始時間'),
