@@ -69,8 +69,8 @@ class HoursRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('day_of_week')
             ->columns([
-                Tables\Columns\TextColumn::make('day_of_week')->label('開始時間')->formatStateUsing(fn ($state) => self::DAYS_OF_WEEK[$state] ?? $state),
-                Tables\Columns\TextColumn::make('open_time')->label('開店時間'),
+                Tables\Columns\TextColumn::make('day_of_week')->label('曜日')->formatStateUsing(fn ($state) => self::DAYS_OF_WEEK[$state] ?? $state),
+                Tables\Columns\TextColumn::make('open_time')->label('開始時間'),
                 Tables\Columns\TextColumn::make('close_time')->label('終了時間'),
                 Tables\Columns\TextColumn::make('note')->label('備考')->wrap(),
             ])
