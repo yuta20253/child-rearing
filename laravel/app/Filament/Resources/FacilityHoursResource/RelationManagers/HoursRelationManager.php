@@ -4,9 +4,15 @@ namespace App\Filament\Resources\FacilityHoursResource\RelationManagers;
 
 use Carbon\Carbon;
 use Dotenv\Parser\Value;
+use Filament\Tables\Actions\Action;
+use Filament\Support\Enums\ActionSize;
+use Filament\Forms\Components\TimePicker;
+use Filament\Forms\Components\Select;
+use Filament\Notifications\Notification;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Support\Enums\ActionSize as EnumsActionSize;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -93,6 +99,71 @@ class HoursRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
+                Action::make('createWeekTemplate')
+                    ->label('全曜日テンプレ作成')
+                    ->size(ActionSize::Small)
+                    ->icon('heroicon-m-sparkles')
+                    ->modalWidth('xl')
+                    ->form([
+                        TimePicker::make('default_open')
+                            ->label('開館時間')
+                            ->seconds(false)
+                            ->required()
+                            ->default('09:00'),
+
+                        TimePicker::make('default_close')
+                            ->label('閉館時間')
+                            ->seconds(false)
+                            ->required()
+                            ->default('17:00')
+                            ->rule(function (callable $get) {
+                                $openTime = $get('open_time');
+                                return function (string $attribute, $value, $fail) use ($openTime) {
+                                    if ($openTime && $value <= $openTime) {
+                                        $fail('閉館時間は開館時間より後の時間を設定してください。');
+                                    }
+                                };
+                        }),
+                        Select::make('workdays')
+                            ->label('対象曜日')
+                            ->options(self::DAYS_OF_WEEK)
+                            ->multiple()
+                            ->required()
+                            ->default([1, 2, 3, 4, 5])
+                            ->hint('既存の曜日はスキップされます')
+                            ->placeholder('土日')
+                    ])
+                    ->action(function (array $data) {
+                        $rel = $this->getRelationship();
+                        $existing = $rel->pluck('day_of_week')->all();
+
+                        $createdCount = 0;
+
+                        foreach ($data['workdays'] as $dow) {
+                            if (in_array((int) $dow, $existing, true)) {
+                                continue;
+                            }
+
+                            $rel->create([
+                                'day_of_week' => $dow,
+                                'open_time' => $data['default_open'],
+                                'close_time' => $data['default_close'],
+                                'note' => null,
+                            ]);
+
+                            $createdCount++;
+                        }
+
+                        Notification::make()
+                            ->title(
+                                $createdCount > 0 ? "選択した{$createdCount}件の曜日を作成しました。" : "新しく作成された曜日はありません。"
+                            )
+                            ->success()
+                            ->send();
+                    })
+                    ->requiresConfirmation()
+                    ->modalHeading('全曜日テンプレ作成')
+                    ->modalDescription('選択した曜日に一括で営業時間を作成します。既に存在する曜日は上書きしません。'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
