@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\FacilityHoursResource\RelationManagers;
 
+use Carbon\Carbon;
 use Dotenv\Parser\Value;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -83,8 +84,8 @@ class HoursRelationManager extends RelationManager
             ->recordTitle(fn ($record) => self::DAYS_OF_WEEK[$record->day_of_week] ?? $record->day_of_week)
             ->columns([
                 Tables\Columns\TextColumn::make('day_of_week')->label('曜日')->formatStateUsing(fn ($state) => self::DAYS_OF_WEEK[$state] ?? $state),
-                Tables\Columns\TextColumn::make('open_time')->label('開館時間'),
-                Tables\Columns\TextColumn::make('close_time')->label('閉館時間'),
+                Tables\Columns\TextColumn::make('open_time')->label('開館時間')->formatStateUsing(fn ($state) => Carbon::createFromFormat('H:i:s', $state)->format('G:i')),
+                Tables\Columns\TextColumn::make('close_time')->label('閉館時間')->formatStateUsing(fn ($state) => Carbon::createFromFormat('H:i:s', $state)->format('G:i')),
                 Tables\Columns\TextColumn::make('note')->label('備考')->wrap(),
             ])
             ->filters([
