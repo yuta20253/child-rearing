@@ -35,25 +35,29 @@ class FacilityResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->label('施設名')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image')
                     ->label('画像')
                     ->image(),
                 Forms\Components\TextInput::make('latitude')
                     ->label('緯度')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('longitude')
                     ->label('経度')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->columnSpanFull(),
                 Forms\Components\Select::make('prefecture_id')
                     ->label('都道府県')
                     ->options(Prefecture::pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->reactive()
-                    ->afterStateUpdated(fn (callable $set) => $set('municipality_id', null)),
+                    ->afterStateUpdated(fn (callable $set) => $set('municipality_id', null))
+                    ->columnSpanFull(),
                 Forms\Components\Select::make('municipality_id')
                     ->label('市区町村')
                     ->options(fn (callable $get) =>
@@ -67,7 +71,8 @@ class FacilityResource extends Resource
                     ->searchable()
                     ->required()
                     ->reactive()
-                    ->afterStateUpdated(fn (callable $set) => $set('address_id', null)),
+                    ->afterStateUpdated(fn (callable $set) => $set('address_id', null))
+                    ->columnSpanFull(),
                 Forms\Components\Select::make('address_id')
                     ->label('町域')
                     ->options(fn (callable $get) =>
@@ -76,7 +81,17 @@ class FacilityResource extends Resource
                                 ->pluck('town', 'id')
                             : [])
                     ->searchable()
-                    ->required(),
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\Section::make('電話番号')
+                    ->schema([
+                        Forms\Components\TextInput::make('phone.number')
+                            ->label('電話番号')
+                            ->tel()
+                            ->maxLength(11)
+                            ->required()
+                    ])
+                    ->columnSpanFull(),
                 Forms\Components\Textarea::make('equipment')
                     ->label('設備・備品')
                     ->columnSpanFull(),
@@ -108,6 +123,7 @@ class FacilityResource extends Resource
                     ->label('市区町村'),
                 Tables\Columns\TextColumn::make('address.municipality.prefecture.name')
                     ->label('都道府県'),
+                Tables\Columns\TextColumn::make('phone.number')->label('電話番号'),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
