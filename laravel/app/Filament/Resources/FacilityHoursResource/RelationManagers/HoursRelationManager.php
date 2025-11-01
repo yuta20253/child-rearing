@@ -123,7 +123,7 @@ class HoursRelationManager extends RelationManager
                                         $fail('閉館時間は開館時間より後の時間を設定してください。');
                                     }
                                 };
-                        }),
+                            }),
                         Select::make('workdays')
                             ->label('対象曜日')
                             ->options(self::DAYS_OF_WEEK)

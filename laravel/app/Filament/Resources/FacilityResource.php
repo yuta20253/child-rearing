@@ -53,7 +53,7 @@ class FacilityResource extends Resource
 
             Forms\Components\Select::make('prefecture_id')
                 ->label('都道府県')
-                ->options(fn() => Prefecture::pluck('name', 'id')->toArray())
+                ->options(fn () => Prefecture::pluck('name', 'id')->toArray())
                 ->searchable()
                 ->required()
                 ->reactive()
@@ -62,7 +62,7 @@ class FacilityResource extends Resource
                         $set('prefecture_id', $record->address->municipality->prefecture_id);
                     }
                 })
-                ->afterStateUpdated(fn(callable $set) => $set('municipality_id', null))
+                ->afterStateUpdated(fn (callable $set) => $set('municipality_id', null))
                 ->columnSpanFull(),
 
             Forms\Components\Select::make('municipality_id')
@@ -71,7 +71,7 @@ class FacilityResource extends Resource
                     $prefectureId = $get('prefecture_id')
                         ?? Municipality::find($state)?->prefecture_id;
 
-                    if (!$prefectureId) {
+                    if (! $prefectureId) {
                         return [];
                     }
 
@@ -87,7 +87,7 @@ class FacilityResource extends Resource
                         $set('municipality_id', $record->address->municipality_id);
                     }
                 })
-                ->afterStateUpdated(fn(callable $set) => $set('address_id', null))
+                ->afterStateUpdated(fn (callable $set) => $set('address_id', null))
                 ->columnSpanFull(),
 
             Forms\Components\Select::make('address_id')
@@ -96,7 +96,7 @@ class FacilityResource extends Resource
                     $municipalityId = $get('municipality_id')
                         ?? Address::find($state)?->municipality_id;
 
-                    if (!$municipalityId) {
+                    if (! $municipalityId) {
                         return [];
                     }
 
