@@ -41,19 +41,19 @@ class HoursRelationManager extends RelationManager
                     ->required(),
 
                 Forms\Components\TimePicker::make('open_time')
-                    ->label('開始時間')
+                    ->label('開館時間')
                     ->seconds(false)
                     ->required(),
 
                 Forms\Components\TimePicker::make('close_time')
-                    ->label('終了時間')
+                    ->label('閉館時間')
                     ->seconds(false)
                     ->required()
                     ->rule(function (callable $get) {
                         $openTime = $get('open_time');
                         return function (string $attribute, $value, $fail) use ($openTime) {
                             if ($openTime && $value <= $openTime) {
-                                $fail('終了時間は開始時間より後の時間を設定してください。');
+                                $fail('閉館時間は開館時間より後の時間を設定してください。');
                             }
                         };
                     }),
@@ -83,8 +83,8 @@ class HoursRelationManager extends RelationManager
             ->recordTitle(fn ($record) => self::DAYS_OF_WEEK[$record->day_of_week] ?? $record->day_of_week)
             ->columns([
                 Tables\Columns\TextColumn::make('day_of_week')->label('曜日')->formatStateUsing(fn ($state) => self::DAYS_OF_WEEK[$state] ?? $state),
-                Tables\Columns\TextColumn::make('open_time')->label('開始時間'),
-                Tables\Columns\TextColumn::make('close_time')->label('終了時間'),
+                Tables\Columns\TextColumn::make('open_time')->label('開館時間'),
+                Tables\Columns\TextColumn::make('close_time')->label('閉館時間'),
                 Tables\Columns\TextColumn::make('note')->label('備考')->wrap(),
             ])
             ->filters([
