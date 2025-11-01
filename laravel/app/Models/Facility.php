@@ -8,6 +8,7 @@ use App\Models\FacilityHour;
 use App\Models\FacilityReview;
 use App\Models\Municipality;
 use App\Models\Prefecture;
+use App\Models\Telphone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -67,6 +68,11 @@ class Facility extends Model
     public function reviews()
     {
         return $this->hasMany(FacilityReview::class);
+    }
+
+    public function phone()
+    {
+        return $this->hasOne(Telphone::class);
     }
 
     public function address()
