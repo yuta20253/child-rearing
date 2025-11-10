@@ -55,9 +55,9 @@ export const FacilityPage = ({ id }: {id: string}): React.JSX.Element => {
                             <div className="justify-between p-4">
                                 <div className="">
                                     <div className="">住所</div>
-                                    <div className="pl-2">{facility.address?.municipality?.prefecture?.name || '' + facility.address?.municipality?.name + facility.address?.town}</div>
+                                    <div className="pl-2">{facility.address?.municipality?.prefecture?.name + facility.address?.municipality?.name + facility.address?.town}</div>
                                 </div>
-                                <div className="">電話番号</div>
+                                <div className="">電話番号: {facility.phone?.number}</div>
                                 <div className="">営業時間</div>
                                 <div className="">
                                     <div className="">設備情報</div>
