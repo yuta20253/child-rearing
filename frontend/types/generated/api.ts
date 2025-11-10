@@ -86,6 +86,8 @@ export interface Facility {
 export type FacilityWithRelations = Facility & {
   address?: AddressWithRelations;
   reviews?: FacilityReviewWithUser[];
+  /** 電話番号 */
+  phone?: Telphone;
 };
 
 /**
@@ -192,6 +194,19 @@ export interface Prefecture {
    * @example "2025-09-14T00:00:00Z"
    */
   updated_at?: string;
+}
+
+/**
+ * Telphoneモデル
+ * 電話番号
+ */
+export interface Telphone {
+  /** @example 1 */
+  id?: number;
+  /** @example 1 */
+  facility_id?: number;
+  /** @example "0798772020" */
+  number?: string;
 }
 
 /**

@@ -681,6 +681,9 @@
                                 "items": {
                                     "$ref": "#/components/schemas/FacilityReviewWithUser"
                                 }
+                            },
+                            "phone": {
+                                "$ref": "#/components/schemas/Telphone"
                             }
                         },
                         "type": "object"
@@ -839,6 +842,25 @@
                         "type": "string",
                         "format": "date-time",
                         "example": "2025-09-14T00:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "Telphone": {
+                "title": "Telphoneモデル",
+                "description": "電話番号",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "facility_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "number": {
+                        "type": "string",
+                        "example": "0798772020"
                     }
                 },
                 "type": "object"
