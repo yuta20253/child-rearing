@@ -44,6 +44,10 @@ use OpenApi\Annotations as OA;
  *         property="reviews",
  *         type="array",
  *         @OA\Items(ref="#/components/schemas/FacilityReviewWithUser")
+ *     ),
+ *     @OA\Property(
+ *         property="phone",
+ *         ref="#/components/schemas/FacilityTelphone"
  *     )
  * )
  */
