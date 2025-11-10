@@ -31,6 +31,6 @@ class FacilityRepository implements FacilityRepositoryInterface
 
     public function find(int $id): Facility
     {
-        return $this->facility->with(['reviews.user', 'address.municipality.prefecture'])->findOrFail($id);
+        return $this->facility->with(['phone', 'reviews.user', 'address.municipality.prefecture'])->findOrFail($id);
     }
 }
