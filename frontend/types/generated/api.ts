@@ -88,7 +88,38 @@ export type FacilityWithRelations = Facility & {
   reviews?: FacilityReviewWithUser[];
   /** 電話番号 */
   phone?: Telphone;
+  hours?: FacilityHour[];
 };
+
+/**
+ * FacilityHourモデル
+ * 営業日時の情報
+ */
+export interface FacilityHour {
+  /** @example 1 */
+  id?: number;
+  /** @example 1 */
+  day_of_week?: number;
+  /**
+   * 曜日名（日本語）
+   * @example "月曜日"
+   */
+  day_of_week_label?: string;
+  /**
+   * 開始時刻
+   * @format time
+   * @example "09:00"
+   */
+  open_time?: string;
+  /**
+   * 終了時刻
+   * @format time
+   * @example "18:00"
+   */
+  close_time?: string;
+  /** @example "備考" */
+  note?: string;
+}
 
 /**
  * FacilityReviewモデル

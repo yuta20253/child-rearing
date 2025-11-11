@@ -684,11 +684,53 @@
                             },
                             "phone": {
                                 "$ref": "#/components/schemas/Telphone"
+                            },
+                            "hours": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/FacilityHour"
+                                }
                             }
                         },
                         "type": "object"
                     }
                 ]
+            },
+            "FacilityHour": {
+                "title": "FacilityHourモデル",
+                "description": "営業日時の情報",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "day_of_week": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "day_of_week_label": {
+                        "description": "曜日名（日本語）",
+                        "type": "string",
+                        "example": "月曜日"
+                    },
+                    "open_time": {
+                        "description": "開始時刻",
+                        "type": "string",
+                        "format": "time",
+                        "example": "09:00"
+                    },
+                    "close_time": {
+                        "description": "終了時刻",
+                        "type": "string",
+                        "format": "time",
+                        "example": "18:00"
+                    },
+                    "note": {
+                        "type": "string",
+                        "example": "備考"
+                    }
+                },
+                "type": "object"
             },
             "FacilityReview": {
                 "title": "FacilityReviewモデル",
