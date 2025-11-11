@@ -58,7 +58,24 @@ export const FacilityPage = ({ id }: {id: string}): React.JSX.Element => {
                                     <div className="pl-2">{facility.address?.municipality?.prefecture?.name + facility.address?.municipality?.name + facility.address?.town}</div>
                                 </div>
                                 <div className="">電話番号: {facility.phone?.number}</div>
-                                <div className="">営業時間</div>
+                                <div className="">
+                                    <p>営業時間</p>
+                                    <div className="">
+                                        {
+                                            facility.hours?.map((hour) => {
+                                                const formatTime = (time?: string) => {
+                                                    if (!time) return "";
+                                                    const [h, m] = time.split(":");
+                                                    return `${Number(h)}:${m}`;
+                                                }
+
+                                                return (
+                                                    <p key={hour.id}>{hour.day_of_week_label}: {formatTime(hour.open_time)} ~ {formatTime(hour.close_time)}</p>
+                                                );
+                                            })
+                                        }
+                                    </div>
+                                </div>
                                 <div className="">
                                     <div className="">設備情報</div>
                                     <div className="pl-2">{facility.equipment}</div>
