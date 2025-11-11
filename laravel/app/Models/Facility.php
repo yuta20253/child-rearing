@@ -47,7 +47,12 @@ use OpenApi\Annotations as OA;
  *     ),
  *     @OA\Property(
  *         property="phone",
- *         ref="#/components/schemas/FacilityTelphone"
+ *         ref="#/components/schemas/Telphone"
+ *     ),
+ *     @OA\Property(
+ *         property="hours",
+ *         type="array",
+ *         @OA\Items(ref="#/components/schemas/FacilityHour")
  *     )
  * )
  */
