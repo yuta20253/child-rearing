@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import dynamic from 'next/dynamic';
 import { FacilityWithRelations } from "@/types/generated/api";
 import { getFacility } from "@/libs/services/facilities";
+import { FacilityHourList } from "./List/FacilityHour";
+import { FacilityReviewList } from "./List/Review";
 
 const Map = dynamic(() => import('./Map').then(mod => mod.Map), { ssr: false });
 
@@ -37,10 +39,10 @@ export const FacilityPage = ({ id }: {id: string}): React.JSX.Element => {
     }, [id])
     return (
         <RequireAuth>
-            <div className="">
+            <div className="min-h-screen mt-4">
                 {!isLoading && facility ? (
                     <div>
-                        <div className="text-center my-6">
+                        <div className="max-w-3xl mx-auto space-y-6">
                             <div className="max-w-[400px] mx-auto mt-4 text-left">
                                 <p className="mb-1 font-bold">🗾 地図で見る</p>
                                 <div className="flex space-x-2 border">
@@ -48,51 +50,35 @@ export const FacilityPage = ({ id }: {id: string}): React.JSX.Element => {
                                 </div>
                             </div>
                         </div>
-                        <div className="text-center">
-                            <p className="text-2xl">🏠 {facility.name}</p>
-                        </div>
-                        <div className="mt-6 w-full max-w-md mx-auto space-y-4">
-                            <div className="justify-between p-4">
-                                <div className="">
-                                    <div className="">住所</div>
-                                    <div className="pl-2">{facility.address?.municipality?.prefecture?.name + facility.address?.municipality?.name + facility.address?.town}</div>
-                                </div>
-                                <div className="">電話番号: {facility.phone?.number}</div>
-                                <div className="">
-                                    <p>営業時間</p>
-                                    <div className="">
-                                        {
-                                            facility.hours?.map((hour) => {
-                                                const formatTime = (time?: string) => {
-                                                    if (!time) return "";
-                                                    const [h, m] = time.split(":");
-                                                    return `${Number(h)}:${m}`;
-                                                }
-
-                                                return (
-                                                    <p key={hour.id}>{hour.day_of_week_label}: {formatTime(hour.open_time)} ~ {formatTime(hour.close_time)}</p>
-                                                );
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                                <div className="">
-                                    <div className="">設備情報</div>
-                                    <div className="pl-2">{facility.equipment}</div>
-                                </div>
+                        <div className="rounded-2xl p-4 space-y-3">
+                            <div className="text-center">
+                                <p className="text-2xl">🏠 {facility.name}</p>
                             </div>
-                        </div>
-                        <div>
-                            <p>💬口コミ</p>
-                            {
-                                facility.reviews?.map((review) => (
-                                    <div key={review.id}>
-                                        <p>{review.rating}</p>
-                                        <div>{review.user?.name}</div>
-                                        <div>{review.comment}</div>
+                            <div className="mt-4 w-full max-w-md mx-auto space-y-2">
+                                <div className="justify-between p-2">
+                                    <div className="p-4">
+                                        <div className="text-lg font-semibold text-gray-700 mb-2">住所</div>
+                                        <div className="pl-1 text-gray-600">
+                                            {facility.address?.municipality?.prefecture?.name}
+                                            {facility.address?.municipality?.name}
+                                            {facility.address?.town}
+                                        </div>
                                     </div>
-                                ))
-                            }
+                                    <div className="p-4">
+                                        <h3 className="text-lg font-semibold text-gray-700 mb-2">電話番号</h3>
+                                        <p className="pl-1 text-gray-600">{facility.phone?.number}</p>
+                                    </div>
+                                    <div className="p-4">
+                                        <h3 className="text-lg font-semibold text-gray-700 mb-2">🕒 営業時間</h3>
+                                        <FacilityHourList facility={facility} />
+                                    </div>
+                                    <div className="p-4">
+                                        <h3 className="text-lg font-semibold text-gray-700 mb-2">設備情報</h3>
+                                        <p className="pl-1 text-gray-600">{facility.equipment}</p>
+                                    </div>
+                                </div>
+                                <FacilityReviewList facility={facility} />
+                            </div>
                         </div>
                     </div>
                 ) : (
