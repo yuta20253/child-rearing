@@ -1,4 +1,6 @@
 import { FacilityWithRelations } from "@/types/generated/api";
+import { Star } from "../../Star";
+import { truncate } from "@/utils/truncate";
 
 type FacilityProps = {
   facility: FacilityWithRelations;
@@ -14,13 +16,15 @@ export const FacilityReviewList = ({ facility }: FacilityProps ) => {
                             <div key={review.id} className="p-4">
                                 <div className="flex justify-between items-center mb-2">
                                     <div className="flex items-center space-x-1">
-                                        <span className="font-semibold text-gray-800">
-                                            {review.rating}
-                                        </span>
+                                        {
+                                            [1, 2, 3, 4, 5].map((num) => (
+                                                <Star key={num} selected={ num <= (review.rating ?? 0) } />
+                                            ))
+                                        }
                                     </div>
                                     <span className="text-sm text-gray-500">{review.user?.name}</span>
                                 </div>
-                                <p className="text-gray-700 leading-relaxed whitespace-pre-line">{review.comment}</p>
+                                <p className="text-gray-700 leading-relaxed whitespace-pre-line">{truncate(review.comment, 20)}</p>
                             </div>
                         ))
                 ) : (
