@@ -1,4 +1,4 @@
-import { FacilityWithRelations } from "@/types/generated/api";
+import { FacilityWithRelations } from '@/types/generated/api';
 
 type FacilityProps = {
   facility: FacilityWithRelations;
@@ -6,15 +6,15 @@ type FacilityProps = {
 
 export const FacilityHourList = ({ facility }: FacilityProps) => {
   const formatTime = (time?: string) => {
-    if (!time) return "—";
-    const [h, m] = time.split(":");
+    if (!time) return '—';
+    const [h, m] = time.split(':');
     return `${Number(h)}:${m}`;
   };
 
   return (
     <div className="space-y-1">
       {facility.hours?.length ? (
-        facility.hours.map((hour) => (
+        facility.hours.map(hour => (
           <div
             key={hour.id}
             className="flex justify-between text-gray-700 text-sm border-b border-gray-100 py-1"

@@ -25,14 +25,11 @@ export const getFacilities = async (token: string, name?: string): Promise<Facil
 
 export const getFacility = async (token: string, id: number): Promise<Facility> => {
   try {
-    const response = await facility.facilityInfo(
-      id,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await facility.facilityInfo(id, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const data = response.data.facility;
 
@@ -41,12 +38,12 @@ export const getFacility = async (token: string, id: number): Promise<Facility> 
     return data;
   } catch (error) {
     console.log(error);
-      const message =
-        error instanceof Error
-          ? error.message
-          : typeof error === 'string'
-            ? error
-            : '不明なエラーが発生しました';
+    const message =
+      error instanceof Error
+        ? error.message
+        : typeof error === 'string'
+          ? error
+          : '不明なエラーが発生しました';
     throw new Error(message);
   }
 };

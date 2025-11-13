@@ -28,12 +28,12 @@ export const Map = ({ facility }: MapProps): React.JSX.Element => {
         attribution="&copy; OpenStreetMap contributors"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-        <Marker
-          key={facility?.id}
-          position={[facility?.latitude as number, facility?.longitude as number]}
-        >
-          <Popup>📍{facility?.name}</Popup>
-        </Marker>
+      <Marker
+        key={facility?.id}
+        position={[facility?.latitude as number, facility?.longitude as number]}
+      >
+        <Popup>📍{facility?.name}</Popup>
+      </Marker>
     </MapContainer>
   );
 };

@@ -5,7 +5,7 @@ type FacilityDetailProps = {
 };
 
 const FacilityDetail = ({ params }: FacilityDetailProps) => {
-    return <FacilityPage id={params.id} />;
+  return <FacilityPage id={params.id} />;
 };
 
 export default FacilityDetail;
