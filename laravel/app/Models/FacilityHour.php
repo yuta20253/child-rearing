@@ -54,5 +54,4 @@ class FacilityHour extends Model
     {
         return self::DAYS_OF_WEEK[$this->day_of_week] ?? '';
     }
-
 }
