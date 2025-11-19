@@ -10,8 +10,8 @@ export const FacilityReviewList = ({ facility }: FacilityProps) => {
   return (
     <div className="px-4">
       <h3 className="text-lg font-semibold text-gray-700 mb-2">💬口コミ</h3>
-      {facility.reviews && facility.reviews?.length > 0 ? (
-        facility.reviews?.map(review => (
+      {facility.reviews && facility.reviews.length > 0 ? (
+        facility.reviews.map(review => (
           <div key={review.id} className="p-4">
             <div className="flex justify-between items-center mb-2">
               <div className="flex items-center space-x-1">
