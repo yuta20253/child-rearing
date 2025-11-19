@@ -49,7 +49,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
                 </div>
               </div>
             </div>
-            <div className="rounded-2xl p-4 space-y-3">
+            <div className="rounded-2xl space-y-3">
               <div className="text-center">
                 <p className="text-2xl">🏠 {facility.name}</p>
               </div>
