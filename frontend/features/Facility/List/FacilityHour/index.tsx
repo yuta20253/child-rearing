@@ -17,7 +17,7 @@ export const FacilityHourList = ({ facility }: FacilityProps) => {
         facility.hours.map(hour => (
           <div
             key={hour.id}
-            className="flex justify-between text-gray-700 text-sm border-b border-gray-100 py-1"
+            className="flex justify-between text-gray-700 text-sm py-1"
           >
             <span className="font-medium">{hour.day_of_week_label}</span>
             <span>
