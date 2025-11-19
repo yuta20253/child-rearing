@@ -1,5 +1,5 @@
 import { FacilityWithRelations } from '@/types/generated/api';
-import { Star } from '../../Star';
+import { FaStar } from 'react-icons/fa';
 import { truncate } from '@/utils/truncate';
 
 type FacilityProps = {
@@ -15,9 +15,12 @@ export const FacilityReviewList = ({ facility }: FacilityProps) => {
           <div key={review.id} className="p-4">
             <div className="flex justify-between items-center mb-2">
               <div className="flex items-center space-x-1">
-                {[1, 2, 3, 4, 5].map(num => (
-                  <Star key={num} selected={num <= (review.rating ?? 0)} />
-                ))}
+                {[1, 2, 3, 4, 5].map(num => {
+                  const isSelected = num <= (review.rating ?? 0);
+                  return (
+                    <FaStar key={num} color={isSelected ? '#facc15' : '#d1d5db'} />
+                  );
+                })}
               </div>
               <span className="text-sm text-gray-500">{review.user?.name}</span>
             </div>
