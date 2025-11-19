@@ -14,7 +14,6 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [facility, setFacility] = useState<FacilityWithRelations | undefined>(undefined);
 
-  console.log(facility);
   useEffect(() => {
     const facilityId = Number(id);
     if (isNaN(facilityId)) return console.error('無効な施設IDです');
