@@ -8,7 +8,7 @@ import { getFacility } from '@/libs/services/facilities';
 import { FacilityHourList } from './List/FacilityHour';
 import { FacilityReviewList } from './List/Review';
 
-const Map = dynamic(() => import('./Map').then(mod => mod.Map), { ssr: false });
+const Map = dynamic(() => import('../../components/Map').then(mod => mod.Map), { ssr: false });
 
 export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -45,7 +45,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
               <div className="max-w-[400px] mx-auto mt-4 text-left">
                 <p className="mb-1 font-bold">🗾 地図で見る</p>
                 <div className="flex space-x-2 border relative z-0 overflow-hidden rounded-lg">
-                  <Map facility={facility} />
+                  <Map facilities={facility} />
                 </div>
               </div>
             </div>

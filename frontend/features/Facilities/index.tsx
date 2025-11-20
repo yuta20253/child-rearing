@@ -15,7 +15,7 @@ type FacilityNameForm = {
   name: string;
 };
 
-const Map = dynamic(() => import('./Map').then(mod => mod.Map), { ssr: false });
+const Map = dynamic(() => import('../../components/Map').then(mod => mod.Map), { ssr: false });
 
 export const Facilities = (): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
