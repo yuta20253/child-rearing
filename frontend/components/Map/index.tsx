@@ -25,7 +25,6 @@ export const Map = ({ facilities = [] }: MapProps): React.JSX.Element => {
     ];
   }
 
-  console.log('center', center);
   return (
     <MapContainer
       key={facilityList.length === 1 ? `single-${facilityList[0].id}` : `len-${facilityList.length}`}
