@@ -17,9 +17,7 @@ export const FacilityReviewList = ({ facility }: FacilityProps) => {
               <div className="flex items-center space-x-1">
                 {[1, 2, 3, 4, 5].map(num => {
                   const isSelected = num <= (review.rating ?? 0);
-                  return (
-                    <FaStar key={num} color={isSelected ? '#facc15' : '#d1d5db'} />
-                  );
+                  return <FaStar key={num} color={isSelected ? '#facc15' : '#d1d5db'} />;
                 })}
               </div>
               <span className="text-sm text-gray-500">{review.user?.name}</span>

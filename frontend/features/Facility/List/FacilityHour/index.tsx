@@ -15,10 +15,7 @@ export const FacilityHourList = ({ facility }: FacilityProps) => {
     <div className="space-y-1">
       {facility.hours?.length ? (
         facility.hours.map(hour => (
-          <div
-            key={hour.id}
-            className="flex justify-between text-gray-700 text-sm py-1"
-          >
+          <div key={hour.id} className="flex justify-between text-gray-700 text-sm py-1">
             <span className="font-medium">{hour.day_of_week_label}</span>
             <span>
               {formatTime(hour.open_time)}〜{formatTime(hour.close_time)}

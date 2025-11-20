@@ -17,7 +17,12 @@ export const FacilityCard = ({ facility }: Props) => {
         <p className="text-xs font-semibold text-gray-800 break-words">📍{fullAddress}</p>
       </div>
       <div className="flex justify-end">
-        <a href={`/facilities/${facility.id}`} className='p-2 text-xs text-black bg-pink-200 rounded-md hover:underline'>詳細を見る</a>
+        <a
+          href={`/facilities/${facility.id}`}
+          className="p-2 text-xs text-black bg-pink-200 rounded-md hover:underline"
+        >
+          詳細を見る
+        </a>
       </div>
     </div>
   );

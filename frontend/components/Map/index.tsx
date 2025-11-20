@@ -15,19 +15,18 @@ type MapProps = {
 };
 
 export const Map = ({ facilities = [] }: MapProps): React.JSX.Element => {
-  const facilityList = Array.isArray(facilities) ? facilities : [facilities]
+  const facilityList = Array.isArray(facilities) ? facilities : [facilities];
   let center: [number, number] = [34.74714, 135.357863];
 
   if (facilityList.length === 1) {
-    center = [
-      facilityList[0].latitude as number,
-      facilityList[0].longitude as number,
-    ];
+    center = [facilityList[0].latitude as number, facilityList[0].longitude as number];
   }
 
   return (
     <MapContainer
-      key={facilityList.length === 1 ? `single-${facilityList[0].id}` : `len-${facilityList.length}`}
+      key={
+        facilityList.length === 1 ? `single-${facilityList[0].id}` : `len-${facilityList.length}`
+      }
       center={center}
       zoom={10}
       scrollWheelZoom={true}
