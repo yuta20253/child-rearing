@@ -1,11 +1,13 @@
 import { FacilityPage } from '@/features/Facility';
 
 type FacilityDetailProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
-const FacilityDetail = ({ params }: FacilityDetailProps) => {
-  return <FacilityPage id={params.id} />;
+const FacilityDetail = async ({ params }: FacilityDetailProps) => {
+  const { id } = await params;
+
+  return <FacilityPage id={id} />;
 };
 
 export default FacilityDetail;
