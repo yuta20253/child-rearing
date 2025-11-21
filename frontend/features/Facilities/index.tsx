@@ -7,15 +7,13 @@ import { useEffect } from 'react';
 import { Facility } from '@/types/generated/api';
 import { RequireAuth } from '@/components/RequireAuth';
 import { FacilityCard } from './FacilityCard';
-import dynamic from 'next/dynamic';
 import { useSubmit } from './hooks';
 import { useSearchParams } from 'next/navigation';
+import { Map } from '@/components/Map';
 
 type FacilityNameForm = {
   name: string;
 };
-
-const Map = dynamic(() => import('../../components/Map').then(mod => mod.Map), { ssr: false });
 
 export const Facilities = (): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);

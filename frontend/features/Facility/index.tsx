@@ -2,13 +2,11 @@
 
 import { RequireAuth } from '@/components/RequireAuth';
 import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 import { FacilityWithRelations } from '@/types/generated/api';
 import { getFacility } from '@/libs/services/facilities';
 import { FacilityHourList } from './List/FacilityHour';
 import { FacilityReviewList } from './List/Review';
-
-const Map = dynamic(() => import('../../components/Map').then(mod => mod.Map), { ssr: false });
+import { Map } from '@/components/Map';
 
 export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
