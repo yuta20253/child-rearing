@@ -11,7 +11,7 @@ L.Icon.Default.mergeOptions({
 });
 
 type MapProps = {
-  facilities?: Facility[] | Facility;
+  facilities?: Facility[];
 };
 
 export const Map = ({ facilities = [] }: MapProps): React.JSX.Element => {

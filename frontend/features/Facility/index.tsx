@@ -76,7 +76,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
                   </p>
                 </div>
                 <div className="h-56 relative">
-                  <Map facilities={facility} />
+                  <Map facilities={[facility]} />
                 </div>
               </section>
 
