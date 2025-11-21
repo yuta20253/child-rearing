@@ -23,9 +23,7 @@ export const Map = ({ facilities = [] }: MapProps): React.JSX.Element => {
 
   return (
     <MapContainer
-      key={
-        facilities.length === 1 ? `single-${facilities[0].id}` : `len-${facilities.length}`
-      }
+      key={facilities.length === 1 ? `single-${facilities[0].id}` : `len-${facilities.length}`}
       center={center}
       zoom={10}
       scrollWheelZoom={true}
