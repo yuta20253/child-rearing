@@ -134,54 +134,5 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
         </div>
       </div>
     </RequireAuth>
-
-    // <RequireAuth>
-    //   <div className="min-h-screen mt-4">
-    //     {!isLoading && facility ? (
-    //       <div>
-    //         <div className="text-center">
-    //           <p className="text-2xl">🏠 {facility.name}</p>
-    //         </div>
-    //         <div className="max-w-3xl mx-auto space-y-6">
-    //           <div className="max-w-[400px] mx-auto mt-4 text-left">
-    //             <p className="mb-1 font-bold">🗾 地図で見る</p>
-    //             <div className="flex space-x-2 border relative z-0 overflow-hidden rounded-lg">
-    //               <Map facilities={facility} />
-    //             </div>
-    //           </div>
-    //         </div>
-    //         <div className="rounded-2xl space-y-3">
-    //           <div className="mt-4 w-full max-w-md mx-auto space-y-2">
-    //             <div className="justify-between p-2">
-    //               <div className="p-4">
-    //                 <div className="text-lg font-semibold text-gray-700 mb-2">住所</div>
-    //                 <div className="pl-1 text-gray-600">
-    //                   {facility.address?.municipality?.prefecture?.name}
-    //                   {facility.address?.municipality?.name}
-    //                   {facility.address?.town}
-    //                 </div>
-    //               </div>
-    //               <div className="p-4">
-    //                 <h3 className="text-lg font-semibold text-gray-700 mb-2">電話番号</h3>
-    //                 <p className="pl-1 text-gray-600">{facility.phone?.number}</p>
-    //               </div>
-    //               <div className="p-4">
-    //                 <h3 className="text-lg font-semibold text-gray-700 mb-2">🕒 営業時間</h3>
-    //                 <FacilityHourList facility={facility} />
-    //               </div>
-    //               <div className="p-4">
-    //                 <h3 className="text-lg font-semibold text-gray-700 mb-2">設備情報</h3>
-    //                 <p className="pl-1 text-gray-600">{facility.equipment}</p>
-    //               </div>
-    //             </div>
-    //             <FacilityReviewList facility={facility} />
-    //           </div>
-    //         </div>
-    //       </div>
-    //     ) : (
-    //       <div></div>
-    //     )}
-    //   </div>
-    // </RequireAuth>
   );
 };
