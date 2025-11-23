@@ -22,7 +22,6 @@ export const Facilities = (): React.JSX.Element => {
   const name = searchParams.get('name');
   const heading = name ? `「${name}」の検索結果（${facilities.length}件）` : '施設を検索';
 
-  console.log('施設一覧:', facilities);
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) return;
