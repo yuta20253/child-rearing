@@ -15,11 +15,7 @@ type MapProps = {
 };
 
 export const Map = ({ facilities = [] }: MapProps): React.JSX.Element => {
-  let center: [number, number] = [34.74714, 135.357863];
-
-  if (facilities.length === 1) {
-    center = [facilities[0].latitude as number, facilities[0].longitude as number];
-  }
+  const center: [number, number] = facilities.length === 1 ? [facilities[0].latitude as number, facilities[0].longitude as number] : [34.74714, 135.357863]
 
   return (
     <MapContainer
