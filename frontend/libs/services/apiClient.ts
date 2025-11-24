@@ -67,7 +67,7 @@ export const facilities = {
 };
 
 export const facility = {
-  facility: (id: number, params: RequestParams = {}) => api.api.facilityInfo(id, params),
+  facilityInfo: (id: number, params: RequestParams = {}) => api.api.facilityInfo(id, params),
 };
 
 export const profile = {

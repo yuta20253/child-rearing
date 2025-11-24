@@ -85,6 +85,72 @@ export interface Facility {
 
 export type FacilityWithRelations = Facility & {
   address?: AddressWithRelations;
+  reviews?: FacilityReviewWithUser[];
+  /** 電話番号 */
+  phone?: Telphone;
+  hours?: FacilityHour[];
+};
+
+/**
+ * FacilityHourモデル
+ * 営業日時の情報
+ */
+export interface FacilityHour {
+  /** @example 1 */
+  id?: number;
+  /** @example 1 */
+  day_of_week?: number;
+  /**
+   * 曜日名（日本語）
+   * @example "月曜日"
+   */
+  day_of_week_label?: string;
+  /**
+   * 開始時刻
+   * @format time
+   * @example "09:00"
+   */
+  open_time?: string;
+  /**
+   * 終了時刻
+   * @format time
+   * @example "18:00"
+   */
+  close_time?: string;
+  /** @example "備考" */
+  note?: string;
+}
+
+/**
+ * FacilityReviewモデル
+ * 施設の口コミ情報
+ */
+export interface FacilityReview {
+  /** @example 1 */
+  id?: number;
+  /** @example 1 */
+  facility_id?: number;
+  /** @example 2 */
+  user_id?: number;
+  /** @example 3 */
+  rating?: number;
+  /** @example "施設の感想です。" */
+  comment?: string | null;
+  /**
+   * @format date-time
+   * @example "2025-10-24T11:08:53Z"
+   */
+  created_at?: string;
+  /**
+   * @format date-time
+   * @example "2025-10-24T11:08:53Z"
+   */
+  updated_at?: string;
+}
+
+export type FacilityReviewWithUser = FacilityReview & {
+  /** ユーザー情報 */
+  user?: User;
 };
 
 /**
@@ -159,6 +225,19 @@ export interface Prefecture {
    * @example "2025-09-14T00:00:00Z"
    */
   updated_at?: string;
+}
+
+/**
+ * Telphoneモデル
+ * 電話番号
+ */
+export interface Telphone {
+  /** @example 1 */
+  id?: number;
+  /** @example 1 */
+  facility_id?: number;
+  /** @example "0798772020" */
+  number?: string;
 }
 
 /**

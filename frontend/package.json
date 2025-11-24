@@ -8,8 +8,8 @@
     "start": "next start",
     "types-check": "tsc --pretty --noEmit",
     "format:check": "prettier '**/*.{js,ts,tsx,json}' --check",
-    "lint": "eslint \"**/*.{js,ts,tsx}\" --max-warnings=0",
-    "lint:fix": "eslint **/*.{js,ts,tsx} --fix"
+    "lint": "eslint . --ext .js,.ts,.tsx --max-warnings=0",
+    "lint:fix": "eslint . --ext .js,.ts,.tsx --fix"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -22,6 +22,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.62.0",
+    "react-icons": "^5.5.0",
     "react-leaflet": "^5.0.0"
   },
   "devDependencies": {

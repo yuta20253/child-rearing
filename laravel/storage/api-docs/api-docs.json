@@ -666,6 +666,7 @@
                 "type": "object"
             },
             "FacilityWithRelations": {
+                "type": "object",
                 "allOf": [
                     {
                         "$ref": "#/components/schemas/Facility"
@@ -674,6 +675,111 @@
                         "properties": {
                             "address": {
                                 "$ref": "#/components/schemas/AddressWithRelations"
+                            },
+                            "reviews": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/FacilityReviewWithUser"
+                                }
+                            },
+                            "phone": {
+                                "$ref": "#/components/schemas/Telphone"
+                            },
+                            "hours": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/FacilityHour"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "FacilityHour": {
+                "title": "FacilityHourモデル",
+                "description": "営業日時の情報",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "day_of_week": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "day_of_week_label": {
+                        "description": "曜日名（日本語）",
+                        "type": "string",
+                        "example": "月曜日"
+                    },
+                    "open_time": {
+                        "description": "開始時刻",
+                        "type": "string",
+                        "format": "time",
+                        "example": "09:00"
+                    },
+                    "close_time": {
+                        "description": "終了時刻",
+                        "type": "string",
+                        "format": "time",
+                        "example": "18:00"
+                    },
+                    "note": {
+                        "type": "string",
+                        "example": "備考"
+                    }
+                },
+                "type": "object"
+            },
+            "FacilityReview": {
+                "title": "FacilityReviewモデル",
+                "description": "施設の口コミ情報",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "facility_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "rating": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "comment": {
+                        "type": "string",
+                        "example": "施設の感想です。",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-10-24T11:08:53Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-10-24T11:08:53Z"
+                    }
+                },
+                "type": "object"
+            },
+            "FacilityReviewWithUser": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/FacilityReview"
+                    },
+                    {
+                        "properties": {
+                            "user": {
+                                "$ref": "#/components/schemas/User"
                             }
                         },
                         "type": "object"
@@ -778,6 +884,25 @@
                         "type": "string",
                         "format": "date-time",
                         "example": "2025-09-14T00:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "Telphone": {
+                "title": "Telphoneモデル",
+                "description": "電話番号",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "facility_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "number": {
+                        "type": "string",
+                        "example": "0798772020"
                     }
                 },
                 "type": "object"

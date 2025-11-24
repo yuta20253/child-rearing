@@ -15,10 +15,14 @@ type MapProps = {
 };
 
 export const Map = ({ facilities = [] }: MapProps): React.JSX.Element => {
-  const center: [number, number] = [34.74714, 135.357863]; // 一旦センターをアクタ西宮に設定
+  const center: [number, number] =
+    facilities.length === 1
+      ? [facilities[0].latitude as number, facilities[0].longitude as number]
+      : [34.74714, 135.357863];
 
   return (
     <MapContainer
+      key={facilities.length === 1 ? `single-${facilities[0].id}` : `len-${facilities.length}`}
       center={center}
       zoom={10}
       scrollWheelZoom={true}
