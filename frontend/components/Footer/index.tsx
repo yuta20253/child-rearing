@@ -1,10 +1,10 @@
 'use client';
 
-import { useAuthState } from "@/context/AuthContext";
-import { IoMdHome } from "react-icons/io";
-import { TbBuildingStore } from "react-icons/tb";
-import { MdFavoriteBorder } from "react-icons/md";
-import { IoMdPerson } from "react-icons/io";
+import { useAuthState } from '@/context/AuthContext';
+import { IoMdHome } from 'react-icons/io';
+import { TbBuildingStore } from 'react-icons/tb';
+import { MdFavoriteBorder } from 'react-icons/md';
+import { IoMdPerson } from 'react-icons/io';
 
 export const Footer = (): React.JSX.Element => {
   const { user } = useAuthState();

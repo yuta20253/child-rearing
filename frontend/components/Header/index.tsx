@@ -16,7 +16,7 @@ export const Header = (): React.JSX.Element => {
           {user ? (
             <Link href="/mypage" className="p-2">
               <div className="flex">
-                <FaBell color='#ffffff' size="1.5em" />
+                <FaBell color="#ffffff" size="1.5em" />
               </div>
             </Link>
           ) : (
