@@ -2,7 +2,7 @@
 
 import { useAuthState } from '@/context/AuthContext';
 import Link from 'next/link';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { FaBell } from 'react-icons/fa';
 
 export const Header = (): React.JSX.Element => {
   const { user } = useAuthState();
@@ -16,8 +16,7 @@ export const Header = (): React.JSX.Element => {
           {user ? (
             <Link href="/mypage" className="p-2">
               <div className="flex">
-                <AccountCircleIcon sx={{ color: '#fff' }} />
-                <div className="text-white pl-2">{user.name}</div>
+                <FaBell color='#ffffff' size="1.5em" />
               </div>
             </Link>
           ) : (
