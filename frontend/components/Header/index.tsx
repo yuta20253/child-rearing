@@ -14,11 +14,9 @@ export const Header = (): React.JSX.Element => {
         </Link>
         <div className="ml-auto flex gap-2">
           {user ? (
-            <Link href="/mypage" className="p-2">
-              <div className="flex">
-                <FaBell color="#ffffff" size="1.5em" />
-              </div>
-            </Link>
+            <div className="flex">
+              <FaBell color="#ffffff" size="1.5em" />
+            </div>
           ) : (
             <>
               <Link
