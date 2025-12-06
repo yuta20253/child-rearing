@@ -5,6 +5,9 @@ import { TodayEvents } from '@/features/Home/TodayEvent/TodoEvents';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { RequireAuth } from '@/components/RequireAuth';
+import FullCalender from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
 type WeekDay = {
   date: string;
@@ -61,77 +64,26 @@ export const Home = (): React.JSX.Element => {
     <RequireAuth>
       <div className="flex items-center justify-center  bg-gradient-to-tr">
         <div className="relative w-3/4 sm:max-w-md md:max-w-lg lg:max-w-xl p-5 flex flex-col space-y-4">
-          <div className="p-2">
-            <div className="items-center justify-center rounded-lg">
-              <p className="text-2xl text-center text-white bg-pink-200 rounded-md py-3">
-                子育てサポート
-              </p>
-            </div>
+          <div className='w-full'>
+            <FullCalender
+              plugins={[ dayGridPlugin ]}
+              initialView='dayGridMonth'
+              weekends={true}
+              events={[]}
+              height='auto'
+              expandRows={true}
+              locale='ja'
+              dayCellContent={(args) => {
+                return args.date.getDate().toString();
+              }}
+              headerToolbar={{
+                left: 'prev',
+                center: 'title',
+                right: 'next'
+              }}
+            />
           </div>
-          {/** カレンダー部分 */}
-          <div className="flex flex-col items-center justify-center rounded-lg mb-5">
-            <p className="text-center font-bold mb-3">
-              {week.length > 0 ? new Date(week[0].date).getMonth() + 1 : ''}月 カレンダー/予定登録
-            </p>
-
-            <div className="flex justify-between w-full max-w-[700px] px-4 my-2">
-              <button
-                onClick={() => {
-                  const newDate = new Date(startDate);
-                  newDate.setDate(newDate.getDate() - 7);
-                  setStartDate(newDate.toISOString().slice(0, 10));
-                }}
-                className="text-sm text-blue-600 hover:underline"
-              >
-                ◀ 前の週
-              </button>
-              <button
-                onClick={() => {
-                  const newDate = new Date(startDate);
-                  newDate.setDate(newDate.getDate() + 7);
-                  setStartDate(newDate.toISOString().slice(0, 10));
-                }}
-                className="text-sm text-blue-600 hover:underline"
-              >
-                次の週 ▶
-              </button>
-            </div>
-
-            <div className="bg-yellow-50 m-2 p-4 rounded shadow w-full max-w-[700px] mx-auto overflow-x-auto">
-              <table className="table-fixed border-collapse text-center w-full">
-                <thead>
-                  <tr>
-                    {week.map((day, i) => (
-                      <th key={i} className="w-[14.2857%] min-w-[60px] px-3 py-2 whitespace-nowrap">
-                        {day['day']}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    {week.map((dateObj, i) => {
-                      const dateNum = dateObj.date.slice(-2).replace(/^0/, '');
-                      const todayStr = new Date().toISOString().slice(0, 10);
-                      const isToday = dateObj.date === todayStr;
-                      return (
-                        <td key={i} className="px-2 py-4 h-12">
-                          <div
-                            className={`w-8 h-8 mx-auto flex items-center justify-center rounded-full ${isToday ? 'bg-pink-500 text-white font-bold' : ''}`}
-                          >
-                            {dateNum}
-                          </div>
-                        </td>
-                      );
-                    })}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          {/** イベント部分 */}
           <TodayEvents todayEvents={events} />
-          {/** お気に入り施設 */}
           <FavoriteFacilities facilityFavorities={facilityFavorities} />
           <div className="w-full bg-pink-300 text-white p-2 rounded mt-6">
             <div className="flex justify-center">
