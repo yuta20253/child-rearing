@@ -2,3 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 @import 'leaflet/dist/leaflet.css';
+
+/* ▼ スマホ幅のときだけ適用 */
+@media (max-width: 600px) {
+  .fc-daygrid-day-frame {
+    aspect-ratio: 1 / 1;   /* 正方形にする */
+    display: flex;
+    flex-direction: column;  /* 上に日付、下にイベント */
+    overflow: hidden;        /* イベントが枠を突き破らないように */
+  }
+
+  /* 日付の位置調整（小さく）*/
+  .fc-daygrid-day-top {
+    padding: 4px;
+    font-size: 0.75rem;
+  }
+
+  /* イベント表示領域の調整 */
+  .fc-daygrid-day-events {
+    overflow-y: auto;        /* イベントが多い場合は中だけスクロール */
+  }
+}
+
+/* 全ボタン共通のデザイン調整 */
+  .fc .fc-button {
+   @apply bg-pink-200 text-white font-bold rounded;
+  }
+
+  /* ホバー時 */
+  .fc .fc-button:hover {
+   @apply bg-pink-300;
+  }
+
+ /* ← → のアイコン部分を大きくする */
+  .fc .fc-prev-button,
+  .fc .fc-next-button {
+   @apply text-sm border-none; /* ← → を大きく */
+  }
