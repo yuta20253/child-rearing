@@ -14,10 +14,10 @@ export const TodayEvents = ({ todayEvents }: Props): React.JSX.Element => {
   const [showAll, setShowAll] = useState<boolean>(false);
   return (
     <div className="w-full max-w-[700px] mx-auto mb-8">
-      <p className="font-bold mb-4">今日の予定</p>
+      <p className="font-bold mb-4">予定</p>
       <ul className="space-y-3">
         {todayEvents.length === 0 && (
-          <p className="text-center text-gray-500">本日の予定はありません。</p>
+          <p className="text-center text-gray-500">予定はありません。</p>
         )}
         {todayEvents.length !== 0 &&
           !showAll &&
