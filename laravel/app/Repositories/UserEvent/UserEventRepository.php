@@ -22,8 +22,8 @@ class UserEventRepository implements UserEventRepositoryInterface
             ->user
             ->findOrFail($userId)
             ->events()
-            ->whereDate('start_datetime', $targetDate
-            ->format('Y-m-d'))
+            // ->whereDate('start_datetime', $targetDate
+            // ->format('Y-m-d'))
             ->orderBy('start_datetime')
             ->get();
     }
