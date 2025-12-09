@@ -16,14 +16,14 @@ class UserEventRepository implements UserEventRepositoryInterface
         $this->user = $user;
     }
 
-    public function getUserEvents(int $userId, ?DateTime $targetDate): Collection
+    public function selectedMonthUserEvents(int $userId, int $year , int $month): Collection
     {
         return $this
             ->user
             ->findOrFail($userId)
             ->events()
-            // ->whereDate('start_datetime', $targetDate
-            // ->format('Y-m-d'))
+            ->whereYear('start_datetime', $year)
+            ->whereMonth('start_datetime', $month)
             ->orderBy('start_datetime')
             ->get();
     }

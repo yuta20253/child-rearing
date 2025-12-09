@@ -2,23 +2,24 @@
 
 namespace App\Services;
 
+use App\Repositories\UserEvent\UserEventRepository;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CalenderService
 {
-    public function getCalender(?string $baseDate = null): array
-    {
-        Carbon::setLocale('ja');
+    private UserEventRepository $userEventRepository;
 
-        $start = $baseDate ? Carbon::parse($baseDate) : Carbon::today();
-        $week = [];
-        for ($i = 0; $i < 7; $i++) {
-            $date = $start->copy()->addDays($i);
-            $week[] = [
-                'date' => $date->format('Y-m-d'),
-                'day' => $date->isoFormat('ddd'),
-            ];
-        }
-        return $week;
+    public function __construct(UserEventRepository $userEventRepository)
+    {
+        $this->userEventRepository = $userEventRepository;
+    }
+
+    public function selectedMonthUserEvents(int $year, int $month )
+    {
+        $userId = Auth::id();
+
+        $events = $this->userEventRepository->selectedMonthUserEvents($userId, $year, $month);
+        return $events;
     }
 }
