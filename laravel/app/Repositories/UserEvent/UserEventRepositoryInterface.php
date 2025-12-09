@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface UserEventRepositoryInterface
 {
-    public function selectedMonthUserEvents(int $id, int $year , int $month): Collection;
+    public function selectedMonthUserEvents(int $id, int $year, int $month): Collection;
 }

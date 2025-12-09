@@ -15,7 +15,7 @@ class CalenderService
         $this->userEventRepository = $userEventRepository;
     }
 
-    public function selectedMonthUserEvents(int $year, int $month )
+    public function selectedMonthUserEvents(int $year, int $month)
     {
         $userId = Auth::id();
 
