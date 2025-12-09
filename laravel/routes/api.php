@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\TopController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Api\CalenderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/facilities', [FacilityController::class, 'index']);
     Route::get('/facilities/{id}', [FacilityController::class, 'show']);
+
+    Route::get('/calendar/events', [CalenderController::class, 'selectMonth']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
