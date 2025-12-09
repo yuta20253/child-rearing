@@ -35,15 +35,12 @@ export const Home = (): React.JSX.Element => {
     const fetchWeek = async () => {
       const token = localStorage.getItem('token');
       try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              Accept: 'application/json',
-            },
-          }
-        );
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+          },
+        });
         setEvents(res.data.data.events);
         setFacilityFavorities(res.data.data.facilityFavorities);
       } catch (error) {
@@ -59,16 +56,13 @@ export const Home = (): React.JSX.Element => {
     const token = localStorage.getItem('token');
 
     try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/calendar/events`,
-        {
-          params: { year, month },
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-          },
-        }
-      )
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/calendar/events`, {
+        params: { year, month },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json',
+        },
+      });
       setEvents(res.data.events);
     } catch (error) {
       console.error('月切り替えイベント取得エラー:', error);
@@ -79,22 +73,22 @@ export const Home = (): React.JSX.Element => {
     <RequireAuth>
       <div className="flex items-center justify-center  bg-gradient-to-tr">
         <div className="relative w-3/4 sm:max-w-md md:max-w-lg lg:max-w-xl p-5 flex flex-col space-y-4">
-          <div className='w-full'>
+          <div className="w-full">
             <FullCalender
-              plugins={[ dayGridPlugin ]}
-              initialView='dayGridMonth'
+              plugins={[dayGridPlugin]}
+              initialView="dayGridMonth"
               weekends={true}
               events={[]}
-              height='auto'
+              height="auto"
               expandRows={true}
-              locale='ja'
-              dayCellContent={(args) => {
+              locale="ja"
+              dayCellContent={args => {
                 return args.date.getDate().toString();
               }}
               headerToolbar={{
                 left: 'prev',
                 center: 'title',
-                right: 'next'
+                right: 'next',
               }}
               datesSet={handleDatesSet}
             />
