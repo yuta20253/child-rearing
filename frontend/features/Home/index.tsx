@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import { RequireAuth } from '@/components/RequireAuth';
 import FullCalender from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
 import type { DatesSetArg } from '@fullcalendar/core';
 
 type Event = {
