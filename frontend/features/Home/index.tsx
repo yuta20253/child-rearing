@@ -8,11 +8,7 @@ import { RequireAuth } from '@/components/RequireAuth';
 import FullCalender from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-
-type WeekDay = {
-  date: string;
-  day: string;
-};
+import type { DatesSetArg } from '@fullcalendar/core';
 
 type Event = {
   id: number;
@@ -32,17 +28,15 @@ type FacilityFavorite = {
 };
 
 export const Home = (): React.JSX.Element => {
-  const [week, setWeek] = useState<WeekDay[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [facilityFavorities, setFacilityFavorities] = useState<FacilityFavorite[]>([]);
-  const [startDate, setStartDate] = useState<string>(new Date().toISOString().slice(0, 10));
 
   useEffect(() => {
     const fetchWeek = async () => {
       const token = localStorage.getItem('token');
       try {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api?start_date=${startDate}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -50,15 +44,36 @@ export const Home = (): React.JSX.Element => {
             },
           }
         );
-        setWeek(res.data.data.week);
         setEvents(res.data.data.events);
         setFacilityFavorities(res.data.data.facilityFavorities);
       } catch (error) {
-        console.error('曜日取得エラー:', error);
+        console.error('トップページデータ取得エラー:', error);
       }
     };
     fetchWeek();
-  }, [startDate]);
+  }, []);
+
+  const handleDatesSet = async (data: DatesSetArg) => {
+    const year = data.view.currentStart.getFullYear();
+    const month = data.view.currentStart.getMonth() + 1;
+    const token = localStorage.getItem('token');
+
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/calendar/events`,
+        {
+          params: { year, month },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+          },
+        }
+      )
+      setEvents(res.data.events);
+    } catch (error) {
+      console.error('月切り替えイベント取得エラー:', error);
+    }
+  };
 
   return (
     <RequireAuth>
@@ -81,6 +96,7 @@ export const Home = (): React.JSX.Element => {
                 center: 'title',
                 right: 'next'
               }}
+              datesSet={handleDatesSet}
             />
           </div>
           <TodayEvents todayEvents={events} />
