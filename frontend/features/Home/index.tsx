@@ -8,6 +8,7 @@ import { RequireAuth } from '@/components/RequireAuth';
 import FullCalender from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import type { DatesSetArg } from '@fullcalendar/core';
+import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction"
 
 type Event = {
   id: number;
@@ -29,6 +30,7 @@ type FacilityFavorite = {
 export const Home = (): React.JSX.Element => {
   const [events, setEvents] = useState<Event[]>([]);
   const [facilityFavorities, setFacilityFavorities] = useState<FacilityFavorite[]>([]);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchWeek = async () => {
@@ -42,6 +44,9 @@ export const Home = (): React.JSX.Element => {
         });
         setEvents(res.data.data.events);
         setFacilityFavorities(res.data.data.facilityFavorities);
+
+        const todayStr = new Date().toISOString().slice(0, 10);
+        setSelectedDate(todayStr);
       } catch (error) {
         console.error('トップページデータ取得エラー:', error);
       }
@@ -68,21 +73,40 @@ export const Home = (): React.JSX.Element => {
     }
   };
 
+  const handleChangeDate = (data: DateClickArg) => {
+    setSelectedDate(data.dateStr);
+  }
+
   return (
     <RequireAuth>
       <div className="flex items-center justify-center  bg-gradient-to-tr">
         <div className="relative w-3/4 sm:max-w-md md:max-w-lg lg:max-w-xl p-5 flex flex-col space-y-4">
           <div className="w-full">
             <FullCalender
-              plugins={[dayGridPlugin]}
+              plugins={[dayGridPlugin, interactionPlugin]}
               initialView="dayGridMonth"
               weekends={true}
-              events={[]}
+              events={events.map((ev) => ({
+                id: String(ev.id),
+                title: ev.title,
+                start: ev.start_datetime,
+                end: ev.end_datetime,
+              }))}
+              eventDisplay="list-item"
               height="auto"
               expandRows={true}
               locale="ja"
-              dayCellContent={args => {
-                return args.date.getDate().toString();
+              dayCellContent={(args) => {
+                const original = args.dayNumberText;
+                const number = original.replace('日', '');
+                return { domNodes: [document.createTextNode(number)] };
+              }}
+              dayCellClassNames={args => {
+                const y = String(args.date.getFullYear());
+                const m = String(args.date.getMonth() + 1).padStart(2, '0');
+                const d = String(args.date.getDate()).padStart(2, '0');
+                const cellDate = `${y}-${m}-${d}`;
+                return cellDate === selectedDate ? ['bg-blue-200'] : [];
               }}
               headerToolbar={{
                 left: 'prev',
@@ -90,9 +114,10 @@ export const Home = (): React.JSX.Element => {
                 right: 'next',
               }}
               datesSet={handleDatesSet}
+              dateClick={handleChangeDate}
             />
           </div>
-          <TodayEvents todayEvents={events} />
+          <TodayEvents todayEvents={events.filter((ev) => ev.start_datetime.slice(0, 10) === selectedDate)} />
           <FavoriteFacilities facilityFavorities={facilityFavorities} />
           <div className="w-full bg-pink-300 text-white p-2 rounded mt-6">
             <div className="flex justify-center">
