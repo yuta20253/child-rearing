@@ -8,7 +8,7 @@ import { RequireAuth } from '@/components/RequireAuth';
 import FullCalender from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import type { DatesSetArg } from '@fullcalendar/core';
-import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction"
+import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 
 type Event = {
   id: number;
@@ -75,7 +75,7 @@ export const Home = (): React.JSX.Element => {
 
   const handleChangeDate = (data: DateClickArg) => {
     setSelectedDate(data.dateStr);
-  }
+  };
 
   return (
     <RequireAuth>
@@ -86,7 +86,7 @@ export const Home = (): React.JSX.Element => {
               plugins={[dayGridPlugin, interactionPlugin]}
               initialView="dayGridMonth"
               weekends={true}
-              events={events.map((ev) => ({
+              events={events.map(ev => ({
                 id: String(ev.id),
                 title: ev.title,
                 start: ev.start_datetime,
@@ -96,7 +96,7 @@ export const Home = (): React.JSX.Element => {
               height="auto"
               expandRows={true}
               locale="ja"
-              dayCellContent={(args) => {
+              dayCellContent={args => {
                 const original = args.dayNumberText;
                 const number = original.replace('日', '');
                 return { domNodes: [document.createTextNode(number)] };
@@ -117,7 +117,9 @@ export const Home = (): React.JSX.Element => {
               dateClick={handleChangeDate}
             />
           </div>
-          <TodayEvents todayEvents={events.filter((ev) => ev.start_datetime.slice(0, 10) === selectedDate)} />
+          <TodayEvents
+            todayEvents={events.filter(ev => ev.start_datetime.slice(0, 10) === selectedDate)}
+          />
           <FavoriteFacilities facilityFavorities={facilityFavorities} />
           <div className="w-full bg-pink-300 text-white p-2 rounded mt-6">
             <div className="flex justify-center">
