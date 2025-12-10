@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-
 import { TodayEventList } from '@/features/Home/TodayEvent/TodoEventList';
 
 type TodayEvent = {
   title: string;
+  start_datetime: string;
+  end_datetime: string;
 };
 
 type Props = {
