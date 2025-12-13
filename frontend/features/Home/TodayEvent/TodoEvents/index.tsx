@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TodayEventList } from '@/features/Home/TodayEvent/TodoEventList';
+import { formatMonthDay } from '@/utils/formatMonthDay';
 
 type TodayEvent = {
   title: string;
@@ -9,13 +10,14 @@ type TodayEvent = {
 
 type Props = {
   todayEvents: TodayEvent[];
+  selectedDate: string;
 };
 
-export const TodayEvents = ({ todayEvents }: Props): React.JSX.Element => {
+export const TodayEvents = ({ todayEvents, selectedDate }: Props): React.JSX.Element => {
   const [showAll, setShowAll] = useState<boolean>(false);
   return (
     <div className="w-full max-w-[700px] mx-auto mb-8">
-      <p className="font-bold mb-4">予定</p>
+      <p className="font-bold mb-4">{formatMonthDay(selectedDate)}の予定</p>
       <ul className="space-y-3">
         {todayEvents.length === 0 && (
           <p className="text-center text-gray-500">予定はありません。</p>
