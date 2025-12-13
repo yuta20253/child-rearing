@@ -5,11 +5,9 @@ import { Events } from '@/features/Home/Events';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { RequireAuth } from '@/components/RequireAuth';
-import FullCalender from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import type { DatesSetArg } from '@fullcalendar/core';
-import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import { Event as ApiEvent } from '@/types/generated/api';
+import { Calender } from './Calender';
+import { handleDateAction } from './Calender/hook';
 
 type FacilityFavorite = {
   id: number;
@@ -55,27 +53,7 @@ export const Home = (): React.JSX.Element => {
     fetchWeek();
   }, [selectedDate]);
 
-  const handleDatesSet = async (data: DatesSetArg) => {
-    const year = data.view.currentStart.getFullYear();
-    const month = data.view.currentStart.getMonth() + 1;
-
-    try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/calendar/events`, {
-        params: { year, month },
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-        },
-      });
-      setEvents(res.data.events);
-    } catch (error) {
-      console.error('月切り替えイベント取得エラー:', error);
-    }
-  };
-
-  const handleChangeDate = (data: DateClickArg) => {
-    setSelectedDate(data.dateStr);
-  };
+  const { handleDatesSet, handleChangeDate } = handleDateAction({ token, setEvents, setSelectedDate });
 
   const eventsDate = new Set(
     events.filter(ev => ev.start_datetime)
@@ -86,52 +64,7 @@ export const Home = (): React.JSX.Element => {
     <RequireAuth>
       <div className="flex items-center justify-center  bg-gradient-to-tr">
         <div className="relative w-full max-w-[1000px] p-5 flex flex-col space-y-4">
-          <div className="w-full">
-            <FullCalender
-              plugins={[dayGridPlugin, interactionPlugin]}
-              initialView="dayGridMonth"
-              weekends={true}
-              events={events.map(ev => ({
-                id: String(ev.id),
-                title: ev.title,
-                start: ev.start_datetime,
-                end: ev.end_datetime,
-              }))}
-              eventDisplay="list-item"
-              height="auto"
-              expandRows={true}
-              locale="ja"
-              titleFormat={{ year: 'numeric', month: 'numeric' }}
-              dayCellClassNames={args => {
-                const y = String(args.date.getFullYear());
-                const m = String(args.date.getMonth() + 1).padStart(2, '0');
-                const d = String(args.date.getDate()).padStart(2, '0');
-                const cellDate = `${y}-${m}-${d}`;
-                const hasEvent = eventsDate.has(cellDate);
-                const classNames: string[] = [];
-
-                if (cellDate === selectedDate) {
-                  classNames.push('is-selected');
-                }
-
-                if (hasEvent) {
-                  classNames.push('has-event');
-                }
-
-                return classNames;
-              }}
-              dayCellContent={args => {
-                return args.dayNumberText.replace('日', '');
-              }}
-              headerToolbar={{
-                left: 'prev',
-                center: 'title',
-                right: 'next',
-              }}
-              datesSet={handleDatesSet}
-              dateClick={handleChangeDate}
-            />
-          </div>
+          <Calender events={events} selectedDate={selectedDate} eventsDate={eventsDate} handleDatesSet={handleDatesSet} handleChangeDate={handleChangeDate} />
           <Events
             events={events.filter(ev => ev.start_datetime.slice(0, 10) === selectedDate)}
             selectedDate={selectedDate}
