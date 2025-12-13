@@ -1,21 +1,17 @@
-import { SetStateAction } from "react";
+import { SetStateAction } from 'react';
 import { Event as ApiEvent } from '@/types/generated/api';
-import axios from "axios";
-import type { DatesSetArg } from '@fullcalendar/core'
+import axios from 'axios';
+import type { DatesSetArg } from '@fullcalendar/core';
 import { DateClickArg } from '@fullcalendar/interaction';
 
 type Props = {
-    token: string | null;
-    setEvents: (value: SetStateAction<ApiEvent[]>) => void;
-    setSelectedDate: (value: SetStateAction<string>) => void;
-}
+  token: string | null;
+  setEvents: (value: SetStateAction<ApiEvent[]>) => void;
+  setSelectedDate: (value: SetStateAction<string>) => void;
+};
 
-export const handleDateAction = ({
-    token,
-    setEvents,
-    setSelectedDate,
-}: Props) => {
- const handleDatesSet = async (data: DatesSetArg) => {
+export const handleDateAction = ({ token, setEvents, setSelectedDate }: Props) => {
+  const handleDatesSet = async (data: DatesSetArg) => {
     const year = data.view.currentStart.getFullYear();
     const month = data.view.currentStart.getMonth() + 1;
 
@@ -33,7 +29,7 @@ export const handleDateAction = ({
     }
   };
 
- const handleChangeDate = (data: DateClickArg) => {
+  const handleChangeDate = (data: DateClickArg) => {
     setSelectedDate(data.dateStr);
   };
 

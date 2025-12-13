@@ -53,13 +53,22 @@ export const Home = (): React.JSX.Element => {
     fetchWeek();
   }, [selectedDate]);
 
-  const { handleDatesSet, handleChangeDate } = handleDateAction({ token, setEvents, setSelectedDate });
+  const { handleDatesSet, handleChangeDate } = handleDateAction({
+    token,
+    setEvents,
+    setSelectedDate,
+  });
 
   return (
     <RequireAuth>
       <div className="flex items-center justify-center  bg-gradient-to-tr">
         <div className="relative w-full max-w-[1000px] p-5 flex flex-col space-y-4">
-          <Calender events={events} selectedDate={selectedDate} handleDatesSet={handleDatesSet} handleChangeDate={handleChangeDate} />
+          <Calender
+            events={events}
+            selectedDate={selectedDate}
+            handleDatesSet={handleDatesSet}
+            handleChangeDate={handleChangeDate}
+          />
           <Events
             events={events.filter(ev => ev.start_datetime.slice(0, 10) === selectedDate)}
             selectedDate={selectedDate}
