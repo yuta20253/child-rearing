@@ -15,11 +15,11 @@ class CalenderService
         $this->userEventRepository = $userEventRepository;
     }
 
-    public function selectedMonthUserEvents(int $year, int $month)
+    public function getMonthlyUserEvents(int $year, int $month)
     {
         $userId = Auth::id();
 
-        $events = $this->userEventRepository->selectedMonthUserEvents($userId, $year, $month);
+        $events = $this->userEventRepository->getMonthlyUserEvents($userId, $year, $month);
         return $events;
     }
 }

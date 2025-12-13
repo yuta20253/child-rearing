@@ -16,7 +16,7 @@ class UserEventRepository implements UserEventRepositoryInterface
         $this->user = $user;
     }
 
-    public function selectedMonthUserEvents(int $userId, int $year, int $month): Collection
+    public function getMonthlyUserEvents(int $userId, int $year, int $month): Collection
     {
         return $this
             ->user

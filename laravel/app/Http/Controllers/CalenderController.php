@@ -18,7 +18,7 @@ class CalenderController extends Controller
 
     public function index(Request $request)
     {
-        $events = $this->calenderService->selectedMonthUserEvents($request->year, $request->month);
+        $events = $this->calenderService->getMonthlyUserEvents($request->year, $request->month);
         return response()->json([
             'events' => $events
         ]) ;
