@@ -20,7 +20,7 @@ export const TodayEvents = ({ todayEvents, selectedDate }: Props): React.JSX.Ele
       <p className="font-bold mb-4">{formatMonthDay(selectedDate)}の予定</p>
       <ul className="space-y-3">
         {todayEvents.length === 0 && (
-          <p className="text-center text-gray-500">予定はありません。</p>
+          <p className="text-center text-gray-500">{formatMonthDay(selectedDate)}の予定はありません。</p>
         )}
         {todayEvents.length !== 0 &&
           !showAll &&
