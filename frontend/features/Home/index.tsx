@@ -1,7 +1,7 @@
 'use client';
 
 import { FavoriteFacilities } from '@/features/Home/FavoriteFacility';
-import { TodayEvents } from '@/features/Home/TodayEvent/TodoEvents';
+import { Events } from '@/features/Home/Events';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { RequireAuth } from '@/components/RequireAuth';
@@ -30,23 +30,33 @@ type FacilityFavorite = {
 export const Home = (): React.JSX.Element => {
   const [events, setEvents] = useState<Event[]>([]);
   const [facilityFavorities, setFacilityFavorities] = useState<FacilityFavorite[]>([]);
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const token = localStorage.getItem('token');
+  const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().slice(0, 10));
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchWeek = async () => {
-      try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-          },
-        });
-        setEvents(res.data.data.events);
-        setFacilityFavorities(res.data.data.facilityFavorities);
+    const storedToken = localStorage.getItem('token');
+    setToken(storedToken);
 
-        const todayStr = new Date().toISOString().slice(0, 10);
-        setSelectedDate(todayStr);
+    const fetchWeek = async () => {
+      const headers = {
+        Authorization: `Bearer ${storedToken}`,
+        Accept: 'application/json',
+      };
+
+      try {
+        const [eventsRes, facilityFavoritiesRes] = await Promise.all([
+          axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/calendar/events`, {
+            params: {
+              year: Number(selectedDate.slice(0, 4)),
+              month: Number(selectedDate.slice(5, 7)),
+            },
+            headers,
+          }),
+          axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/favorites`, { headers }),
+        ]);
+
+        setEvents(eventsRes.data.events);
+        setFacilityFavorities(facilityFavoritiesRes.data.data.facilityFavorities);
       } catch (error) {
         console.error('トップページデータ取得エラー:', error);
       }
@@ -116,8 +126,9 @@ export const Home = (): React.JSX.Element => {
               dateClick={handleChangeDate}
             />
           </div>
-          <TodayEvents
-            todayEvents={events.filter(ev => ev.start_datetime.slice(0, 10) === selectedDate)}
+          <Events
+            events={events.filter(ev => ev.start_datetime.slice(0, 10) === selectedDate)}
+            selectedDate={selectedDate}
           />
           <FavoriteFacilities facilityFavorities={facilityFavorities} />
           <div className="w-full bg-pink-300 text-white p-2 rounded mt-6">
