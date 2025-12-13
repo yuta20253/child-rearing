@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/facilities', [FacilityController::class, 'index']);
     Route::get('/facilities/{id}', [FacilityController::class, 'show']);
 
-    Route::get('/calendar/events', [CalenderController::class, 'selectMonth']);
+    Route::get('/calendar/events', [CalenderController::class, 'index']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
