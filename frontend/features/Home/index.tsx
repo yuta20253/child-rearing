@@ -77,10 +77,15 @@ export const Home = (): React.JSX.Element => {
     setSelectedDate(data.dateStr);
   };
 
+  const eventsDate = new Set(
+    events.filter(ev => ev.start_datetime)
+    .map(ev => ev.start_datetime.slice(0, 10))
+  );
+
   return (
     <RequireAuth>
       <div className="flex items-center justify-center  bg-gradient-to-tr">
-        <div className="relative w-3/4 sm:max-w-md md:max-w-lg lg:max-w-xl p-5 flex flex-col space-y-4">
+        <div className="relative w-full max-w-[1000px] p-5 flex flex-col space-y-4">
           <div className="w-full">
             <FullCalender
               plugins={[dayGridPlugin, interactionPlugin]}
@@ -96,17 +101,27 @@ export const Home = (): React.JSX.Element => {
               height="auto"
               expandRows={true}
               locale="ja"
-              dayCellContent={args => {
-                const original = args.dayNumberText;
-                const number = original.replace('日', '');
-                return { domNodes: [document.createTextNode(number)] };
-              }}
+              titleFormat={{ year: 'numeric', month: 'numeric' }}
               dayCellClassNames={args => {
                 const y = String(args.date.getFullYear());
                 const m = String(args.date.getMonth() + 1).padStart(2, '0');
                 const d = String(args.date.getDate()).padStart(2, '0');
                 const cellDate = `${y}-${m}-${d}`;
-                return cellDate === selectedDate ? ['bg-blue-200'] : [];
+                const hasEvent = eventsDate.has(cellDate);
+                const classNames: string[] = [];
+
+                if (cellDate === selectedDate) {
+                  classNames.push('is-selected');
+                }
+
+                if (hasEvent) {
+                  classNames.push('has-event');
+                }
+
+                return classNames;
+              }}
+              dayCellContent={args => {
+                return args.dayNumberText.replace('日', '');
               }}
               headerToolbar={{
                 left: 'prev',

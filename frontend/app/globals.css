@@ -75,3 +75,19 @@
 .fc-event-title {
   display: none;
 }
+
+/* 選択中の日 */
+.fc-daygrid-day.is-selected .fc-daygrid-day-frame {
+  background-color: #bfdbfe; /* blue-200 */
+}
+
+/* 予定がある日の ● */
+.fc-daygrid-day.has-event .fc-daygrid-day-number::after {
+  content: '';
+  display: block;
+  margin: 2px auto 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: #3b82f6; /* Tailwind blue-500 */
+}
