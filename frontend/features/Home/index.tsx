@@ -31,10 +31,10 @@ export const Home = (): React.JSX.Element => {
   const [events, setEvents] = useState<Event[]>([]);
   const [facilityFavorities, setFacilityFavorities] = useState<FacilityFavorite[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchWeek = async () => {
-      const token = localStorage.getItem('token');
       try {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/`, {
           headers: {
@@ -57,7 +57,6 @@ export const Home = (): React.JSX.Element => {
   const handleDatesSet = async (data: DatesSetArg) => {
     const year = data.view.currentStart.getFullYear();
     const month = data.view.currentStart.getMonth() + 1;
-    const token = localStorage.getItem('token');
 
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/calendar/events`, {
