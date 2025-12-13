@@ -25,12 +25,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/delete-account', [RegisterController::class, 'accountDelete']);
     Route::get('/profile', [UserController::class, 'profile']);
 
-    Route::get('/', [TopController::class, 'index']);
-
     Route::get('/facilities', [FacilityController::class, 'index']);
     Route::get('/facilities/{id}', [FacilityController::class, 'show']);
 
     Route::get('/calendar/events', [CalenderController::class, 'index']);
+
+    Route::get('/favorites', [FavoriteController::class, 'index']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
