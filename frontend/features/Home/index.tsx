@@ -62,7 +62,7 @@ export const Home = (): React.JSX.Element => {
       }
     };
     fetchWeek();
-  }, []);
+  }, [selectedDate]);
 
   const handleDatesSet = async (data: DatesSetArg) => {
     const year = data.view.currentStart.getFullYear();
