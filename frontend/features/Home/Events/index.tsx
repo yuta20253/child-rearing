@@ -20,7 +20,9 @@ export const Events = ({ events, selectedDate }: Props): React.JSX.Element => {
       <p className="font-bold mb-4">{formatMonthDay(selectedDate)}の予定</p>
       <ul className="space-y-3">
         {events.length === 0 && (
-          <p className="text-center text-gray-500">{formatMonthDay(selectedDate)}の予定はありません。</p>
+          <p className="text-center text-gray-500">
+            {formatMonthDay(selectedDate)}の予定はありません。
+          </p>
         )}
         {events.length !== 0 &&
           !showAll &&
