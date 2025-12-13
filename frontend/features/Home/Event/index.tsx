@@ -1,14 +1,9 @@
 import React from 'react';
 import { formatTime } from '@/utils/formatDate';
-
-export type Event = {
-  title: string;
-  start_datetime: string;
-  end_datetime: string;
-};
+import { Event as ApiEvent } from '@/types/generated/api';
 
 type Props = {
-  event: Event;
+  event: ApiEvent;
 };
 
 export const Event = ({ event }: Props) => {

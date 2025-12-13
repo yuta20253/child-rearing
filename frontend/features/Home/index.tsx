@@ -9,16 +9,7 @@ import FullCalender from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import type { DatesSetArg } from '@fullcalendar/core';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
-
-type Event = {
-  id: number;
-  title: string;
-  description: string;
-  start_datetime: string;
-  end_datetime: string;
-  capacity: number;
-  memo: string;
-};
+import { Event as ApiEvent } from '@/types/generated/api';
 
 type FacilityFavorite = {
   id: number;
@@ -28,7 +19,7 @@ type FacilityFavorite = {
 };
 
 export const Home = (): React.JSX.Element => {
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<ApiEvent[]>([]);
   const [facilityFavorities, setFacilityFavorities] = useState<FacilityFavorite[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().slice(0, 10));
   const [token, setToken] = useState<string | null>(null);

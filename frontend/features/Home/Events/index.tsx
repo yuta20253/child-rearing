@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import { Event } from '@/features/Home/Event';
 import { formatMonthDay } from '@/utils/formatMonthDay';
-
-type EventType = {
-  title: string;
-  start_datetime: string;
-  end_datetime: string;
-};
+import { Event as ApiEvent } from '@/types/generated/api';
 
 type Props = {
-  events: EventType[];
+  events: ApiEvent[];
   selectedDate: string;
 };
 

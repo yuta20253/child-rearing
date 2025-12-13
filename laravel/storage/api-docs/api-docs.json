@@ -613,6 +613,62 @@
                     }
                 ]
             },
+            "Event": {
+                "title": "Eventモデル",
+                "description": "Event情報",
+                "required": [
+                    "id",
+                    "facility_id",
+                    "title",
+                    "start_datetime",
+                    "end_datetime"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "facility_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "読み聞かせ会"
+                    },
+                    "start_datetime": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    },
+                    "end_datetime": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    },
+                    "capacity": {
+                        "type": "integer",
+                        "example": 20
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": null,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-14T00:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
             "Facility": {
                 "title": "Facilityモデル",
                 "description": "施設情報",
