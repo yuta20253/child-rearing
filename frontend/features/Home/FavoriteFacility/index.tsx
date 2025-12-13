@@ -14,7 +14,7 @@ type Props = {
 
 export const FavoriteFacilities = ({ facilityFavorities }: Props): React.JSX.Element => {
   return (
-    <div className="w-full max-w-[700px] mx-auto mt-8">
+    <div className="w-full max-w-[1200px] mx-auto mt-8 text-center text-gray-500">
       <p className="font-bold mb-4">お気に入り施設</p>
       {facilityFavorities.length === 0 && (
         <p className="text-center text-gray-500">お気に入り施設はありません。</p>
