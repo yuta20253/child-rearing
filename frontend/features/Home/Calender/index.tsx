@@ -8,12 +8,14 @@ import { DateClickArg } from '@fullcalendar/interaction';
 type Props = {
     events: ApiEvent[];
     selectedDate: string;
-    eventsDate: Set<string>;
     handleDatesSet: (data: DatesSetArg) => Promise<void>;
     handleChangeDate: (data: DateClickArg) => void;
 };
 
-export const Calender = ({events, selectedDate, eventsDate, handleDatesSet, handleChangeDate}: Props) => {
+export const Calender = ({events, selectedDate, handleDatesSet, handleChangeDate}: Props) => {
+      const eventsDate = new Set(
+        events.filter(ev => ev.start_datetime)
+              .map(ev => ev.start_datetime.slice(0, 10)));
     return (
           <div className="w-full">
             <FullCalender
