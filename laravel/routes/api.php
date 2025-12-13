@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Api\CalenderController;
+use App\Http\Controllers\CalenderController;
 
 /*
 |--------------------------------------------------------------------------
