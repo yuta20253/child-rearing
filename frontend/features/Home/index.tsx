@@ -46,10 +46,13 @@ export const Home = (): React.JSX.Element => {
       };
 
       try {
-        const resData = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/calendar/events`, {
-          params: currentMonth,
-          headers
-        });
+        const resData = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/calendar/events`,
+          {
+            params: currentMonth,
+            headers,
+          }
+        );
 
         setEvents(resData.data.events);
       } catch (error) {
@@ -69,10 +72,11 @@ export const Home = (): React.JSX.Element => {
       };
 
       try {
-        const resData = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/favorites`, { headers });
+        const resData = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/favorites`, {
+          headers,
+        });
 
         setFacilityFavorities(resData.data.facilityFavorities);
-
       } catch (error) {
         console.error('トップページデータ取得エラー:', error);
       }
@@ -82,7 +86,7 @@ export const Home = (): React.JSX.Element => {
 
   const { handleDatesSet, handleChangeDate } = handleDateAction({
     setSelectedDate,
-    setCurrentMonth
+    setCurrentMonth,
   });
 
   return (

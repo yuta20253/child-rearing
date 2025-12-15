@@ -21,7 +21,7 @@ export const handleDateAction = ({ setSelectedDate, setCurrentMonth }: Props) =>
       if (prev.year === year && prev.month === month) return prev;
 
       return { year, month };
-    })
+    });
   };
 
   const handleChangeDate = (data: DateClickArg) => {
