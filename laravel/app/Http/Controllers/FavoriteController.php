@@ -17,7 +17,7 @@ class FavoriteController extends Controller
 
     public function index()
     {
-        $data['facilityFavorities'] = $this->facilityFavoriteService->getFacilityFavorities();
-        return response()->json(['data' => $data]);
+        $facilityFavorities = $this->facilityFavoriteService->getFacilityFavorities();
+        return response()->json(['facilityFavorities' => $facilityFavorities]);
     }
 }
