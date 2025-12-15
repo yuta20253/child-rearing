@@ -1,12 +1,12 @@
 import FullCalender from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { Event as ApiEvent } from '@/types/generated/api';
+import { Event } from '@/types/generated/api';
 import type { DatesSetArg } from '@fullcalendar/core';
 import { DateClickArg } from '@fullcalendar/interaction';
 
 type Props = {
-  events: ApiEvent[];
+  events: Event[];
   selectedDate: string;
   handleDatesSet: (data: DatesSetArg) => Promise<void>;
   handleChangeDate: (data: DateClickArg) => void;

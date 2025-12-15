@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Event } from '@/features/Home/Event';
-import { formatMonthDay } from '@/utils/formatMonthDay';
+import { formatMonthDay } from '@/utils/formatDate';
 import { Event as ApiEvent } from '@/types/generated/api';
 
 type Props = {
