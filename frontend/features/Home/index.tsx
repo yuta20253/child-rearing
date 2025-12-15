@@ -16,47 +16,73 @@ type FacilityFavorite = {
   rating: number;
 };
 
+type YearMonth = {
+  year: number;
+  month: number;
+};
+
 export const Home = (): React.JSX.Element => {
   const [events, setEvents] = useState<ApiEvent[]>([]);
   const [facilityFavorities, setFacilityFavorities] = useState<FacilityFavorite[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().slice(0, 10));
   const [token, setToken] = useState<string | null>(null);
+  const today = new Date();
+  const [currentMonth, setCurrentMonth] = useState<YearMonth>({
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+  });
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    setToken(storedToken);
+    setToken(localStorage.getItem('token'));
+  }, []);
 
-    const fetchWeek = async () => {
+  useEffect(() => {
+    if (!token) return;
+
+    const fetchMonthDate = async () => {
       const headers = {
-        Authorization: `Bearer ${storedToken}`,
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
       };
 
       try {
-        const [eventsRes, facilityFavoritiesRes] = await Promise.all([
-          axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/calendar/events`, {
-            params: {
-              year: Number(selectedDate.slice(0, 4)),
-              month: Number(selectedDate.slice(5, 7)),
-            },
-            headers,
-          }),
-          axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/favorites`, { headers }),
-        ]);
+        const resData = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/calendar/events`, {
+          params: currentMonth,
+          headers
+        });
 
-        setEvents(eventsRes.data.events);
-        setFacilityFavorities(facilityFavoritiesRes.data.data.facilityFavorities);
+        setEvents(resData.data.events);
       } catch (error) {
         console.error('トップページデータ取得エラー:', error);
       }
     };
-    fetchWeek();
-  }, [selectedDate]);
+    fetchMonthDate();
+  }, [token, currentMonth.year, currentMonth.month, currentMonth]);
+
+  useEffect(() => {
+    if (!token) return;
+
+    const fetchFavorites = async () => {
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      };
+
+      try {
+        const resData = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/favorites`, { headers });
+
+        setFacilityFavorities(resData.data.facilityFavorities);
+
+      } catch (error) {
+        console.error('トップページデータ取得エラー:', error);
+      }
+    };
+    fetchFavorites();
+  }, [token]);
 
   const { handleDatesSet, handleChangeDate } = handleDateAction({
-    token,
-    setEvents,
     setSelectedDate,
+    setCurrentMonth
   });
 
   return (
