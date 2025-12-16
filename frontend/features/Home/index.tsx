@@ -8,17 +8,13 @@ import { RequireAuth } from '@/components/RequireAuth';
 import { Event as ApiEvent } from '@/types/generated/api';
 import { Calender } from './Calender';
 import { handleDateAction } from './Calender/hook';
+import { YearMonth } from '@/types/types';
 
 type FacilityFavorite = {
   id: number;
   name: string;
   address: string;
   rating: number;
-};
-
-type YearMonth = {
-  year: number;
-  month: number;
 };
 
 export const Home = (): React.JSX.Element => {

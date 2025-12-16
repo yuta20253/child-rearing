@@ -1,15 +1,11 @@
 import { SetStateAction } from 'react';
 import type { DatesSetArg } from '@fullcalendar/core';
 import { DateClickArg } from '@fullcalendar/interaction';
+import { YearMonth } from '@/types/types';
 
 type Props = {
   setSelectedDate: (value: SetStateAction<string>) => void;
   setCurrentMonth: (value: SetStateAction<YearMonth>) => void;
-};
-
-type YearMonth = {
-  year: number;
-  month: number;
 };
 
 export const handleDateAction = ({ setSelectedDate, setCurrentMonth }: Props) => {
