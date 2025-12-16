@@ -14,7 +14,7 @@ type Props = {
 
 export const FacilityFavoriteCard = ({ facility }: Props) => {
   return (
-    <div className="flex-shrink-0 w-[350px] md:w-[310px] bg-white border border-gray-300 rounded p-4 shadow ">
+    <div className="flex-shrink-0 w-[380px] md:w-[320px] bg-white border border-gray-300 rounded p-4 shadow ">
       <div className="space-y-2 mb-4">
         <p className="text-base font-semibold text-gray-800">{facility.name}</p>
         <div className="flex items-center text-sm text-gray-600">

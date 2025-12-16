@@ -88,7 +88,7 @@ export const Home = (): React.JSX.Element => {
   return (
     <RequireAuth>
       <div className="flex items-center justify-center  bg-gradient-to-tr">
-        <div className="relative w-full max-w-[1000px] p-5 flex flex-col space-y-4">
+        <div className="relative w-full max-w-[1000px] py-5 flex flex-col space-y-4">
           <Calender
             events={events}
             selectedDate={selectedDate}
