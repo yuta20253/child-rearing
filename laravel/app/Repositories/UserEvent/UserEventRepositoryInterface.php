@@ -2,7 +2,6 @@
 
 namespace App\Repositories\UserEvent;
 
-use DateTime;
 use Illuminate\Database\Eloquent\Collection;
 
 interface UserEventRepositoryInterface
