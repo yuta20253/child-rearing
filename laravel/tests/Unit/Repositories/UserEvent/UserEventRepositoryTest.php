@@ -29,7 +29,7 @@ class UserEventRepositoryTest extends TestCase
      * @test
      */
     // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    public function  指定した年月のユーザーイベントが取得されること(): void
+    public function 指定した年月のユーザーイベントが取得されること(): void
     {
         $user = User::factory()->create();
 
