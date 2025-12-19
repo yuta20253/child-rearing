@@ -8,7 +8,7 @@ import { RequireAuth } from '@/components/RequireAuth';
 import { Event as ApiEvent } from '@/types/generated/api';
 import { Calender } from './Calender';
 import { handleDateAction } from './Calender/hook';
-import { YearMonth } from '@/types/types';
+import { YearMonth } from '@/types/Home/types';
 
 type FacilityFavorite = {
   id: number;
