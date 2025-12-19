@@ -4,7 +4,6 @@ namespace App\Repositories\UserEvent;
 
 use App\Models\User;
 use App\Repositories\UserEvent\UserEventRepositoryInterface;
-use DateTime;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserEventRepository implements UserEventRepositoryInterface
