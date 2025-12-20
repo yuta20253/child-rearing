@@ -2,3 +2,92 @@
 @tailwind components;
 @tailwind utilities;
 @import 'leaflet/dist/leaflet.css';
+
+/* ▼ スマホ幅のときだけ適用 */
+@media (max-width: 600px) {
+  .fc-daygrid-day-frame {
+    aspect-ratio: 1 / 1;   /* 正方形にする */
+    height: auto !important;
+    display: flex;
+    flex-direction: column;  /* 上に日付、下にイベント */
+    overflow: hidden;        /* イベントが枠を突き破らないように */
+  }
+
+  /* 日付の位置調整（小さく）*/
+  .fc-daygrid-day-top {
+    padding: 4px;
+    font-size: 0.75rem;
+  }
+
+  /* 日付だけ出す */
+  .fc-daygrid-event {
+    display: none !important; /* ← 念のため */
+  }
+
+  /* イベント表示領域の調整 */
+  .fc-daygrid-day-events {
+    display: none !important;
+    overflow-y: auto;        /* イベントが多い場合は中だけスクロール */
+  }
+}
+
+  .fc-daygrid-day-frame {
+    aspect-ratio: 1 / 1;   /* 正方形にする */
+    height: auto !important;
+    display: flex;
+    flex-direction: column;  /* 上に日付、下にイベント */
+    overflow: hidden;        /* イベントが枠を突き破らないように */
+  }
+
+  /* 日付の位置調整（小さく）*/
+  .fc-daygrid-day-top {
+    padding: 4px;
+    font-size: 0.75rem;
+  }
+
+  /* 日付だけ出す */
+  .fc-daygrid-event {
+    display: none !important; /* ← 念のため */
+  }
+
+  /* イベント表示領域の調整 */
+  .fc-daygrid-day-events {
+    display: none !important;
+    overflow-y: auto;        /* イベントが多い場合は中だけスクロール */
+  }
+
+/* 全ボタン共通のデザイン調整 */
+  .fc .fc-button {
+   @apply bg-pink-200 text-white font-bold rounded;
+  }
+
+  /* ホバー時 */
+  .fc .fc-button:hover {
+   @apply bg-pink-300;
+  }
+
+ /* ← → のアイコン部分を大きくする */
+  .fc .fc-prev-button,
+  .fc .fc-next-button {
+   @apply text-sm border-none; /* ← → を大きく */
+  }
+
+.fc-event-title {
+  display: none;
+}
+
+/* 選択中の日 */
+.fc-daygrid-day.is-selected .fc-daygrid-day-frame {
+  background-color: #bfdbfe; /* blue-200 */
+}
+
+/* 予定がある日の ● */
+.fc-daygrid-day.has-event .fc-daygrid-day-number::after {
+  content: '';
+  display: block;
+  margin: 2px auto 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: #3b82f6; /* Tailwind blue-500 */
+}

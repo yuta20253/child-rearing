@@ -1,35 +1,35 @@
 import React, { useState } from 'react';
-
-import { TodayEventList } from '@/features/Home/TodayEvent/TodoEventList';
-
-type TodayEvent = {
-  title: string;
-};
+import { Event } from '@/features/Home/Event';
+import { formatMonthDay } from '@/utils/formatDate';
+import { Event as ApiEvent } from '@/types/generated/api';
 
 type Props = {
-  todayEvents: TodayEvent[];
+  events: ApiEvent[];
+  selectedDate: string;
 };
 
-export const TodayEvents = ({ todayEvents }: Props): React.JSX.Element => {
+export const Events = ({ events, selectedDate }: Props): React.JSX.Element => {
   const [showAll, setShowAll] = useState<boolean>(false);
   return (
     <div className="w-full max-w-[700px] mx-auto mb-8">
-      <p className="font-bold mb-4">今日の予定</p>
+      <p className="font-bold mb-4">{formatMonthDay(selectedDate)}の予定</p>
       <ul className="space-y-3">
-        {todayEvents.length === 0 && (
-          <p className="text-center text-gray-500">本日の予定はありません。</p>
+        {events.length === 0 && (
+          <p className="text-center text-gray-500">
+            {formatMonthDay(selectedDate)}の予定はありません。
+          </p>
         )}
-        {todayEvents.length !== 0 &&
+        {events.length !== 0 &&
           !showAll &&
-          todayEvents.slice(0, 3).map((event, i) => (
+          events.slice(0, 3).map((event, i) => (
             <li
               key={i}
               className={`flex w-full items-center p-3 rounded shadow ${i % 2 === 0 ? 'bg-yellow-50' : 'bg-blue-50'}`}
             >
-              <TodayEventList todayEvent={event} />
+              <Event event={event} />
             </li>
           ))}
-        {todayEvents.length > 3 && !showAll && (
+        {events.length > 3 && !showAll && (
           <div className="flex justify-center mt-3">
             <button
               onClick={() => setShowAll(true)}
@@ -41,12 +41,12 @@ export const TodayEvents = ({ todayEvents }: Props): React.JSX.Element => {
         )}
         {showAll && (
           <>
-            {todayEvents.map((event, i) => (
+            {events.map((event, i) => (
               <li
                 key={i}
                 className={`flex w-full items-center p-3 rounded shadow ${i % 2 === 0 ? 'bg-yellow-50' : 'bg-blue-50'}`}
               >
-                <TodayEventList todayEvent={event} />
+                <Event event={event} />
               </li>
             ))}
             <div className="flex justify-center mt-3">

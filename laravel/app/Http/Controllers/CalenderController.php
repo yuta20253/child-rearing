@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Services\CalenderService;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+
+class CalenderController extends Controller
+{
+    private CalenderService $calenderService;
+
+    public function __construct(CalenderService $calenderService)
+    {
+        $this->calenderService = $calenderService;
+    }
+
+    public function index(Request $request)
+    {
+        $events = $this->calenderService->getMonthlyUserEvents($request->year, $request->month);
+        return response()->json([
+            'events' => $events
+        ]) ;
+    }
+}

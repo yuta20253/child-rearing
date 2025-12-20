@@ -45,6 +45,46 @@ export type AddressWithRelations = Address & {
 };
 
 /**
+ * Eventモデル
+ * Event情報
+ */
+export interface Event {
+  /** @example 1 */
+  id: number;
+  /** @example 1 */
+  facility_id: number;
+  /** @example "読み聞かせ会" */
+  title: string;
+  /**
+   * @format date-time
+   * @example "2025-09-14T00:00:00Z"
+   */
+  start_datetime: string;
+  /**
+   * @format date-time
+   * @example "2025-09-14T00:00:00Z"
+   */
+  end_datetime: string;
+  /** @example 20 */
+  capacity?: number;
+  /**
+   * @format date-time
+   * @example null
+   */
+  deleted_at?: string | null;
+  /**
+   * @format date-time
+   * @example "2025-09-14T00:00:00Z"
+   */
+  created_at?: string;
+  /**
+   * @format date-time
+   * @example "2025-09-14T00:00:00Z"
+   */
+  updated_at?: string;
+}
+
+/**
  * Facilityモデル
  * 施設情報
  */
@@ -501,9 +541,10 @@ export class HttpClient<SecurityDataType = unknown> {
       r.data = null as unknown as T;
       r.error = null as unknown as E;
 
+      const responseToParse = responseFormat ? response.clone() : response;
       const data = !responseFormat
         ? r
-        : await response[responseFormat]()
+        : await responseToParse[responseFormat]()
             .then(data => {
               if (r.ok) {
                 r.data = data;

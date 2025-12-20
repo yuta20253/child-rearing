@@ -2,10 +2,9 @@
 
 namespace App\Repositories\UserEvent;
 
-use DateTime;
 use Illuminate\Database\Eloquent\Collection;
 
 interface UserEventRepositoryInterface
 {
-    public function getUserEvents(int $id, ?DateTime $targetDate): Collection;
+    public function getMonthlyUserEvents(int $id, int $year, int $month): Collection;
 }
