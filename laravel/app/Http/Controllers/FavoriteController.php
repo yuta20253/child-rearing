@@ -20,4 +20,10 @@ class FavoriteController extends Controller
         $facilityFavorities = $this->facilityFavoriteService->getFacilityFavorities();
         return response()->json(['facilityFavorities' => $facilityFavorities]);
     }
+
+    public function store($id)
+    {
+        $success = $this->facilityFavoriteService->registerFacilityFavorite($id);
+        return response()->json(['success' => $success], 201);
+    }
 }
