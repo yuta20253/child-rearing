@@ -2,7 +2,6 @@
 
 namespace App\Repositories\FacilityFavorite;
 
-use App\Models\FacilityFavorite;
 use Illuminate\Database\Eloquent\Collection;
 
 interface FacilityFavoriteRepositoryInterface
