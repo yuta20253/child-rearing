@@ -84,7 +84,7 @@ class User extends Authenticatable
 
     public function facilityFavorities()
     {
-        return $this->belongsToMany(Facility::class, 'facility_favorites')->withTimestamps();
+        return $this->belongsToMany(Facility::class, 'facility_favorites', 'user_id', 'facility_id')->withTimestamps();
     }
 
     protected static function booted()
