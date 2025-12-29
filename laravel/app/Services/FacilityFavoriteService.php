@@ -33,4 +33,10 @@ class FacilityFavoriteService
             ];
         })->toArray();
     }
+
+    public function registerFacilityFavorite(int $facilityId)
+    {
+        $userId = Auth::id();
+        $this->facilityFavoriteRepository->registerUserFacilityFavorite($facilityId, $userId);
+    }
 }
