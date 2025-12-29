@@ -31,6 +31,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/calendar/events', [CalenderController::class, 'index']);
 
     Route::get('/favorites', [FavoriteController::class, 'index']);
+    Route::post('/facilities/{id}/favorite', [FavoriteController::class, 'store']);
+    Route::delete('/facilities/{id}/favorite', [FavoriteController::class, 'destroy']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
