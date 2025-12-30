@@ -26,13 +26,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [UserController::class, 'profile']);
 
     Route::get('/facilities', [FacilityController::class, 'index']);
-    Route::get('/facilities/{id}', [FacilityController::class, 'show']);
+    Route::post('/facilities/{facilityId}/favorite', [FavoriteController::class, 'store'])->whereNumber('facilityId');
+    Route::delete('/facilities/{facilityId}/favorite', [FavoriteController::class, 'destroy'])->whereNumber('facilityId');
+    Route::get('/facilities/{facilityId}', [FacilityController::class, 'show'])->whereNumber('facilityId');
 
     Route::get('/calendar/events', [CalenderController::class, 'index']);
 
     Route::get('/favorites', [FavoriteController::class, 'index']);
-    Route::post('/facilities/{id}/favorite', [FavoriteController::class, 'store']);
-    Route::delete('/facilities/{id}/favorite', [FavoriteController::class, 'destroy']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
