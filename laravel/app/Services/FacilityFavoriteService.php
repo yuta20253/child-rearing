@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Repositories\FacilityFavorite\FacilityFavoriteRepository;
+use App\Repositories\FacilityFavorite\FacilityFavoriteRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
 class FacilityFavoriteService
 {
-    private FacilityFavoriteRepository $facilityFavoriteRepository;
+    private FacilityFavoriteRepositoryInterface $facilityFavoriteRepository;
 
-    public function __construct(FacilityFavoriteRepository $facilityFavoriteRepository)
+    public function __construct(FacilityFavoriteRepositoryInterface $facilityFavoriteRepository)
     {
         $this->facilityFavoriteRepository = $facilityFavoriteRepository;
     }
