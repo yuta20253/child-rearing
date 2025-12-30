@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Facility;
 use App\Services\FacilityService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
