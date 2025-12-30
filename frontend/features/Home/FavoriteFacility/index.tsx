@@ -24,7 +24,7 @@ export const FavoriteFacilities = ({ facilityFavorities }: Props): React.JSX.Ele
           <FacilityFavoriteCard facility={facilityFavorities[0]} />
         </div>
       )}
-      {facilityFavorities.length === 2 && (
+      {facilityFavorities.length >= 2 && (
         <div className="overflow-x-auto pb-2">
           <div className="flex gap-6 min-w-fit mx-auto px-2">
             {facilityFavorities.map((facilityFavority, i) => (
