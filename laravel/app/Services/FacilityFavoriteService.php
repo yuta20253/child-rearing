@@ -39,4 +39,10 @@ class FacilityFavoriteService
         $userId = Auth::id();
         $this->facilityFavoriteRepository->registerUserFacilityFavorite($facilityId, $userId);
     }
+
+    public function cancelFacilityFavorite(int $facilityId)
+    {
+        $userId = Auth::id();
+        $this->facilityFavoriteRepository->cancelUserFacilityFavorite($facilityId, $userId);
+    }
 }
