@@ -77,10 +77,10 @@ class FacilityController extends Controller
         ], 200);
     }
 
-    public function show(Facility $facility)
+    public function show(int $facilityId)
     {
         try {
-            $facilityDetail = $this->facilityService->find($facility->id);
+            $facilityDetail = $this->facilityService->find($facilityId);
             return response()->json(['facility' => $facilityDetail], 200);
         } catch (ModelNotFoundException) {
             return response()->json(['message' => '該当の施設が見つかりません。'], 404);
