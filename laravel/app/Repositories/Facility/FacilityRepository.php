@@ -20,12 +20,7 @@ class FacilityRepository implements FacilityRepositoryInterface
     {
         return $this->facility
                     ->with(['address.municipality.prefecture'])
-                    ->whereHas("address", function ($query) use ($municipalityId) {
-                        $query->where("municipality_id", $municipalityId);
-                    })
-                    ->when($name, function (Builder $query, string $name) {
-                        $query->where('name', 'LIKE', "%{$name}%");
-                    })
+                    ->when($name, fn ($q) => $q->where('name', 'LIKE', "%{$name}%"))
                     ->get();
     }
 
