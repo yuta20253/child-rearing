@@ -33,7 +33,19 @@ class FavoriteController extends Controller
             return response()->json(['message' => '該当の施設が見つかりません。'], 404);
         }
 
-        $success = $this->facilityFavoriteService->registerFacilityFavorite($facility->id);
-        return response()->json(['success' => $success], 201);
+        $this->facilityFavoriteService->registerFacilityFavorite($facility->id);
+        return response()->json(['message' => 'お気に入り登録しました。'], 201);
+    }
+
+    public function destroy(int $facilityId)
+    {
+        $facility = $this->facilityService->find($facilityId);
+
+        if (! $facility) {
+            return response()->json(['message' => '該当の施設が見つかりません。'], 404);
+        }
+
+        $this->facilityFavoriteService->cancelFacilityFavorite(($facility->id));
+        return response()->json(['message' => 'お気に入り解除しました。'], 201);
     }
 }
