@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Facility;
 use App\Services\FacilityService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -76,11 +77,11 @@ class FacilityController extends Controller
         ], 200);
     }
 
-    public function show($id)
+    public function show(Facility $facility)
     {
         try {
-            $facility = $this->facilityService->find($id);
-            return response()->json(['facility' => $facility], 200);
+            $facilityDetail = $this->facilityService->find($facility->id);
+            return response()->json(['facility' => $facilityDetail], 200);
         } catch (ModelNotFoundException) {
             return response()->json(['message' => '該当の施設が見つかりません。'], 404);
         }
