@@ -24,7 +24,10 @@ class FacilityFavoriteRepositoryTest extends TestCase
         $this->facilityFavoriteRepository = app(FacilityFavoriteRepositoryInterface::class);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function getUserFacilityFavoritiesはそのユーザーの施設だけ返す(): void
     {
         $user1 = User::factory()->create();

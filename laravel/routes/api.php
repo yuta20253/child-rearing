@@ -27,7 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/facilities', [FacilityController::class, 'index']);
     Route::post('/facilities/{facilityId}/favorite', [FavoriteController::class, 'store'])->whereNumber('facilityId');
-    Route::delete('/facilities/{facilityId}/favorite', [FavoriteController::class, 'destroy'])->whereNumber('facilityId');
+    Route::delete('/facilities/{facilityId}/favorite', [FavoriteController::class, 'destroy'])
+            ->whereNumber('facilityId');
     Route::get('/facilities/{facilityId}', [FacilityController::class, 'show'])->whereNumber('facilityId');
 
     Route::get('/calendar/events', [CalenderController::class, 'index']);
