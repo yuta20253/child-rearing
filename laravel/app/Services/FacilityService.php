@@ -21,7 +21,7 @@ class FacilityService
         if ($user && $user->address) {
             $municipalityId = $user->address->municipality_id;
         } else {
-            $municipalityId = 1638;
+            $municipalityId = 1615;
         }
         return $this->facilityRepository->getAll($municipalityId, $name);
     }
