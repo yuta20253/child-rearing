@@ -31,11 +31,11 @@ class FacilityFavoriteServiceTest extends TestCase
     {
         Auth::shouldReceive('id')->once()->andReturn(1);
         $this->facilityFavoriteRepositoryMock
-             ->shouldReceive('registerUserFacilityFavorite')
+             ->shouldReceive('register')
              ->once()
              ->with(123, 1);
 
-        $this->facilityFavoriteService->registerFacilityFavorite(123);
+        $this->facilityFavoriteService->register(123);
 
         $this->assertTrue(true);
     }
@@ -48,11 +48,11 @@ class FacilityFavoriteServiceTest extends TestCase
     {
         Auth::shouldReceive('id')->once()->andReturn(1);
         $this->facilityFavoriteRepositoryMock
-             ->shouldReceive('cancelUserFacilityFavorite')
+             ->shouldReceive('cancel')
              ->once()
              ->with(123, 1);
 
-        $this->facilityFavoriteService->cancelFacilityFavorite(123);
+        $this->facilityFavoriteService->cancel(123);
         $this->assertTrue(true);
     }
 }

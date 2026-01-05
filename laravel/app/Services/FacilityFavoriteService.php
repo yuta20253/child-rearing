@@ -34,7 +34,7 @@ class FacilityFavoriteService
         })->toArray();
     }
 
-    public function registerFacilityFavorite(int $facilityId): void
+    public function register(int $facilityId): void
     {
         $userId = Auth::id();
         $this->facilityFavoriteRepository->register($facilityId, $userId);
