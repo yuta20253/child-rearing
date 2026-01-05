@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Collection;
 interface FacilityFavoriteRepositoryInterface
 {
     public function getUserFacilityFavorites(int $id): Collection;
-    public function registerUserFacilityFavorite(int $facilityId, int $userId): bool;
-    public function cancelUserFacilityFavorite(int $facilityId, int $userId): bool;
+    public function register(int $facilityId, int $userId): void;
+    public function cancel(int $facilityId, int $userId): void;
 }

@@ -17,7 +17,7 @@ class FacilityFavoriteService
     public function getFacilityFavorities()
     {
         $userId = Auth::id();
-        $userFacilityFavorities = $this->facilityFavoriteRepository->getUserFacilityFavorities($userId);
+        $userFacilityFavorities = $this->facilityFavoriteRepository->getUserFacilityFavorites($userId);
 
         return $userFacilityFavorities->map(function ($facility) {
             $address = $facility?->address;
@@ -34,15 +34,15 @@ class FacilityFavoriteService
         })->toArray();
     }
 
-    public function registerFacilityFavorite(int $facilityId)
+    public function registerFacilityFavorite(int $facilityId): void
     {
         $userId = Auth::id();
-        $this->facilityFavoriteRepository->registerUserFacilityFavorite($facilityId, $userId);
+        $this->facilityFavoriteRepository->register($facilityId, $userId);
     }
 
-    public function cancelFacilityFavorite(int $facilityId)
+    public function cancel(int $facilityId): void
     {
         $userId = Auth::id();
-        $this->facilityFavoriteRepository->cancelUserFacilityFavorite($facilityId, $userId);
+        $this->facilityFavoriteRepository->cancel($facilityId, $userId);
     }
 }
