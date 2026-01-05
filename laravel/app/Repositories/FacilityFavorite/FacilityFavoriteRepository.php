@@ -22,7 +22,7 @@ class FacilityFavoriteRepository implements FacilityFavoriteRepositoryInterface
 
     public function registerUserFacilityFavorite(int $facilityId, int $userId): bool
     {
-        $this->user->findOrFail($userId)->facilityFavorities()->syncWithoutDetaching($facilityId);
+        $this->user->findOrFail($userId)->facilityFavorites()->syncWithoutDetaching($facilityId);
 
         return true;
     }
