@@ -39,7 +39,7 @@ class FacilityFavoriteRepositoryTest extends TestCase
         $user1->facilityFavorities()->attach($facility1->id);
         $user2->facilityFavorities()->attach($facility2->id);
 
-        $result = $this->facilityFavoriteRepository->getUserFacilityFavorities($user1->id);
+        $result = $this->facilityFavoriteRepository->getUserFacilityFavorites($user1->id);
 
         $this->assertCount(1, $result);
         $this->assertEquals($facility1->id, $result->first()->id);
@@ -54,7 +54,7 @@ class FacilityFavoriteRepositoryTest extends TestCase
         $user = User::factory()->create();
         $facility = Facility::factory()->create();
 
-        $this->facilityFavoriteRepository->registerUserFacilityFavorite($facility->id, $user->id);
+        $this->facilityFavoriteRepository->register($facility->id, $user->id);
 
         $this->assertDatabaseHas('facility_favorites', [
             'user_id' => $user->id,
@@ -71,7 +71,7 @@ class FacilityFavoriteRepositoryTest extends TestCase
         $user = User::factory()->create();
         $facility = Facility::factory()->create();
 
-        $this->facilityFavoriteRepository->cancelUserFacilityFavorite($facility->id, $user->id);
+        $this->facilityFavoriteRepository->cancel($facility->id, $user->id);
 
         $this->assertDatabaseMissing('facility_favorites', [
             'user_id' => $user->id,
