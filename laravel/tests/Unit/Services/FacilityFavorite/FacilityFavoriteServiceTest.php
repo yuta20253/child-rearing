@@ -27,7 +27,7 @@ class FacilityFavoriteServiceTest extends TestCase
      * @test
      */
     // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    public function registerFacilityFavoriteメソッドが認証ユーザーidでRepositoryを呼べること(): void
+    public function registerメソッドが認証ユーザーidでRepositoryを呼べること(): void
     {
         Auth::shouldReceive('id')->once()->andReturn(1);
         $this->facilityFavoriteRepositoryMock
@@ -44,7 +44,7 @@ class FacilityFavoriteServiceTest extends TestCase
      * @test
      */
     // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    public function cancelFacilityFavoriteメソッドが認証ユーザーidでRepositoryを呼べること(): void
+    public function cancelメソッドが認証ユーザーidでRepositoryを呼べること(): void
     {
         Auth::shouldReceive('id')->once()->andReturn(1);
         $this->facilityFavoriteRepositoryMock
