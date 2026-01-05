@@ -82,7 +82,7 @@ class User extends Authenticatable
                     ->whereNull('user_events.deleted_at');
     }
 
-    public function facilityFavorities()
+    public function facilityFavorites()
     {
         return $this->belongsToMany(Facility::class, 'facility_favorites', 'user_id', 'facility_id')->withTimestamps();
     }
