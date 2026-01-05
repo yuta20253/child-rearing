@@ -47,7 +47,7 @@ return new class extends Migration
 
             $table->foreign('facility_id')
                   ->references('id')
-                  ->on('facility_favorites');
+                  ->on('facilities');
         });
     }
 };
