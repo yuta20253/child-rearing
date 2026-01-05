@@ -14,12 +14,12 @@ class FacilityFavoriteService
         $this->facilityFavoriteRepository = $facilityFavoriteRepository;
     }
 
-    public function getFacilityFavorities()
+    public function getFacilityFavorites()
     {
         $userId = Auth::id();
-        $userFacilityFavorities = $this->facilityFavoriteRepository->getUserFacilityFavorites($userId);
+        $userFacilityFavorites = $this->facilityFavoriteRepository->getUserFacilityFavorites($userId);
 
-        return $userFacilityFavorities->map(function ($facility) {
+        return $userFacilityFavorites->map(function ($facility) {
             $address = $facility?->address;
             $municipality = $address?->municipality;
             $prefecture = $municipality?->prefecture;

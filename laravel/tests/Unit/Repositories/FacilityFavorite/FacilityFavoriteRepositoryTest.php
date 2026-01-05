@@ -36,8 +36,8 @@ class FacilityFavoriteRepositoryTest extends TestCase
         $facility1 = Facility::factory()->create();
         $facility2 = Facility::factory()->create();
 
-        $user1->facilityFavorities()->attach($facility1->id);
-        $user2->facilityFavorities()->attach($facility2->id);
+        $user1->facilityFavorites()->attach($facility1->id);
+        $user2->facilityFavorites()->attach($facility2->id);
 
         $result = $this->facilityFavoriteRepository->getUserFacilityFavorites($user1->id);
 

@@ -17,7 +17,7 @@ class FacilityFavoriteRepository implements FacilityFavoriteRepositoryInterface
 
     public function getUserFacilityFavorites(int $userId): Collection
     {
-        return $this->user->findOrFail($userId)->facilityFavorities()->get();
+        return $this->user->findOrFail($userId)->facilityFavorites()->get();
     }
 
     public function register(int $facilityId, int $userId): void
@@ -27,6 +27,6 @@ class FacilityFavoriteRepository implements FacilityFavoriteRepositoryInterface
 
     public function cancel(int $facilityId, int $userId): void
     {
-        $this->user->findOrFail($userId)->facilityFavorities()->detach($facilityId);
+        $this->user->findOrFail($userId)->facilityFavorites()->detach($facilityId);
     }
 }

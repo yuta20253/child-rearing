@@ -19,7 +19,7 @@ type FacilityFavorite = {
 
 export const Home = (): React.JSX.Element => {
   const [events, setEvents] = useState<ApiEvent[]>([]);
-  const [facilityFavorities, setFacilityFavorities] = useState<FacilityFavorite[]>([]);
+  const [facilityFavorites, setFacilityFavorites] = useState<FacilityFavorite[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().slice(0, 10));
   const [token, setToken] = useState<string | null>(null);
   const today = new Date();
@@ -72,7 +72,7 @@ export const Home = (): React.JSX.Element => {
           headers,
         });
 
-        setFacilityFavorities(resData.data.facilityFavorities);
+        setFacilityFavorites(resData.data.facilityFavorites);
       } catch (error) {
         console.error('トップページデータ取得エラー:', error);
       }
@@ -99,7 +99,7 @@ export const Home = (): React.JSX.Element => {
             events={events.filter(ev => ev.start_datetime.slice(0, 10) === selectedDate)}
             selectedDate={selectedDate}
           />
-          <FavoriteFacilities facilityFavorities={facilityFavorities} />
+          <FavoriteFacilities facilityFavorites={facilityFavorites} />
           <div className="w-full bg-pink-300 text-white p-2 rounded mt-6">
             <div className="flex justify-center">
               <button className="font-semibold px-6 py-2 rounded">施設を探す</button>
