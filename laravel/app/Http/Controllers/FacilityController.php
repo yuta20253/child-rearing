@@ -76,7 +76,7 @@ class FacilityController extends Controller
         ], 200);
     }
 
-    public function show(int $facilityId)
+    public function show(string $facilityId)
     {
         try {
             $facilityDetail = $this->facilityService->find($facilityId);

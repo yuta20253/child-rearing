@@ -25,7 +25,7 @@ class FavoriteController extends Controller
         return response()->json(['facilityFavorites' => $facilityFavorites]);
     }
 
-    public function store(int $facilityId)
+    public function store(string $facilityId)
     {
         $facility = $this->facilityService->find($facilityId);
 
@@ -37,7 +37,7 @@ class FavoriteController extends Controller
         return response()->json(['message' => 'お気に入り登録しました。'], 201);
     }
 
-    public function destroy(int $facilityId)
+    public function destroy(string $facilityId)
     {
         $facility = $this->facilityService->find($facilityId);
 

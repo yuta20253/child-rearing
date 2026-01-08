@@ -34,13 +34,13 @@ class FacilityFavoriteService
         })->toArray();
     }
 
-    public function register(int $facilityId): void
+    public function register(string $facilityId): void
     {
         $userId = Auth::id();
         $this->facilityFavoriteRepository->register($facilityId, $userId);
     }
 
-    public function cancel(int $facilityId): void
+    public function cancel(string $facilityId): void
     {
         $userId = Auth::id();
         $this->facilityFavoriteRepository->cancel($facilityId, $userId);

@@ -27,7 +27,7 @@ class FacilityRepository implements FacilityRepositoryInterface
                     ->get();
     }
 
-    public function find(int $id): Facility
+    public function find(string $id): Facility
     {
         return $this->facility
                     ->with(['hours', 'phone', 'reviews.user', 'address.municipality.prefecture'])
