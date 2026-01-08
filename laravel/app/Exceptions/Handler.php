@@ -25,7 +25,9 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->renderable(function (NotFoundHttpException $e, $request) {
-            if (! $request->is('api/*')) return;
+            if (! $request->is('api/*')) {
+                return;
+            }
 
             if (str_contains($e->getMessage(), 'Facility')) {
                 $message = '該当の施設が見つかりません。';
