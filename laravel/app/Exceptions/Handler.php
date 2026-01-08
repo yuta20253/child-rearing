@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -23,8 +24,21 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            if (! $request->is('api/*')) return;
+
+            if (str_contains($e->getMessage(), 'Facility')) {
+                $message = '該当の施設が見つかりません。';
+            } elseif (str_contains($e->getMessage(), 'User')) {
+                $message = '該当のユーザーが見つかりません。';
+            } else {
+                $message = 'リソースが見つかりません。';
+            }
+
+            return response()->json([
+                'message' => $message ?? 'リソースが見つかりません。',
+
+            ], 404);
         });
     }
 }
