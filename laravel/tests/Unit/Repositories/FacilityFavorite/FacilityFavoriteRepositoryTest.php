@@ -49,7 +49,26 @@ class FacilityFavoriteRepositoryTest extends TestCase
      * @test
      */
     // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    public function registerUserFacilityFavoriteで中間テーブルにレコードが追加されること(): void
+    public function 二回同じuserId、facilityIdでregisterが実行されたときに、レコードが1つのままであること(): void
+    {
+        $user1 = User::factory()->create();
+
+        $facility1 = Facility::factory()->create();
+
+        $this->facilityFavoriteRepository->register($facility1->id, $user1->id);
+        $this->facilityFavoriteRepository->register($facility1->id, $user1->id);
+
+        $this->assertDatabaseCount('facility_favorites', 1);
+        $this->assertDatabaseHas('facility_favorites', [
+            'user_id' => $user1->id,
+            'facility_id' => $facility1->id,
+        ]);
+    }
+    /**
+     * @test
+     */
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    public function registerで中間テーブルにレコードが追加されること(): void
     {
         $user = User::factory()->create();
         $facility = Facility::factory()->create();
@@ -66,12 +85,16 @@ class FacilityFavoriteRepositoryTest extends TestCase
      * @test
      */
     // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    public function cancelUserFacilityFavoriteで中間テーブルにレコードが削除されること(): void
+    public function cancelで中間テーブルにレコードが削除されること(): void
     {
         $user = User::factory()->create();
         $facility = Facility::factory()->create();
 
+        $user->facilityFavorites()->syncWithoutDetaching($facility->id);
+
         $this->facilityFavoriteRepository->cancel($facility->id, $user->id);
+
+        $this->assertDatabaseCount('facility_favorites', 0);
 
         $this->assertDatabaseMissing('facility_favorites', [
             'user_id' => $user->id,
