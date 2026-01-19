@@ -29,10 +29,6 @@ class FavoriteController extends Controller
     {
         $facility = $this->facilityService->find($facilityId);
 
-        if (! $facility) {
-            return response()->json(['message' => '該当の施設が見つかりません。'], 404);
-        }
-
         $this->facilityFavoriteService->register($facility->id);
         return response()->json(['message' => 'お気に入り登録しました。'], 201);
     }
