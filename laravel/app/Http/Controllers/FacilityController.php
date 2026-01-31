@@ -46,7 +46,9 @@ use OpenApi\Annotations as OA;
  *        response=200,
  *        description="施設詳細取得成功",
  *        @OA\JsonContent(
- *           @OA\Property(property="facility", ref="#/components/schemas/Facility")
+ *           required={"facility", "favorited"},
+ *           @OA\Property(property="facility", ref="#/components/schemas/Facility"),
+ *           @OA\Property(property="favorited", type="boolean", example=true, description="ログインユーザーがお気に入りしているか")
  *        )
  *     ),
  *     @OA\Response(
@@ -79,8 +81,8 @@ class FacilityController extends Controller
     public function show(string $facilityId)
     {
         try {
-            $facilityDetail = $this->facilityService->find($facilityId);
-            return response()->json(['facility' => $facilityDetail], 200);
+            ['facility' => $facility, 'favorited' => $favorited] = $this->facilityService->find($facilityId);
+            return response()->json(['facility' => $facility, 'favorited' => $favorited], 200);
         } catch (ModelNotFoundException) {
             return response()->json(['message' => '該当の施設が見つかりません。'], 404);
         }

@@ -485,9 +485,18 @@
                         "content": {
                             "application/json": {
                                 "schema": {
+                                    "required": [
+                                        "facility",
+                                        "favorited"
+                                    ],
                                     "properties": {
                                         "facility": {
                                             "$ref": "#/components/schemas/Facility"
+                                        },
+                                        "favorited": {
+                                            "description": "ログインユーザーがお気に入りしているか",
+                                            "type": "boolean",
+                                            "example": true
                                         }
                                     },
                                     "type": "object"

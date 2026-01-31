@@ -26,8 +26,20 @@ class FacilityService
         return $this->facilityRepository->getAll($municipalityId, $name);
     }
 
-    public function find(string $id): Facility
+    public function find(string $id)
     {
-        return $this->facilityRepository->find($id);
+        $user = Auth::user();
+        $favorited = false;
+        $facility = $this->facilityRepository->find($id);
+
+        /** @var User | null $user */
+        if ($user) {
+            $favorited = $user->facilityFavorites()->where('facility_id', $facility->id)->exists();
+        }
+
+        return [
+            'facility' => $facility,
+            'favorited' => $favorited,
+        ];
     }
 }
