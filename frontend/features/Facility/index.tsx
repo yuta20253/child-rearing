@@ -50,7 +50,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
                   <span className="text-2xl">🏠</span>
                   <span className="leading-snug">{facility.name}</span>
                 </h1>
-                <button className='ml-auto gap-1 mr-4 text-3xl font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200' style={{ minWidth: '48px', minHeight: '48px' }}>
+                <button className='ml-auto gap-1 mr-4 text-3xl font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200'>
                   {
                     favorited ? (
                       <FaStar className='text-yellow-400' size="1.2em" />
