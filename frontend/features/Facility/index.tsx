@@ -53,7 +53,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
                 <button className='ml-auto gap-1 mr-4 text-3xl font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200' style={{ minWidth: '48px', minHeight: '48px' }}>
                   {
                     favorited ? (
-                      <FaStar size="1.2em" />
+                      <FaStar className='text-yellow-400' size="1.2em" />
                     ) : (
                       <FaRegStar size="1.2em" />
                     )
