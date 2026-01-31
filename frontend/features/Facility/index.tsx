@@ -7,10 +7,13 @@ import { getFacility } from '@/libs/services/facilities';
 import { FacilityHourList } from './List/FacilityHour';
 import { FacilityReviewList } from './List/Review';
 import { Map } from '@/components/Map';
+import { FaRegStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 
 export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [facility, setFacility] = useState<FacilityWithRelations | undefined>(undefined);
+  const [favorited, setFavorited] = useState<boolean>(false);
 
   useEffect(() => {
     const facilityId = Number(id);
@@ -21,10 +24,11 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
       try {
         setIsLoading(true);
 
-        const data = await getFacility(token, facilityId);
+        const { facilityDetail, favorited } = await getFacility(token, facilityId);
 
-        if (data) {
-          setFacility(data);
+        if (facilityDetail) {
+          setFacility(facilityDetail);
+          setFavorited(favorited);
         }
       } catch (error) {
         console.error('施設情報の取得に失敗しました', error);
@@ -39,13 +43,22 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
     <RequireAuth>
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-md mx-auto pb-8">
-          <header className="pt-6 pb-4">
+          <header className="flex pt-6 pb-4">
             {facility && (
               <>
-                <h1 className="flex items-center gap-2 text-xl font-semibold text-gray-900">
+                <h1 className="flex items-center gap-2 text-xl font-semibold text-gray-900 flex-shrink-0">
                   <span className="text-2xl">🏠</span>
                   <span className="leading-snug">{facility.name}</span>
                 </h1>
+                <button className='ml-auto gap-1 mr-4 text-3xl font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200' style={{ minWidth: '48px', minHeight: '48px' }}>
+                  {
+                    favorited ? (
+                      <FaStar size="1.2em" />
+                    ) : (
+                      <FaRegStar size="1.2em" />
+                    )
+                  }
+                </button>
               </>
             )}
           </header>
