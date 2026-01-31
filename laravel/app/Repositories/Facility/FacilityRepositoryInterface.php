@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Collection;
 interface FacilityRepositoryInterface
 {
     public function getAll(int $municipalityId, ?string $name): Collection;
-    public function find(int $id): Facility;
+    public function find(string $id): Facility;
 }

@@ -21,12 +21,12 @@ class FacilityService
         if ($user && $user->address) {
             $municipalityId = $user->address->municipality_id;
         } else {
-            $municipalityId = 1638;
+            $municipalityId = 1566;
         }
         return $this->facilityRepository->getAll($municipalityId, $name);
     }
 
-    public function find(int $id): Facility
+    public function find(string $id): Facility
     {
         return $this->facilityRepository->find($id);
     }

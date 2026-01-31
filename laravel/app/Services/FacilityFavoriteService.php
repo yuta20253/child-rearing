@@ -2,24 +2,24 @@
 
 namespace App\Services;
 
-use App\Repositories\FacilityFavorite\FacilityFavoriteRepository;
+use App\Repositories\FacilityFavorite\FacilityFavoriteRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
 class FacilityFavoriteService
 {
-    private FacilityFavoriteRepository $facilityFavoriteRepository;
+    private FacilityFavoriteRepositoryInterface $facilityFavoriteRepository;
 
-    public function __construct(FacilityFavoriteRepository $facilityFavoriteRepository)
+    public function __construct(FacilityFavoriteRepositoryInterface $facilityFavoriteRepository)
     {
         $this->facilityFavoriteRepository = $facilityFavoriteRepository;
     }
 
-    public function getFacilityFavorities()
+    public function getFacilityFavorites()
     {
         $userId = Auth::id();
-        $userFacilityFavorities = $this->facilityFavoriteRepository->getUserFacilityFavorities($userId);
+        $userFacilityFavorites = $this->facilityFavoriteRepository->getUserFacilityFavorites($userId);
 
-        return $userFacilityFavorities->map(function ($facility) {
+        return $userFacilityFavorites->map(function ($facility) {
             $address = $facility?->address;
             $municipality = $address?->municipality;
             $prefecture = $municipality?->prefecture;
@@ -32,5 +32,17 @@ class FacilityFavoriteService
                 'rating' => round($facility->reviews()->avg('rating') ?? 0, 1),
             ];
         })->toArray();
+    }
+
+    public function register(string $facilityId): void
+    {
+        $userId = Auth::id();
+        $this->facilityFavoriteRepository->register($facilityId, $userId);
+    }
+
+    public function cancel(string $facilityId): void
+    {
+        $userId = Auth::id();
+        $this->facilityFavoriteRepository->cancel($facilityId, $userId);
     }
 }
