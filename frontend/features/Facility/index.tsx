@@ -9,11 +9,14 @@ import { FacilityReviewList } from './List/Review';
 import { Map } from '@/components/Map';
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
+import { cancelFacilityFavorite, registerFacilityFavorite } from '@/libs/services/favorite';
 
 export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isUpdatingFavorite, setIsUpdatingFavorite] = useState(false);
   const [facility, setFacility] = useState<FacilityWithRelations | undefined>(undefined);
   const [favorited, setFavorited] = useState<boolean>(false);
+  const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const facilityId = Number(id);
@@ -39,6 +42,31 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
     fetchData();
   }, [id]);
 
+  const handleChangeFavoriteStatus = async () => {
+    const token = localStorage.getItem('token');
+
+    const facilityId = facility?.id;
+    if (facilityId === undefined) return;
+    if (!token) return;
+
+    try {
+      setIsUpdatingFavorite(true);
+      if (favorited) {
+        const message = await cancelFacilityFavorite(token, facilityId);
+        setFavorited(false);
+        setMessage(message ?? null);
+      } else {
+        const message = await registerFacilityFavorite(token, facilityId);
+        setFavorited(true);
+        setMessage(message ?? null);
+      }
+    } catch (error) {
+      console.error('お気に入りの変更に失敗しました。', error);
+    } finally {
+      setIsUpdatingFavorite(false);
+    }
+  }
+
   return (
     <RequireAuth>
       <div className="min-h-screen bg-gray-50">
@@ -50,7 +78,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
                   <span className="text-2xl">🏠</span>
                   <span className="leading-snug">{facility.name}</span>
                 </h1>
-                <button className='ml-auto gap-1 mr-4 text-3xl font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200'>
+                <button className='ml-auto gap-1 mr-4 text-3xl font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200' disabled={isUpdatingFavorite} onClick={handleChangeFavoriteStatus}>
                   {
                     favorited ? (
                       <FaStar className='text-yellow-400' size="1.2em" />
@@ -69,6 +97,11 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
               <p className="text-sm">施設情報を読み込み中です…</p>
             </div>
           )}
+          {
+            message && (
+              <p>{message}</p>
+            )
+          }
 
           {!isLoading && !facility && (
             <div className="py-16 text-center text-gray-500">
