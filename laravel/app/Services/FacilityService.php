@@ -37,7 +37,7 @@ class FacilityService
         $favorited = false;
         $facility = $this->facilityRepository->find($id);
 
-        /** @var User | null $user */
+        /** @var User|null $user */
         if ($user) {
             $favorited = $user->facilityFavorites()->where('facility_id', $facility->id)->exists();
         }
