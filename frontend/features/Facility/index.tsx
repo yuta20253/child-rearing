@@ -7,8 +7,8 @@ import { getFacility } from '@/libs/services/facilities';
 import { FacilityHourList } from './List/FacilityHour';
 import { FacilityReviewList } from './List/Review';
 import { Map } from '@/components/Map';
-import { FaRegStar } from "react-icons/fa";
-import { FaStar } from "react-icons/fa";
+import { FaRegStar } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
 import { cancelFacilityFavorite, registerFacilityFavorite } from '@/libs/services/favorite';
 
 export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
@@ -65,7 +65,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
     } finally {
       setIsUpdatingFavorite(false);
     }
-  }
+  };
 
   return (
     <RequireAuth>
@@ -78,14 +78,16 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
                   <span className="text-2xl">🏠</span>
                   <span className="leading-snug">{facility.name}</span>
                 </h1>
-                <button className='ml-auto gap-1 mr-4 text-3xl font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200' disabled={isUpdatingFavorite} onClick={handleChangeFavoriteStatus}>
-                  {
-                    favorited ? (
-                      <FaStar className='text-yellow-400' size="1.2em" />
-                    ) : (
-                      <FaRegStar size="1.2em" />
-                    )
-                  }
+                <button
+                  className="ml-auto gap-1 mr-4 text-3xl font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200"
+                  disabled={isUpdatingFavorite}
+                  onClick={handleChangeFavoriteStatus}
+                >
+                  {favorited ? (
+                    <FaStar className="text-yellow-400" size="1.2em" />
+                  ) : (
+                    <FaRegStar size="1.2em" />
+                  )}
                 </button>
               </>
             )}
@@ -97,11 +99,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
               <p className="text-sm">施設情報を読み込み中です…</p>
             </div>
           )}
-          {
-            message && (
-              <p>{message}</p>
-            )
-          }
+          {message && <p>{message}</p>}
 
           {!isLoading && !facility && (
             <div className="py-16 text-center text-gray-500">

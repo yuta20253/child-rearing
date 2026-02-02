@@ -1,4 +1,4 @@
-import { cancel, register } from "./apiClient";
+import { cancel, register } from './apiClient';
 
 export const registerFacilityFavorite = async (
   token: string,
@@ -6,9 +6,9 @@ export const registerFacilityFavorite = async (
 ): Promise<string> => {
   try {
     const response = await register.registerFacilityFavorite(facilityId, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     return response.data.message ?? '';
@@ -30,11 +30,10 @@ export const cancelFacilityFavorite = async (
 ): Promise<string> => {
   try {
     const res = await cancel.cancelFacilityFavorite(facilityId, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return res.data.message ?? '';
   } catch (error) {

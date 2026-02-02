@@ -75,9 +75,11 @@ export const profile = {
 };
 
 export const register = {
-  registerFacilityFavorite: (facilityId: number, params: RequestParams = {}) => api.api.registerFacilityFavorite(facilityId, params)
+  registerFacilityFavorite: (facilityId: number, params: RequestParams = {}) =>
+    api.api.registerFacilityFavorite(facilityId, params),
 };
 
 export const cancel = {
-  cancelFacilityFavorite: (facilityId: number, params: RequestParams = {}) => api.api.cancelFacilityFavorite(facilityId, params),
+  cancelFacilityFavorite: (facilityId: number, params: RequestParams = {}) =>
+    api.api.cancelFacilityFavorite(facilityId, params),
 };
