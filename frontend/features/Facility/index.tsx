@@ -99,7 +99,17 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
               <p className="text-sm">施設情報を読み込み中です…</p>
             </div>
           )}
-          {message && <p>{message}</p>}
+          {message && (
+            <div className="relative mx-4 mb-3 rounded-lg border border-gray-200 bg-white px-3 py-2 pr-8 text-sm text-gray-700 shadow-sm">
+              {message}
+              <button
+                onClick={() => setMessage(null)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                ×
+              </button>
+            </div>
+          )}
 
           {!isLoading && !facility && (
             <div className="py-16 text-center text-gray-500">
