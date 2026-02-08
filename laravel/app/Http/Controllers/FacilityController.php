@@ -81,9 +81,9 @@ class FacilityController extends Controller
     public function show(string $facilityId)
     {
         try {
-            ['facility' => $facility, 'favorited' => $favorited] = $this->facilityService
+            ['facility' => $facility, 'isFavorite' => $isFavorite] = $this->facilityService
                                                                         ->findWithFavorite($facilityId);
-            return response()->json(['facility' => $facility, 'favorited' => $favorited], 200);
+            return response()->json(['facility' => $facility, 'isFavorite' => $isFavorite], 200);
         } catch (ModelNotFoundException) {
             return response()->json(['message' => '該当の施設が見つかりません。'], 404);
         }
