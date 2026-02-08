@@ -15,7 +15,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isUpdatingFavorite, setIsUpdatingFavorite] = useState(false);
   const [facility, setFacility] = useState<FacilityWithRelations | undefined>(undefined);
-  const [favorited, setFavorited] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
 
         if (facilityDetail) {
           setFacility(facilityDetail);
-          setFavorited(favorited);
+          setIsFavorite(favorited);
         }
       } catch (error) {
         console.error('施設情報の取得に失敗しました', error);
@@ -51,13 +51,13 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
 
     try {
       setIsUpdatingFavorite(true);
-      if (favorited) {
+      if (isFavorite) {
         const message = await cancelFacilityFavorite(token, facilityId);
-        setFavorited(false);
+        setIsFavorite(false);
         setMessage(message ?? null);
       } else {
         const message = await registerFacilityFavorite(token, facilityId);
-        setFavorited(true);
+        setIsFavorite(true);
         setMessage(message ?? null);
       }
     } catch (error) {
@@ -83,7 +83,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
                   disabled={isUpdatingFavorite}
                   onClick={handleChangeFavoriteStatus}
                 >
-                  {favorited ? (
+                  {isFavorite ? (
                     <FaStar className="text-yellow-400" size="1.2em" />
                   ) : (
                     <FaRegStar size="1.2em" />
