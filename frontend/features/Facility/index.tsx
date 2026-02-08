@@ -27,11 +27,11 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
       try {
         setIsLoading(true);
 
-        const { facilityDetail, favorited } = await getFacility(token, facilityId);
+        const { facilityDetail, isFavorite } = await getFacility(token, facilityId);
 
         if (facilityDetail) {
           setFacility(facilityDetail);
-          setIsFavorite(favorited);
+          setIsFavorite(isFavorite);
         }
       } catch (error) {
         console.error('施設情報の取得に失敗しました', error);
@@ -66,6 +66,8 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
       setIsUpdatingFavorite(false);
     }
   };
+
+  console.log('isFavorite', isFavorite);
 
   return (
     <RequireAuth>

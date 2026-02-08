@@ -3,7 +3,7 @@ import { facilities, facility } from './apiClient';
 
 type facilityDetailResponse = {
   facilityDetail: Facility;
-  favorited: boolean;
+  isFavorite: boolean;
 };
 
 export const getFacilities = async (token: string, name?: string): Promise<Facility[] | null> => {
@@ -36,12 +36,13 @@ export const getFacility = async (token: string, id: number): Promise<facilityDe
       },
     });
 
+    console.log(response.data);
     const facilityDetail = response.data.facility;
-    const favorited = response.data.favorited;
+    const isFavorite = response.data.isFavorite;
 
     if (!facilityDetail) throw new Error('施設データが存在しません');
 
-    return { facilityDetail, favorited };
+    return { facilityDetail, isFavorite };
   } catch (error) {
     console.log(error);
     const message =
