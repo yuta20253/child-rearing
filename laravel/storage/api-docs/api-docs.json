@@ -487,13 +487,13 @@
                                 "schema": {
                                     "required": [
                                         "facility",
-                                        "favorited"
+                                        "isFavorite"
                                     ],
                                     "properties": {
                                         "facility": {
                                             "$ref": "#/components/schemas/Facility"
                                         },
-                                        "favorited": {
+                                        "isFavorite": {
                                             "description": "ログインユーザーがお気に入りしているか",
                                             "type": "boolean",
                                             "example": true
