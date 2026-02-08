@@ -30,21 +30,4 @@ class FacilityService
     {
         return $this->facilityRepository->find($id);
     }
-
-    public function findWithFavorite(string $id): array
-    {
-        $user = Auth::user();
-        $is_favorite = false;
-        $facility = $this->facilityRepository->find($id);
-
-        /** @var User|null $user */
-        if ($user) {
-            $isFavorite = $user->facilityFavorites()->where('facility_id', $facility->id)->exists();
-        }
-
-        return [
-            'facility' => $facility,
-            'isFavorite' => $isFavorite,
-        ];
-    }
 }
