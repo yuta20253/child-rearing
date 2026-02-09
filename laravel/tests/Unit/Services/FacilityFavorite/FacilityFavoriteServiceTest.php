@@ -23,7 +23,11 @@ class FacilityFavoriteServiceTest extends TestCase
         parent::setUp();
         $this->facilityFavoriteRepositoryMock = $this->mock(FacilityFavoriteRepositoryInterface::class);
         $this->facilityRepositoryMock = $this->mock(FacilityRepositoryInterface::class);
-        $this->facilityFavoriteService = new FacilityFavoriteService($this->facilityFavoriteRepositoryMock, $this->facilityRepositoryMock);
+        $this->facilityFavoriteService =
+            new FacilityFavoriteService(
+                $this->facilityFavoriteRepositoryMock,
+                $this->facilityRepositoryMock
+            );
     }
 
     /**
