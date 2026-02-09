@@ -44,30 +44,26 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
 
   const handleChangeFavoriteStatus = async () => {
     const token = localStorage.getItem('token');
-
     const facilityId = facility?.id;
-    if (facilityId === undefined) return;
-    if (!token) return;
+    if (!token || facilityId == null) return;
+
+    const prev = isFavorite;
+    setIsUpdatingFavorite(true);
+    setIsFavorite(!prev);
 
     try {
-      setIsUpdatingFavorite(true);
-      if (isFavorite) {
-        const message = await cancelFacilityFavorite(token, facilityId);
-        setIsFavorite(false);
-        setMessage(message ?? null);
-      } else {
-        const message = await registerFacilityFavorite(token, facilityId);
-        setIsFavorite(true);
-        setMessage(message ?? null);
-      }
-    } catch (error) {
-      console.error('お気に入りの変更に失敗しました。', error);
+      const message = prev
+        ? await cancelFacilityFavorite(token, facilityId)
+        : await registerFacilityFavorite(token, facilityId);
+
+      setMessage(message ?? null);
+    } catch (e) {
+      setIsFavorite(prev);
+      setMessage(e instanceof Error ? e.message : 'お気に入りの変更に失敗しました');
     } finally {
       setIsUpdatingFavorite(false);
     }
   };
-
-  console.log('isFavorite', isFavorite);
 
   return (
     <RequireAuth>
