@@ -11,8 +11,10 @@ class FacilityFavoriteService
     private FacilityFavoriteRepositoryInterface $facilityFavoriteRepository;
     private FacilityRepositoryInterface $facilityRepository;
 
-    public function __construct(FacilityFavoriteRepositoryInterface $facilityFavoriteRepository, FacilityRepositoryInterface $facilityRepository)
-    {
+    public function __construct(
+        FacilityFavoriteRepositoryInterface $facilityFavoriteRepository,
+        FacilityRepositoryInterface $facilityRepository
+    ) {
         $this->facilityFavoriteRepository = $facilityFavoriteRepository;
         $this->facilityRepository = $facilityRepository;
     }
