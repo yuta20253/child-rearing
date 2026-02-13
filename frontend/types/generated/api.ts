@@ -900,7 +900,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<
         {
           /** 施設情報 */
-          facility?: Facility;
+          facility: Facility;
+          /**
+           * ログインユーザーがお気に入りしているか
+           * @example true
+           */
+          isFavorite: boolean;
         },
         {
           /** @example "該当の施設が見つかりません。" */
@@ -909,6 +914,52 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       >({
         path: `/api/facilities/${id}`,
         method: 'GET',
+        secure: true,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * @description 施設お気に入り登録
+     *
+     * @name RegisterFacilityFavorite
+     * @summary 施設お気に入り登録
+     * @request POST:/api/facilities/{facilityId}/favorite
+     * @secure
+     */
+    registerFacilityFavorite: (facilityId: number, params: RequestParams = {}) =>
+      this.request<
+        {
+          /** @example "お気に入り登録しました。" */
+          message?: string;
+        },
+        any
+      >({
+        path: `/api/facilities/${facilityId}/favorite`,
+        method: 'POST',
+        secure: true,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * @description 施設お気に入り解除
+     *
+     * @name CancelFacilityFavorite
+     * @summary 施設お気に入り解除
+     * @request DELETE:/api/facilities/{facilityId}/favorite
+     * @secure
+     */
+    cancelFacilityFavorite: (facilityId: number, params: RequestParams = {}) =>
+      this.request<
+        {
+          /** @example "お気に入り解除しました。" */
+          message?: string;
+        },
+        any
+      >({
+        path: `/api/facilities/${facilityId}/favorite`,
+        method: 'DELETE',
         secure: true,
         format: 'json',
         ...params,

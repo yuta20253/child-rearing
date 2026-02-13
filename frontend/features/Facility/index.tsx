@@ -7,10 +7,16 @@ import { getFacility } from '@/libs/services/facilities';
 import { FacilityHourList } from './List/FacilityHour';
 import { FacilityReviewList } from './List/Review';
 import { Map } from '@/components/Map';
+import { FaRegStar } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
+import { cancelFacilityFavorite, registerFacilityFavorite } from '@/libs/services/favorite';
 
 export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isUpdatingFavorite, setIsUpdatingFavorite] = useState(false);
   const [facility, setFacility] = useState<FacilityWithRelations | undefined>(undefined);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const facilityId = Number(id);
@@ -21,10 +27,11 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
       try {
         setIsLoading(true);
 
-        const data = await getFacility(token, facilityId);
+        const { facilityDetail, isFavorite } = await getFacility(token, facilityId);
 
-        if (data) {
-          setFacility(data);
+        if (facilityDetail) {
+          setFacility(facilityDetail);
+          setIsFavorite(isFavorite);
         }
       } catch (error) {
         console.error('施設情報の取得に失敗しました', error);
@@ -35,17 +42,51 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
     fetchData();
   }, [id]);
 
+  const handleChangeFavoriteStatus = async () => {
+    const token = localStorage.getItem('token');
+    const facilityId = facility?.id;
+    if (!token || facilityId == null) return;
+
+    const prev = isFavorite;
+    setIsUpdatingFavorite(true);
+    setIsFavorite(!prev);
+
+    try {
+      const message = prev
+        ? await cancelFacilityFavorite(token, facilityId)
+        : await registerFacilityFavorite(token, facilityId);
+
+      setMessage(message ?? null);
+    } catch (e) {
+      setIsFavorite(prev);
+      setMessage(e instanceof Error ? e.message : 'お気に入りの変更に失敗しました');
+    } finally {
+      setIsUpdatingFavorite(false);
+    }
+  };
+
   return (
     <RequireAuth>
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-md mx-auto pb-8">
-          <header className="pt-6 pb-4">
+          <header className="flex pt-6 pb-4">
             {facility && (
               <>
-                <h1 className="flex items-center gap-2 text-xl font-semibold text-gray-900">
+                <h1 className="flex items-center gap-2 text-xl font-semibold text-gray-900 flex-shrink-0">
                   <span className="text-2xl">🏠</span>
                   <span className="leading-snug">{facility.name}</span>
                 </h1>
+                <button
+                  className="ml-auto gap-1 mr-4 text-3xl font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200"
+                  disabled={isUpdatingFavorite}
+                  onClick={handleChangeFavoriteStatus}
+                >
+                  {isFavorite ? (
+                    <FaStar className="text-yellow-400" size="1.2em" />
+                  ) : (
+                    <FaRegStar size="1.2em" />
+                  )}
+                </button>
               </>
             )}
           </header>
@@ -54,6 +95,17 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
             <div className="flex flex-col items-center justify-center py-16 text-gray-500">
               <div className="w-8 h-8 border-4 border-gray-200 border-t-gray-400 rounded-full animate-spin mb-3" />
               <p className="text-sm">施設情報を読み込み中です…</p>
+            </div>
+          )}
+          {message && (
+            <div className="relative mx-4 mb-3 rounded-lg border border-gray-200 bg-white px-3 py-2 pr-8 text-sm text-gray-700 shadow-sm">
+              {message}
+              <button
+                onClick={() => setMessage(null)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                ×
+              </button>
             </div>
           )}
 

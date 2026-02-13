@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\FacilityFavoriteService;
 use App\Services\FacilityService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -46,7 +47,9 @@ use OpenApi\Annotations as OA;
  *        response=200,
  *        description="施設詳細取得成功",
  *        @OA\JsonContent(
- *           @OA\Property(property="facility", ref="#/components/schemas/Facility")
+ *           required={"facility", "isFavorite"},
+ *           @OA\Property(property="facility", ref="#/components/schemas/Facility"),
+ *           @OA\Property(property="isFavorite", type="boolean", example=true, description="ログインユーザーがお気に入りしているか")
  *        )
  *     ),
  *     @OA\Response(
@@ -61,10 +64,12 @@ use OpenApi\Annotations as OA;
 class FacilityController extends Controller
 {
     private FacilityService $facilityService;
+    private FacilityFavoriteService $facilityFavoriteService;
 
-    public function __construct(FacilityService $facilityService)
+    public function __construct(FacilityService $facilityService, FacilityFavoriteService $facilityFavoriteService)
     {
         $this->facilityService = $facilityService;
+        $this->facilityFavoriteService = $facilityFavoriteService;
     }
 
     public function index(Request $request)
@@ -79,8 +84,9 @@ class FacilityController extends Controller
     public function show(string $facilityId)
     {
         try {
-            $facilityDetail = $this->facilityService->find($facilityId);
-            return response()->json(['facility' => $facilityDetail], 200);
+            $facility = $this->facilityService->find($facilityId);
+            $isFavorite = $this->facilityFavoriteService->findWithFavorite($facility->id);
+            return response()->json(['facility' => $facility, 'isFavorite' => $isFavorite], 200);
         } catch (ModelNotFoundException) {
             return response()->json(['message' => '該当の施設が見つかりません。'], 404);
         }

@@ -485,9 +485,18 @@
                         "content": {
                             "application/json": {
                                 "schema": {
+                                    "required": [
+                                        "facility",
+                                        "isFavorite"
+                                    ],
                                     "properties": {
                                         "facility": {
                                             "$ref": "#/components/schemas/Facility"
+                                        },
+                                        "isFavorite": {
+                                            "description": "ログインユーザーがお気に入りしているか",
+                                            "type": "boolean",
+                                            "example": true
                                         }
                                     },
                                     "type": "object"
@@ -504,6 +513,78 @@
                                         "message": {
                                             "type": "string",
                                             "example": "該当の施設が見つかりません。"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/facilities/{facilityId}/favorite": {
+            "post": {
+                "summary": "施設お気に入り登録",
+                "description": "施設お気に入り登録",
+                "operationId": "RegisterFacilityFavorite",
+                "parameters": [
+                    {
+                        "name": "facilityId",
+                        "in": "path",
+                        "description": "施設ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "施設お気に入り登録成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "お気に入り登録しました。"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "施設お気に入り解除",
+                "description": "施設お気に入り解除",
+                "operationId": "CancelFacilityFavorite",
+                "parameters": [
+                    {
+                        "name": "facilityId",
+                        "in": "path",
+                        "description": "施設ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "施設お気に入り解除成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "お気に入り解除しました。"
                                         }
                                     },
                                     "type": "object"

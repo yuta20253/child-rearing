@@ -1,6 +1,11 @@
 import { Facility } from '@/types/generated/api';
 import { facilities, facility } from './apiClient';
 
+type facilityDetailResponse = {
+  facilityDetail: Facility;
+  isFavorite: boolean;
+};
+
 export const getFacilities = async (token: string, name?: string): Promise<Facility[] | null> => {
   try {
     const response = await facilities.facilitiesInfo(
@@ -23,7 +28,7 @@ export const getFacilities = async (token: string, name?: string): Promise<Facil
   }
 };
 
-export const getFacility = async (token: string, id: number): Promise<Facility> => {
+export const getFacility = async (token: string, id: number): Promise<facilityDetailResponse> => {
   try {
     const response = await facility.facilityInfo(id, {
       headers: {
@@ -31,11 +36,13 @@ export const getFacility = async (token: string, id: number): Promise<Facility> 
       },
     });
 
-    const data = response.data.facility;
+    console.log(response.data);
+    const facilityDetail = response.data.facility;
+    const isFavorite = response.data.isFavorite;
 
-    if (!data) throw new Error('施設データが存在しません');
+    if (!facilityDetail) throw new Error('施設データが存在しません');
 
-    return data;
+    return { facilityDetail, isFavorite };
   } catch (error) {
     console.log(error);
     const message =

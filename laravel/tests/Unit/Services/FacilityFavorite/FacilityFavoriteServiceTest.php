@@ -2,11 +2,9 @@
 
 namespace Tests\Unit\Services\FacilityFavorite;
 
-use App\Models\Facility;
 use App\Repositories\FacilityFavorite\FacilityFavoriteRepositoryInterface;
+use App\Repositories\Facility\FacilityRepositoryInterface;
 use App\Services\FacilityFavoriteService;
-use Barryvdh\LaravelIdeHelper\Eloquent;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
@@ -14,13 +12,22 @@ class FacilityFavoriteServiceTest extends TestCase
 {
     /** @var FacilityFavoriteRepositoryInterface&\Mockery\MockInterface $facilityFavoriteRepositoryMock */
     private $facilityFavoriteRepositoryMock;
+
+    /** @var FacilityRepositoryInterface&\Mockery\MockInterface */
+    private $facilityRepositoryMock;
+
     private FacilityFavoriteService $facilityFavoriteService;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->facilityFavoriteRepositoryMock = $this->mock(FacilityFavoriteRepositoryInterface::class);
-        $this->facilityFavoriteService = new FacilityFavoriteService($this->facilityFavoriteRepositoryMock);
+        $this->facilityRepositoryMock = $this->mock(FacilityRepositoryInterface::class);
+        $this->facilityFavoriteService =
+            new FacilityFavoriteService(
+                $this->facilityFavoriteRepositoryMock,
+                $this->facilityRepositoryMock
+            );
     }
 
     /**

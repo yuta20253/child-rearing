@@ -73,3 +73,13 @@ export const facility = {
 export const profile = {
   myProfile: (params: RequestParams = {}) => api.api.myProfile(params),
 };
+
+export const register = {
+  registerFacilityFavorite: (facilityId: number, params: RequestParams = {}) =>
+    api.api.registerFacilityFavorite(facilityId, params),
+};
+
+export const cancel = {
+  cancelFacilityFavorite: (facilityId: number, params: RequestParams = {}) =>
+    api.api.cancelFacilityFavorite(facilityId, params),
+};
