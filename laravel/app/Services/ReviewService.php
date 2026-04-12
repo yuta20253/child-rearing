@@ -14,7 +14,7 @@ class ReviewService
         $this->reviewRepository = $reviewRepository;
     }
 
-    public function store(int $facilityId, string $comment, int $rating)
+    public function createReview(int $facilityId, string $comment, int $rating)
     {
         $userId = Auth::id();
         $this->reviewRepository->store($facilityId, $userId, $comment, $rating);

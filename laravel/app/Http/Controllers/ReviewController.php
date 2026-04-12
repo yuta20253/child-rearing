@@ -19,7 +19,7 @@ class ReviewController extends Controller
         $facilityId = $request->input('facility_id');
         $comment = $request->input('comment');
         $rating = $request->input('rating');
-        $this->reviewService->store($facilityId, $comment, $rating);
+        $this->reviewService->createReview($facilityId, $comment, $rating);
 
         return response()->json(['message' => 'レビューを投稿しました。'], 201);
     }

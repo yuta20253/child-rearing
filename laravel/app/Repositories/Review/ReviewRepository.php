@@ -15,7 +15,7 @@ class ReviewRepository implements ReviewRepositoryInterface
         $this->user = $user;
     }
 
-    public function store(int $facilityId, int $userId, string $comment, int $rating)
+    public function create(int $facilityId, int $userId, string $comment, int $rating)
     {
         $this->user->findOrFail($userId)->reviews()->create([
             'facility_id' => $facilityId,
