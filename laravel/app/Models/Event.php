@@ -26,4 +26,9 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
+
+    public function facility()
+    {
+        return $this->belongsTo((Facility::class));
+    }
 }
