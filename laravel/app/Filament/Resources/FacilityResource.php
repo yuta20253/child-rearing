@@ -3,8 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\FacilityResource\Pages;
-use App\Filament\Resources\FacilityHoursResource\RelationManagers\HoursRelationManager;
-use App\Filament\Resources\FacilityClosuresResource\RelationManagers\ClosuresRelationManager;
+use App\Filament\Resources\FacilityResource\RelationManagers\HoursRelationManager;
+use App\Filament\Resources\FacilityResource\RelationManagers\ClosuresRelationManager;
 use App\Models\Address;
 use App\Models\Facility;
 use App\Models\Municipality;
