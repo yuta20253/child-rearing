@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Models\Address;
 use App\Models\Event;
 use App\Models\Facility;
+use App\Models\Review;
 use App\Notifications\CustomPasswordReset;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -85,6 +86,11 @@ class User extends Authenticatable
     public function facilityFavorites()
     {
         return $this->belongsToMany(Facility::class, 'facility_favorites', 'user_id', 'facility_id')->withTimestamps();
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 
     protected static function booted()

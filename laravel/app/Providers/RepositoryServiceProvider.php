@@ -8,6 +8,8 @@ use App\Repositories\FacilityFavorite\FacilityFavoriteRepository;
 use App\Repositories\FacilityFavorite\FacilityFavoriteRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Review\ReviewRepository;
+use App\Repositories\Review\ReviewRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -20,6 +22,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(FacilityRepositoryInterface::class, FacilityRepository::class);
         $this->app->bind(FacilityFavoriteRepositoryInterface::class, FacilityFavoriteRepository::class);
+        $this->app->bind(ReviewRepositoryInterface::class, ReviewRepository::class);
     }
 
     /**
