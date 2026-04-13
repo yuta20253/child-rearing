@@ -7,7 +7,6 @@ use App\Services\ReviewService;
 use App\Repositories\Review\ReviewRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
-
 class ReviewServiceTest extends TestCase
 {
     /** @var ReviewRepositoryInterface&\Mockery\MockInterface $reviewRepositoryMock */
@@ -48,5 +47,4 @@ class ReviewServiceTest extends TestCase
 
         $this->reviewService->createReview($facilityId, $comment, $rating);
     }
-
 }

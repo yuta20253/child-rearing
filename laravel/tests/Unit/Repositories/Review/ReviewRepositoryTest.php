@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Facility;
 use App\Repositories\Review\ReviewRepository;
 use App\Repositories\Review\ReviewRepositoryInterface;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
