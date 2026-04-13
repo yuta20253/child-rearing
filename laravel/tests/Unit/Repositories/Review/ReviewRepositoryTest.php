@@ -28,6 +28,7 @@ class ReviewRepositoryTest extends TestCase
     /**
      * @test
      */
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function createでレコードが作成されること(): void
     {
         $facility = Facility::factory()->create();
@@ -51,6 +52,7 @@ class ReviewRepositoryTest extends TestCase
     /**
      * @test
      */
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function 存在しないユーザーIDの場合は例外が発生すること(): void
     {
         $this->expectException(\Illuminate\Database\Eloquent\ModelNotFoundException::class);
