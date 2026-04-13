@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [UserController::class, 'profile']);
 
     Route::get('/facilities', [FacilityController::class, 'index']);
-    Route::post('/facilities/{facilityId}/review', [ReviewController::class, 'store']);
+    Route::post('/facilities/{facility}/review', [ReviewController::class, 'store']);
     Route::post('/facilities/{facilityId}/favorite', [FavoriteController::class, 'store']);
     Route::delete('/facilities/{facilityId}/favorite', [FavoriteController::class, 'destroy']);
     Route::get('/facilities/{facilityId}', [FacilityController::class, 'show']);
