@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Review;
+namespace App\Services;
 
 use App\Repositories\Review\ReviewRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
