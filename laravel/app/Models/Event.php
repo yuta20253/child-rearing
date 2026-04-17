@@ -26,4 +26,17 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'facility_id',
+        'title',
+        'start_datetime',
+        'end_datetime',
+        'capacity',
+    ];
+
+    public function facility()
+    {
+        return $this->belongsTo((Facility::class));
+    }
 }
