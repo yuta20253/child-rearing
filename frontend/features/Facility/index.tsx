@@ -118,6 +118,31 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
 
           {!isLoading && facility && (
             <main className="space-y-4">
+              {!facility.events || facility.events.length === 0 ? (
+                <section className="bg-white rounded-2xl shadow-sm border px-4 py-3">
+                  <p className="text-sm font-semibold text-gray-800 mb-1">📭 イベント情報</p>
+                  <p className="text-sm text-gray-500">近日開催のイベントはありません</p>
+                </section>
+              ) : (
+                <section className="bg-white rounded-2xl shadow-sm border px-4 py-3">
+                  <p className="text-sm font-semibold text-gray-800 mb-2">🎉 直近イベント</p>
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-sm font-semibold text-gray-900 truncate">
+                      {facility.events[0].title}
+                    </p>
+                    <p className="text-xs text-blue-600 font-medium whitespace-nowrap">
+                      {new Date(facility.events[0].start_datetime).toLocaleDateString('ja-JP', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        weekday: 'short',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </p>
+                  </div>
+                </section>
+              )}
               <section className="bg-white rounded-2xl shadow-sm border overflow-hidden">
                 <div className="px-4 pt-3 pb-2 border-b">
                   <p className="text-sm font-semibold text-gray-800 flex items-center gap-2">
