@@ -34,7 +34,9 @@ class FacilityRepository implements FacilityRepositoryInterface
                         'phone',
                         'reviews.user',
                         'events' => function ($query) {
-                            $query->orderBy('start_datetime', 'asc');
+                            $query
+                            ->whereDate('start_datetime', '>=', now())
+                            ->orderBy('start_datetime', 'asc');
                         },
                         'address.municipality.prefecture'])
                     ->findOrFail($id);
