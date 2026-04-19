@@ -827,6 +827,12 @@
                                 "items": {
                                     "$ref": "#/components/schemas/FacilityHour"
                                 }
+                            },
+                            "events": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Event"
+                                }
                             }
                         },
                         "type": "object"

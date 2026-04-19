@@ -4,7 +4,6 @@ namespace App\Repositories\Facility;
 
 use App\Models\Facility;
 use App\Repositories\Facility\FacilityRepositoryInterface;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class FacilityRepository implements FacilityRepositoryInterface
@@ -30,7 +29,14 @@ class FacilityRepository implements FacilityRepositoryInterface
     public function find(string $id): Facility
     {
         return $this->facility
-                    ->with(['hours', 'phone', 'reviews.user', 'address.municipality.prefecture'])
+                    ->with([
+                        'hours',
+                        'phone',
+                        'reviews.user',
+                        'events' => function ($query) {
+                            $query->orderBy('start_datetime', 'asc');
+                        },
+                        'address.municipality.prefecture'])
                     ->findOrFail($id);
     }
 }
