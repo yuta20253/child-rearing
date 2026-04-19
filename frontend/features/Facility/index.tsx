@@ -155,6 +155,41 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
                 </div>
               </section>
 
+              {facility.events && facility.events.length !== 0 && (
+                <section className="bg-white rounded-2xl shadow-sm border overflow-hidden">
+                  <div className="px-4 py-3 border-b bg-gray-50">
+                    <h2 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+                      <span className="text-base">📅</span>
+                      <span>イベント情報</span>
+                    </h2>
+                  </div>
+                  <div className="divide-y">
+                    {facility.events?.map(event => (
+                      <div
+                        key={event.id}
+                        className="px-4 py-3 flex items-start justify-between gap-3 hover:bg-gray-50 transition"
+                      >
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold text-gray-900 truncate">
+                            {event.title}
+                          </p>
+                        </div>
+
+                        <p className="text-xs text-blue-600 font-medium whitespace-nowrap text-right leading-relaxed">
+                          {new Date(event.start_datetime).toLocaleDateString('ja-JP', {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            weekday: 'short',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
               <section className="bg-white rounded-2xl shadow-sm border">
                 <div className="divide-y">
                   <div className="px-4 py-3">
