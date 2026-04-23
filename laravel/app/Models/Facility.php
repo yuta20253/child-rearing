@@ -80,6 +80,11 @@ class Facility extends Model
         return $this->hasMany(FacilityClosure::class);
     }
 
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
     public function reviews()
     {
         return $this->hasMany(FacilityReview::class);

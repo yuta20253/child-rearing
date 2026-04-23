@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\FacilityResource;
 use App\Services\FacilityFavoriteService;
 use App\Services\FacilityService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -77,7 +78,8 @@ class FacilityController extends Controller
         $query = $request->query('name');
         $facilities = $this->facilityService->getAll($query);
         return response()->json([
-            "facilities" => $facilities,
+            "facilities" => FacilityResource::collection($facilities)
+            ,
         ], 200);
     }
 
@@ -86,7 +88,7 @@ class FacilityController extends Controller
         try {
             $facility = $this->facilityService->find($facilityId);
             $isFavorite = $this->facilityFavoriteService->findWithFavorite($facility->id);
-            return response()->json(['facility' => $facility, 'isFavorite' => $isFavorite], 200);
+            return response()->json(['facility' => new FacilityResource($facility), 'isFavorite' => $isFavorite], 200);
         } catch (ModelNotFoundException) {
             return response()->json(['message' => '該当の施設が見つかりません。'], 404);
         }

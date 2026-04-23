@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\FacilityHoursResource\RelationManagers;
+namespace App\Filament\Resources\FacilityResource\RelationManagers;
 
 use Carbon\Carbon;
 use Dotenv\Parser\Value;
