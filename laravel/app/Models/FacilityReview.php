@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Enums\ReviewStatus;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,6 +36,20 @@ use Illuminate\Database\Eloquent\Model;
 class FacilityReview extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+
+    protected $fillable = [
+        'facility_id',
+        'user_id',
+        'comment',
+        'rating',
+        'status',
+    ];
+
+    protected $casts = [
+        'status' => ReviewStatus::class,
+    ];
+
 
     public function user()
     {

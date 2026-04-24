@@ -966,6 +966,41 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
+     * No description
+     *
+     * @tags Review
+     * @name PostFacilityReview
+     * @summary 施設のレビュー投稿
+     * @request POST:/api/facilities/{facility}/review
+     * @secure
+     */
+    postFacilityReview: (
+      facility: number,
+      data: {
+        /** @example "とても綺麗でした" */
+        comment: string;
+        /** @example 5 */
+        rating: number;
+      },
+      params: RequestParams = {}
+    ) =>
+      this.request<
+        {
+          /** @example "レビューを投稿しました。" */
+          message?: string;
+        },
+        any
+      >({
+        path: `/api/facilities/${facility}/review`,
+        method: 'POST',
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
      * @description 現在のユーザー自身の取得
      *
      * @tags User
