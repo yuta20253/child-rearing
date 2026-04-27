@@ -10,6 +10,7 @@ import { Map } from '@/components/Map';
 import { FaRegStar } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
 import { cancelFacilityFavorite, registerFacilityFavorite } from '@/libs/services/favorite';
+import { EventItem } from './Event';
 
 export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -124,23 +125,10 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
                   <p className="text-sm text-gray-500">近日開催のイベントはありません</p>
                 </section>
               ) : (
-                <section className="bg-white rounded-2xl shadow-sm border px-4 py-3">
-                  <p className="text-sm font-semibold text-gray-800 mb-2">🎉 直近イベント</p>
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="text-sm font-semibold text-gray-900 truncate">
-                      {facility.events[0].title}
-                    </p>
-                    <p className="text-xs text-blue-600 font-medium whitespace-nowrap">
-                      {new Date(facility.events[0].start_datetime).toLocaleDateString('ja-JP', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        weekday: 'short',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </p>
-                  </div>
+                <section className="bg-white rounded-2xl shadow-sm border px-4 py-4">
+                  <p className="text-sm font-semibold text-gray-800 mb-3">🎉 直近イベント</p>
+
+                  <EventItem event={facility.events[0]} showCalendar largeTitle />
                 </section>
               )}
               <section className="bg-white rounded-2xl shadow-sm border overflow-hidden">
@@ -169,22 +157,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
                         key={event.id}
                         className="px-4 py-3 flex items-start justify-between gap-3 hover:bg-gray-50 transition"
                       >
-                        <div className="min-w-0">
-                          <p className="text-sm font-semibold text-gray-900 truncate">
-                            {event.title}
-                          </p>
-                        </div>
-
-                        <p className="text-xs text-blue-600 font-medium whitespace-nowrap text-right leading-relaxed">
-                          {new Date(event.start_datetime).toLocaleDateString('ja-JP', {
-                            year: 'numeric',
-                            month: '2-digit',
-                            day: '2-digit',
-                            weekday: 'short',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                          })}
-                        </p>
+                        <EventItem event={event} inline />
                       </div>
                     ))}
                   </div>
