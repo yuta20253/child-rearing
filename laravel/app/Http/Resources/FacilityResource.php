@@ -23,6 +23,7 @@ class FacilityResource extends JsonResource
             'equipment' => $this->equipment,
             'description' => $this->description,
             'address_id' => $this->address_id,
+            'events' => EventResource::collection($this->events),
         ];
     }
 }
