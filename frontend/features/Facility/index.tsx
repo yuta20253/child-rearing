@@ -10,6 +10,7 @@ import { Map } from '@/components/Map';
 import { FaRegStar } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
 import { cancelFacilityFavorite, registerFacilityFavorite } from '@/libs/services/favorite';
+import { EventItem } from './Event';
 
 export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -118,6 +119,18 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
 
           {!isLoading && facility && (
             <main className="space-y-4">
+              {!facility.events || facility.events.length === 0 ? (
+                <section className="bg-white rounded-2xl shadow-sm border px-4 py-3">
+                  <p className="text-sm font-semibold text-gray-800 mb-1">📭 イベント情報</p>
+                  <p className="text-sm text-gray-500">近日開催のイベントはありません</p>
+                </section>
+              ) : (
+                <section className="bg-white rounded-2xl shadow-sm border px-4 py-4">
+                  <p className="text-sm font-semibold text-gray-800 mb-3">🎉 直近イベント</p>
+
+                  <EventItem event={facility.events[0]} showCalendar largeTitle />
+                </section>
+              )}
               <section className="bg-white rounded-2xl shadow-sm border overflow-hidden">
                 <div className="px-4 pt-3 pb-2 border-b">
                   <p className="text-sm font-semibold text-gray-800 flex items-center gap-2">
@@ -130,6 +143,26 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
                 </div>
               </section>
 
+              {facility.events && facility.events.length !== 0 && (
+                <section className="bg-white rounded-2xl shadow-sm border overflow-hidden">
+                  <div className="px-4 py-3 border-b bg-gray-50">
+                    <h2 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+                      <span className="text-base">📅</span>
+                      <span>イベント情報</span>
+                    </h2>
+                  </div>
+                  <div className="divide-y">
+                    {facility.events?.map(event => (
+                      <div
+                        key={event.id}
+                        className="px-4 py-3 flex items-start justify-between gap-3 hover:bg-gray-50 transition"
+                      >
+                        <EventItem event={event} inline />
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
               <section className="bg-white rounded-2xl shadow-sm border">
                 <div className="divide-y">
                   <div className="px-4 py-3">

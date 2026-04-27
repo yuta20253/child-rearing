@@ -1,12 +1,15 @@
-import { Facility } from '@/types/generated/api';
+import { FacilityWithRelations } from '@/types/generated/api';
 import { facilities, facility } from './apiClient';
 
 type facilityDetailResponse = {
-  facilityDetail: Facility;
+  facilityDetail: FacilityWithRelations;
   isFavorite: boolean;
 };
 
-export const getFacilities = async (token: string, name?: string): Promise<Facility[] | null> => {
+export const getFacilities = async (
+  token: string,
+  name?: string
+): Promise<FacilityWithRelations[] | null> => {
   try {
     const response = await facilities.facilitiesInfo(
       { name },

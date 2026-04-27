@@ -53,6 +53,11 @@ use OpenApi\Annotations as OA;
  *         property="hours",
  *         type="array",
  *         @OA\Items(ref="#/components/schemas/FacilityHour")
+ *     ),
+ *     @OA\Property(
+ *         property="events",
+ *         type="array",
+ *         @OA\Items(ref="#/components/schemas/Event")
  *     )
  * )
  */

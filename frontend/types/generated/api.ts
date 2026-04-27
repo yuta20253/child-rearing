@@ -129,6 +129,7 @@ export type FacilityWithRelations = Facility & {
   /** 電話番号 */
   phone?: Telphone;
   hours?: FacilityHour[];
+  events?: Event[];
 };
 
 /**
