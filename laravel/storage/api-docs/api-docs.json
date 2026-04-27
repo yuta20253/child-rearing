@@ -595,6 +595,69 @@
                 }
             }
         },
+        "/api/facilities/{facility}/review": {
+            "post": {
+                "tags": [
+                    "Review"
+                ],
+                "summary": "施設のレビュー投稿",
+                "operationId": "PostFacilityReview",
+                "parameters": [
+                    {
+                        "name": "facility",
+                        "in": "path",
+                        "description": "施設ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "comment",
+                                    "rating"
+                                ],
+                                "properties": {
+                                    "comment": {
+                                        "type": "string",
+                                        "example": "とても綺麗でした"
+                                    },
+                                    "rating": {
+                                        "type": "integer",
+                                        "example": 5
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "レビュー投稿成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "レビューを投稿しました。"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/profile": {
             "get": {
                 "tags": [
@@ -1147,6 +1210,10 @@
         {
             "name": "Facility",
             "description": "Facility"
+        },
+        {
+            "name": "Review",
+            "description": "Review"
         },
         {
             "name": "User",

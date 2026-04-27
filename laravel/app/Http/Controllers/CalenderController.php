@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EventResource;
 use App\Services\CalenderService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class CalenderController extends Controller
     {
         $events = $this->calenderService->getMonthlyUserEvents($request->year, $request->month);
         return response()->json([
-            'events' => $events
-        ]) ;
+            'events' => EventResource::collection($events),
+        ]);
     }
 }

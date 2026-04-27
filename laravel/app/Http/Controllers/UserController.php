@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
@@ -34,6 +35,6 @@ class UserController extends Controller
     public function profile()
     {
         $user = $this->userService->getCurrentUser();
-        return response()->json(['user' => $user]);
+        return response()->json(['user' => new UserResource($user)]);
     }
 }
