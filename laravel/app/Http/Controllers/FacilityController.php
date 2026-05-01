@@ -24,11 +24,16 @@ use OpenApi\Annotations as OA;
  *         @OA\Schema(type="string", example="北区")
  *     ),
  *     @OA\Response(
- *        response=200,
- *        description="施設一覧取得成功",
- *        @OA\JsonContent(
- *           @OA\Property(property="facilities", type="array", @OA\Items(ref="#/components/schemas/Facility"))
- *        )
+ *         response=200,
+ *         description="施設一覧取得成功",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="facilities",
+ *                 type="array",
+ *                 @OA\Items(ref="#/components/schemas/FacilityWithRelations")
+ *             )
+ *         )
  *     )
  * )
  * @OA\Get(
@@ -38,27 +43,41 @@ use OpenApi\Annotations as OA;
  *     description="施設詳細の取得",
  *     tags={"Facility"},
  *     @OA\Parameter(
- *        name="id",
- *        in="path",
- *        required=true,
- *        description="施設ID",
- *        @OA\Schema(type="integer", example=1)
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="施設ID",
+ *         @OA\Schema(type="integer", example=1)
  *     ),
  *     @OA\Response(
- *        response=200,
- *        description="施設詳細取得成功",
- *        @OA\JsonContent(
- *           required={"facility", "isFavorite"},
- *           @OA\Property(property="facility", ref="#/components/schemas/Facility"),
- *           @OA\Property(property="isFavorite", type="boolean", example=true, description="ログインユーザーがお気に入りしているか")
- *        )
+ *         response=200,
+ *         description="施設詳細取得成功",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             required={"facility", "isFavorite"},
+ *             @OA\Property(
+ *                 property="facility",
+ *                 ref="#/components/schemas/FacilityWithRelations"
+ *             ),
+ *             @OA\Property(
+ *                 property="isFavorite",
+ *                 type="boolean",
+ *                 example=true,
+ *                 description="ログインユーザーがお気に入りしているか"
+ *             )
+ *         )
  *     ),
  *     @OA\Response(
- *        response=404,
- *        description="施設が見つからない場合",
- *        @OA\JsonContent(
- *           @OA\Property(property="message", type="string", example="該当の施設が見つかりません。")
- *        )
+ *         response=404,
+ *         description="施設が見つからない場合",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="該当の施設が見つかりません。"
+ *             )
+ *         )
  *     )
  * )
  */
@@ -78,7 +97,7 @@ class FacilityController extends Controller
         $query = $request->query('name');
         $facilities = $this->facilityService->getAll($query);
         return response()->json([
-            "facilities" => FacilityResource::collection($facilities)
+            "facilities" => FacilityResource::collection(($facilities))
             ,
         ], 200);
     }
