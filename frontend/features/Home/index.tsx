@@ -9,6 +9,7 @@ import { Event as ApiEvent } from '@/types/generated/api';
 import { Calender } from './Calender';
 import { handleDateAction } from './Calender/hook';
 import { YearMonth } from '@/types/Home/types';
+import Link from 'next/link';
 
 type FacilityFavorite = {
   id: number;
@@ -102,7 +103,9 @@ export const Home = (): React.JSX.Element => {
           <FavoriteFacilities facilityFavorites={facilityFavorites} />
           <div className="w-full bg-pink-300 text-white p-2 rounded mt-6">
             <div className="flex justify-center">
-              <button className="font-semibold px-6 py-2 rounded">施設を探す</button>
+              <Link href="/facilities">
+                <button className="font-semibold px-6 py-2 rounded">施設を探す</button>
+              </Link>
             </div>
           </div>
         </div>
