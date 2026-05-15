@@ -15,8 +15,6 @@ use Illuminate\Database\Eloquent\Model;
  *     title="FacilityReviewモデル",
  *     description="施設の口コミ情報",
  *     @OA\Property(property="id", type="integer", example=1),
- *     @OA\Property(property="facility_id", type="integer", example=1),
- *     @OA\Property(property="user_id", type="integer", example=2),
  *     @OA\Property(property="rating", type="integer", example=3),
  *     @OA\Property(property="comment", type="string", nullable=true, example="施設の感想です。"),
  *     @OA\Property(property="created_at", type="string", format="date-time", example="2025-10-24T11:08:53Z"),

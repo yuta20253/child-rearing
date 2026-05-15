@@ -5,6 +5,7 @@ namespace App\Repositories\Facility;
 use App\Models\Facility;
 use App\Repositories\Facility\FacilityRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
+use App\Enums\ReviewStatus;
 
 class FacilityRepository implements FacilityRepositoryInterface
 {
@@ -32,6 +33,9 @@ class FacilityRepository implements FacilityRepositoryInterface
                     ->with([
                         'hours',
                         'phone',
+                        'reviews' => function ($query) {
+                            $query->where("status", '=' ,ReviewStatus::PUBLIC);
+                        },
                         'reviews.user',
                         'events' => function ($query) {
                             $query
