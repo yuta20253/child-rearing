@@ -1,21 +1,33 @@
+'use client';
+
 import { FacilityWithRelations } from '@/types/generated/api';
 import { FaStar } from 'react-icons/fa';
 import { truncate } from '@/utils/truncate';
 
-type FacilityProps = {
+type Props = {
   facility: FacilityWithRelations;
+  setIsModalOpen: (open: boolean) => void;
 };
 
-export const FacilityReviewList = ({ facility }: FacilityProps) => {
+export const FacilityReviewList = ({ facility, setIsModalOpen }: Props) => {
   const reviews = facility.reviews ?? [];
 
   return (
     <>
       <div className="px-4 pt-3 pb-2 border-b">
-        <h2 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-          <span className="text-lg">💬</span>
-          <span>口コミ</span>
-        </h2>
+        <div className="flex justify-between items-center">
+          <h2 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+            <span className="text-lg">💬</span>
+            <span>口コミ</span>
+          </h2>
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="text-xs px-3 py-1 rounded-md bg-blue-500 text-white hover:opacity-80"
+          >
+            投稿する
+          </button>
+        </div>
         <p className="mt-1 text-[11px] text-gray-400">実際に利用した人の感想をチェックできます。</p>
       </div>
 

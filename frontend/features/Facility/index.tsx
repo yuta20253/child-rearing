@@ -1,7 +1,7 @@
 'use client';
 
 import { RequireAuth } from '@/components/RequireAuth';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, MouseEvent } from 'react';
 import { FacilityWithRelations } from '@/types/generated/api';
 import { getFacility } from '@/libs/services/facilities';
 import { FacilityHourList } from './List/FacilityHour';
@@ -18,6 +18,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [facility, setFacility] = useState<FacilityWithRelations | undefined>(undefined);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const facilityId = Number(id);
@@ -210,12 +211,49 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
               </section>
 
               <section className="bg-white rounded-2xl shadow-sm border">
-                <FacilityReviewList facility={facility} />
+                <FacilityReviewList facility={facility} setIsModalOpen={setIsModalOpen} />
               </section>
             </main>
           )}
         </div>
       </div>
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 px-4"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div
+            className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl"
+            onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">口コミを投稿</h3>
+                <p className="mt-1 text-sm text-gray-500">口コミ投稿モーダルを表示しています。</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(false)}
+                className="text-gray-400 transition hover:text-gray-700"
+              >
+                ×
+              </button>
+            </div>
+            <div className="mt-6 text-sm text-gray-700">
+              <p>ここに口コミ投稿フォームを追加できます。</p>
+            </div>
+            <div className="mt-6 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(false)}
+                className="rounded-full bg-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+              >
+                閉じる
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </RequireAuth>
   );
 };
