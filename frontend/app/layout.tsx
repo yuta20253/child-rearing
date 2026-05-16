@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { AuthProvider } from '@/context/AuthContext';
+import { ToastProvider } from '@/components/Toast/ToastProvider';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -16,11 +17,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ja" className="h-full">
       <body className={`${inter.className} flex flex-col min-h-screen bg-gray-50`}>
         <AuthProvider>
-          <Header />
-          <main className="flex-grow w-full max-w-3xl px-4 sm:px-6 md:px-8 mx-auto py-16">
-            {children}
-          </main>
-          <Footer />
+          <ToastProvider>
+            <Header />
+            <main className="flex-grow w-full max-w-3xl px-4 sm:px-6 md:px-8 mx-auto py-16">
+              {children}
+            </main>
+            <Footer />
+          </ToastProvider>
         </AuthProvider>
       </body>
     </html>

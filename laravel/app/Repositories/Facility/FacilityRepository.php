@@ -34,7 +34,7 @@ class FacilityRepository implements FacilityRepositoryInterface
                         'hours',
                         'phone',
                         'reviews' => function ($query) {
-                            $query->where("status", '=' ,ReviewStatus::PUBLIC);
+                            $query->where("status", '=', ReviewStatus::PUBLIC);
                         },
                         'reviews.user',
                         'events' => function ($query) {
