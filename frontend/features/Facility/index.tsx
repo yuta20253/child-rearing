@@ -77,7 +77,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
     }
   };
 
-  const { register, handleSubmit, setValue, watch } = useForm<ReviewForm>({
+  const { register, handleSubmit, setValue, watch, reset } = useForm<ReviewForm>({
     defaultValues: {
       comment: '',
       rating: 3,
@@ -98,6 +98,8 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
       await postReview(token, facility.id, data.comment, data.rating);
 
       showToast('レビューを投稿しました');
+
+      reset();
 
       const { facilityDetail } = await getFacility(token, facility.id);
 
