@@ -11,6 +11,14 @@ import { FaRegStar } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
 import { cancelFacilityFavorite, registerFacilityFavorite } from '@/libs/services/favorite';
 import { EventItem } from './Event';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { postReview } from '@/libs/services/review';
+import { useToast } from '@/components/Toast/ToastProvider';
+
+type ReviewForm = {
+  comment: string;
+  rating: number;
+};
 
 export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -19,6 +27,8 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const { showToast } = useToast();
 
   useEffect(() => {
     const facilityId = Number(id);
@@ -64,6 +74,40 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
       setMessage(e instanceof Error ? e.message : 'お気に入りの変更に失敗しました');
     } finally {
       setIsUpdatingFavorite(false);
+    }
+  };
+
+  const { register, handleSubmit, setValue, watch } = useForm<ReviewForm>({
+    defaultValues: {
+      comment: '',
+      rating: 3,
+    },
+  });
+
+  const currentRating = watch('rating');
+
+  const onSubmit: SubmitHandler<ReviewForm> = async data => {
+    const token = localStorage.getItem('token');
+    if (!token || !facility?.id) return;
+
+    try {
+      setIsSubmitting(true);
+
+      console.log(data);
+
+      await postReview(token, facility.id, data.comment, data.rating);
+
+      showToast('レビューを投稿しました');
+
+      const { facilityDetail } = await getFacility(token, facility.id);
+
+      setFacility(facilityDetail);
+
+      setIsModalOpen(false);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -229,7 +273,6 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">口コミを投稿</h3>
-                <p className="mt-1 text-sm text-gray-500">口コミ投稿モーダルを表示しています。</p>
               </div>
               <button
                 type="button"
@@ -240,16 +283,51 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
               </button>
             </div>
             <div className="mt-6 text-sm text-gray-700">
-              <p>ここに口コミ投稿フォームを追加できます。</p>
-            </div>
-            <div className="mt-6 flex justify-end">
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(false)}
-                className="rounded-full bg-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                onClick={e => e.stopPropagation()}
+                className="space-y-4"
               >
-                閉じる
-              </button>
+                <div>
+                  <p className="mb-1 text-xs text-gray-500">評価</p>
+                  <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map(num => (
+                      <button key={num} type="button" onClick={() => setValue('rating', num)}>
+                        {num <= currentRating ? (
+                          <FaStar className="text-yellow-400" />
+                        ) : (
+                          <FaRegStar className="text-gray-300" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="mb-1 text-xs text-gray-500">コメント</p>
+                  <textarea
+                    {...register('comment', { required: true })}
+                    className="w-full border rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    rows={4}
+                    placeholder="感想を書いてください"
+                  />
+                </div>
+                <div className="flex mt-6 justify-end gap-1">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="rounded-full bg-blue-500 px-4 py-2 text-sm text-white hover:opacity-80 disabled:opacity-50"
+                  >
+                    投稿する
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="rounded-full bg-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+                  >
+                    閉じる
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

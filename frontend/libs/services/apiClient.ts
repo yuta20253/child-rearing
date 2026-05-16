@@ -83,3 +83,11 @@ export const cancel = {
   cancelFacilityFavorite: (facilityId: number, params: RequestParams = {}) =>
     api.api.cancelFacilityFavorite(facilityId, params),
 };
+
+export const postReview = {
+  postFacilityReview: (
+    facilityId: number,
+    data: { comment: string; rating: number },
+    params: RequestParams = {}
+  ) => api.api.postFacilityReview(facilityId, data, params),
+};
