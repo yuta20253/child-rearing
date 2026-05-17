@@ -93,8 +93,6 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
     try {
       setIsSubmitting(true);
 
-      console.log(data);
-
       await postReview(token, facility.id, data.comment, data.rating);
 
       showToast('レビューを投稿しました');
