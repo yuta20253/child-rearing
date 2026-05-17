@@ -3,6 +3,7 @@
 import { FacilityWithRelations } from '@/types/generated/api';
 import { FaStar } from 'react-icons/fa';
 import { truncate } from '@/utils/truncate';
+import { useState } from 'react';
 
 type Props = {
   facility: FacilityWithRelations;
@@ -11,6 +12,8 @@ type Props = {
 
 export const FacilityReviewList = ({ facility, setIsModalOpen }: Props) => {
   const reviews = facility.reviews ?? [];
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const displayReviews = isExpanded ? reviews : reviews.slice(0, 3);
 
   return (
     <>
@@ -39,7 +42,7 @@ export const FacilityReviewList = ({ facility, setIsModalOpen }: Props) => {
         </div>
       ) : (
         <ul className="divide-y">
-          {reviews.map(review => (
+          {displayReviews.map(review => (
             <li key={review.id} className="px-4 py-3">
               <div className="flex items-center justify-between mb-1.5">
                 <div className="flex items-center space-x-0.5">
@@ -64,6 +67,13 @@ export const FacilityReviewList = ({ facility, setIsModalOpen }: Props) => {
             </li>
           ))}
         </ul>
+      )}
+      {reviews.length > 3 && (
+        <div className="px-4 py-3 text-center bg-pink-200 text-white">
+          <button onClick={() => setIsExpanded(prev => !prev)}>
+            {isExpanded ? '閉じる' : 'もっと見る'}
+          </button>
+        </div>
       )}
     </>
   );
