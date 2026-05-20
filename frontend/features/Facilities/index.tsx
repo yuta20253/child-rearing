@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { getFacilities } from '@/libs/services/facilities';
 import { useEffect } from 'react';
-import { Facility } from '@/types/generated/api';
+import { FacilityWithRelations } from '@/types/generated/api';
 import { RequireAuth } from '@/components/RequireAuth';
 import { FacilityCard } from './FacilityCard';
 import { useSubmit } from './hooks';
@@ -17,7 +17,7 @@ type FacilityNameForm = {
 
 export const Facilities = (): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [facilities, setFacilities] = useState<Facility[]>([]);
+  const [facilities, setFacilities] = useState<FacilityWithRelations[]>([]);
   const searchParams = useSearchParams();
   const name = searchParams.get('name');
   const heading = name ? `「${name}」の検索結果（${facilities.length}件）` : '施設を検索';
