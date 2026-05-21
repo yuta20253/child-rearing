@@ -876,7 +876,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     ) =>
       this.request<
         {
-          facilities?: Facility[];
+          facilities?: FacilityWithRelations[];
         },
         any
       >({
@@ -900,8 +900,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     facilityInfo: (id: number, params: RequestParams = {}) =>
       this.request<
         {
-          /** 施設情報 */
-          facility: Facility;
+          facility: FacilityWithRelations;
           /**
            * ログインユーザーがお気に入りしているか
            * @example true

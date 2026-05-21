@@ -447,7 +447,7 @@
                                         "facilities": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/components/schemas/Facility"
+                                                "$ref": "#/components/schemas/FacilityWithRelations"
                                             }
                                         }
                                     },
@@ -491,7 +491,7 @@
                                     ],
                                     "properties": {
                                         "facility": {
-                                            "$ref": "#/components/schemas/Facility"
+                                            "$ref": "#/components/schemas/FacilityWithRelations"
                                         },
                                         "isFavorite": {
                                             "description": "ログインユーザーがお気に入りしているか",

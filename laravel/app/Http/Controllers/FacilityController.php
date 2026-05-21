@@ -79,7 +79,6 @@ class FacilityController extends Controller
         $facilities = $this->facilityService->getAll($query);
         return response()->json([
             "facilities" => FacilityResource::collection($facilities)
-            ,
         ], 200);
     }
 
