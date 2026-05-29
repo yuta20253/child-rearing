@@ -62,11 +62,7 @@ export const FacilityReviewModal = ({
 
               <div className="flex gap-1">
                 {[1, 2, 3, 4, 5].map(num => (
-                  <button
-                    key={num}
-                    type="button"
-                    onClick={() => setValue('rating', num)}
-                  >
+                  <button key={num} type="button" onClick={() => setValue('rating', num)}>
                     {num <= currentRating ? (
                       <FaStar className="text-yellow-400" />
                     ) : (

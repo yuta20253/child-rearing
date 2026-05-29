@@ -22,7 +22,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
 
     window.setTimeout(() => {
       setToasts(prev => prev.filter(x => x.id !== id));
-    }, 3000)
+    }, 3000);
   }, []);
 
   return (
@@ -34,9 +34,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
           <div
             key={t.id}
             className={`rounded-md bg-black/90 text-white px-4 py-2 shadow-lg max-w-xs ${
-              t.type === 'success'
-                ? 'bg-emerald-500'
-                : 'bg-red-500'
+              t.type === 'success' ? 'bg-emerald-500' : 'bg-red-500'
             }`}
             role="status"
           >
