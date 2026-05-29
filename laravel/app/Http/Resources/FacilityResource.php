@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\AddressResource;
+use App\Http\Resources\EventResource;
 
 class FacilityResource extends JsonResource
 {
@@ -22,7 +24,7 @@ class FacilityResource extends JsonResource
             'longitude' => $this->longitude,
             'equipment' => $this->equipment,
             'description' => $this->description,
-            'address_id' => $this->address_id,
+            'address' => new AddressResource($this->address),
             'events' => EventResource::collection($this->events),
             'reviews' => FacilityReviewResource::collection($this->reviews),
         ];
