@@ -1,7 +1,12 @@
 'use client';
 
 import { MouseEvent } from 'react';
-import { UseFormHandleSubmit, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import {
+  SubmitHandler,
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form';
 import { FaRegStar, FaStar } from 'react-icons/fa';
 
 type ReviewForm = {
@@ -12,7 +17,7 @@ type ReviewForm = {
 type Props = {
   setIsModalOpen: (open: boolean) => void;
   handleSubmit: UseFormHandleSubmit<ReviewForm>;
-  onSubmit: (data: ReviewForm) => Promise<void>;
+  onSubmit: SubmitHandler<ReviewForm>;
   register: UseFormRegister<ReviewForm>;
   setValue: UseFormSetValue<ReviewForm>;
   currentRating: number;
