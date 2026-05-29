@@ -107,6 +107,7 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
       setIsModalOpen(false);
     } catch (e) {
       console.error(e);
+      showToast('レビュー投稿に失敗しました');
     } finally {
       setIsSubmitting(false);
     }
