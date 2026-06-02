@@ -11,6 +11,15 @@ import { FaRegStar } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
 import { cancelFacilityFavorite, registerFacilityFavorite } from '@/libs/services/favorite';
 import { EventItem } from './Event';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { postReview } from '@/libs/services/review';
+import { useToast } from '@/components/Toast/ToastProvider';
+import { FacilityReviewModal } from './Modal';
+
+type ReviewForm = {
+  comment: string;
+  rating: number;
+};
 
 export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -18,6 +27,9 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
   const [facility, setFacility] = useState<FacilityWithRelations | undefined>(undefined);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const { showToast } = useToast();
 
   useEffect(() => {
     const facilityId = Number(id);
@@ -63,6 +75,41 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
       setMessage(e instanceof Error ? e.message : 'お気に入りの変更に失敗しました');
     } finally {
       setIsUpdatingFavorite(false);
+    }
+  };
+
+  const { register, handleSubmit, setValue, watch, reset } = useForm<ReviewForm>({
+    defaultValues: {
+      comment: '',
+      rating: 3,
+    },
+  });
+
+  const currentRating = watch('rating');
+
+  const onSubmit: SubmitHandler<ReviewForm> = async data => {
+    const token = localStorage.getItem('token');
+    if (!token || !facility?.id) return;
+
+    try {
+      setIsSubmitting(true);
+
+      await postReview(token, facility.id, data.comment, data.rating);
+
+      showToast('レビューを投稿しました');
+
+      reset();
+
+      const { facilityDetail } = await getFacility(token, facility.id);
+
+      setFacility(facilityDetail);
+
+      setIsModalOpen(false);
+    } catch (e) {
+      console.error(e);
+      showToast('レビュー投稿に失敗しました', 'error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -210,12 +257,23 @@ export const FacilityPage = ({ id }: { id: string }): React.JSX.Element => {
               </section>
 
               <section className="bg-white rounded-2xl shadow-sm border">
-                <FacilityReviewList facility={facility} />
+                <FacilityReviewList facility={facility} setIsModalOpen={setIsModalOpen} />
               </section>
             </main>
           )}
         </div>
       </div>
+      {isModalOpen && (
+        <FacilityReviewModal
+          setIsModalOpen={setIsModalOpen}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          register={register}
+          setValue={setValue}
+          currentRating={currentRating}
+          isSubmitting={isSubmitting}
+        />
+      )}
     </RequireAuth>
   );
 };

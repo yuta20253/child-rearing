@@ -26,6 +26,7 @@ class FacilityResource extends JsonResource
             'description' => $this->description,
             'address' => new AddressResource($this->address),
             'events' => EventResource::collection($this->events),
+            'reviews' => FacilityReviewResource::collection($this->reviews),
         ];
     }
 }

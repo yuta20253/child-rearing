@@ -1,21 +1,36 @@
+'use client';
+
 import { FacilityWithRelations } from '@/types/generated/api';
 import { FaStar } from 'react-icons/fa';
 import { truncate } from '@/utils/truncate';
+import { useState } from 'react';
 
-type FacilityProps = {
+type Props = {
   facility: FacilityWithRelations;
+  setIsModalOpen: (open: boolean) => void;
 };
 
-export const FacilityReviewList = ({ facility }: FacilityProps) => {
+export const FacilityReviewList = ({ facility, setIsModalOpen }: Props) => {
   const reviews = facility.reviews ?? [];
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const displayReviews = isExpanded ? reviews : reviews.slice(0, 3);
 
   return (
     <>
       <div className="px-4 pt-3 pb-2 border-b">
-        <h2 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-          <span className="text-lg">💬</span>
-          <span>口コミ</span>
-        </h2>
+        <div className="flex justify-between items-center">
+          <h2 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+            <span className="text-lg">💬</span>
+            <span>口コミ</span>
+          </h2>
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="text-xs px-3 py-1 rounded-md bg-blue-500 text-white hover:opacity-80"
+          >
+            投稿する
+          </button>
+        </div>
         <p className="mt-1 text-[11px] text-gray-400">実際に利用した人の感想をチェックできます。</p>
       </div>
 
@@ -27,7 +42,7 @@ export const FacilityReviewList = ({ facility }: FacilityProps) => {
         </div>
       ) : (
         <ul className="divide-y">
-          {reviews.map(review => (
+          {displayReviews.map(review => (
             <li key={review.id} className="px-4 py-3">
               <div className="flex items-center justify-between mb-1.5">
                 <div className="flex items-center space-x-0.5">
@@ -52,6 +67,13 @@ export const FacilityReviewList = ({ facility }: FacilityProps) => {
             </li>
           ))}
         </ul>
+      )}
+      {reviews.length > 3 && (
+        <div className="px-4 py-3 text-center bg-pink-200 text-white">
+          <button onClick={() => setIsExpanded(prev => !prev)}>
+            {isExpanded ? '閉じる' : 'もっと見る'}
+          </button>
+        </div>
       )}
     </>
   );
