@@ -24,4 +24,13 @@ class ReviewRepository implements ReviewRepositoryInterface
             'status' => ReviewStatus::PUBLIC,
         ]);
     }
+
+    public function update(int $reviewId, int $userId, string $comment, int $rating): void
+    {
+        $review = $this->user->findOrFail($userId)->reviews()->findOrFail($reviewId);
+        $review->update([
+            'comment' => $comment,
+            'rating' => $rating,
+        ]);
+    }
 }

@@ -19,4 +19,10 @@ class ReviewService
         $userId = Auth::id();
         $this->reviewRepository->create($facilityId, $userId, $comment, $rating);
     }
+
+    public function updateReview(int $reviewId, string $comment, int $rating)
+    {
+        $userId = Auth::id();
+        $this->reviewRepository->update($reviewId, $userId, $comment, $rating);
+    }
 }
