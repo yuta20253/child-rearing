@@ -59,4 +59,68 @@ class ReviewRepositoryTest extends TestCase
 
         $this->reviewRepository->create(1, 999, 'test', 5);
     }
+
+    /**
+     * @test
+     */
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    public function updateでレビューが更新されること(): void
+    {
+        $facility = Facility::factory()->create();
+        $user = User::factory()->create();
+
+        $review = $user->reviews()->create([
+            'facility_id' => $facility->id,
+            'comment' => '更新前コメント',
+            'rating' => 3,
+            'status' => '公開',
+        ]);
+
+        $newComment = '更新後コメント';
+        $newRating = 5;
+
+        $this->reviewRepository->update(
+            $review->id,
+            $user->id,
+            $newComment,
+            $newRating
+        );
+
+        $this->assertDatabaseHas('facility_reviews', [
+            'id' => $review->id,
+            'user_id' => $user->id,
+            'comment' => $newComment,
+            'rating' => $newRating,
+        ]);
+    }
+
+    /**
+     * @test
+     */
+    // phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    public function 他人のレビューは更新できないこと(): void
+    {
+        $facility = Facility::factory()->create();
+
+        $owner = User::factory()->create();
+        $otherUser = User::factory()->create();
+
+        $review = $owner->reviews()->create([
+            'facility_id' => $facility->id,
+            'comment' => '元コメント',
+            'rating' => 3,
+            'status' => '公開',
+        ]);
+
+        $this->expectException(
+            \Illuminate\Database\Eloquent\ModelNotFoundException::class
+        );
+
+        $this->reviewRepository->update(
+            $review->id,
+            $otherUser->id,
+            '変更しようとしたコメント',
+            1
+        );
+    }
 }

@@ -21,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (app()->environment('testing')) {
+            return;
+        }
+
         if (class_exists(\Doctrine\DBAL\DriverManager::class)) {
             $platform = Schema::getConnection()->getDoctrineConnection()->getDatabasePlatform();
             $platform->registerDoctrineTypeMapping('enum', 'string');
